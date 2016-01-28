@@ -9,6 +9,9 @@
 import UIKit
 import CoreData
 
+let themeColor = UIColor(red: 0.01, green: 0.41, blue: 0.22, alpha: 1.0)
+let screenSize: CGRect = UIScreen.mainScreen().bounds
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -16,8 +19,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        Parse.setApplicationId("dboMn73kG989FKBy6SAN1heJ6pRfzqDmS4sBwCbx", clientKey:"exCRvWXWK6dVUm3Skg3Nd8EcD6VNQL2i9oIAIyzt")
+                PFFacebookUtils.initializeFacebookWithApplicationLaunchOptions(launchOptions);
+        //window?.tintColor = Style.buttonsColor
+        
+        UINavigationBar.appearance().translucent = false
+        UINavigationBar.appearance().barTintColor = Style.navigation.navigationBackgroundColor
+        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+
         return true
+    }
+    
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
+        return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
     }
 
     func applicationWillResignActive(application: UIApplication) {
@@ -35,7 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        FBSDKAppEvents.activateApp()
     }
 
     func applicationWillTerminate(application: UIApplication) {
