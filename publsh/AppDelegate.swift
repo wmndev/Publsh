@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //window?.tintColor = Style.buttonsColor
         
         UINavigationBar.appearance().translucent = false
-        UINavigationBar.appearance().barTintColor = Style.navigation.navigationBackgroundColor
+        UINavigationBar.appearance().barTintColor = Style.navigationBarBackgroundColor
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
 
         return true

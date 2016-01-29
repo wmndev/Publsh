@@ -27,7 +27,7 @@ class ProfileTableViewController: UITableViewController {
         
         tableView.alwaysBounceVertical = false
         
-        self.view.backgroundColor = Style.detailsCellBackground
+        self.view.backgroundColor = Style.viewBackgroundColor
         
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
@@ -39,16 +39,15 @@ class ProfileTableViewController: UITableViewController {
         let btnName = UIButton()
         
         btnName.frame = CGRectMake(0, 0, 70, 24)
-        btnName.backgroundColor = Style.navigation.barButtonBackgroundColor
-        btnName.titleLabel?.textColor = Style.pages.userProfile.activityBulletFontColor
         btnName.titleLabel?.textAlignment = NSTextAlignment.Center
         btnName.titleLabel?.center =  CGPointMake(35,12)
-        
-        
-        
         btnName.setTitle(isFollowUser ? "Unfollow" : "Follow", forState: UIControlState.Normal)
+        btnName.layer.borderWidth = 1
+        btnName.layer.borderColor = Style.textColorWhite.CGColor
+        btnName.layer.cornerRadius = 5
         btnName.titleLabel?.font = UIFont.systemFontOfSize(14)
         btnName.addTarget(self, action: "followTapped", forControlEvents: .TouchUpInside)
+        
         
         let rightBarButton = UIBarButtonItem()
         rightBarButton.customView = btnName
@@ -131,13 +130,13 @@ class ProfileTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCellWithIdentifier("profileHeader", forIndexPath: indexPath) as! ProfileHeaderCell
             cell.selectionStyle = UITableViewCellSelectionStyle.None
             
-            cell.contentView.backgroundColor = Style.general.cellBackgroundColor
+            cell.contentView.backgroundColor = Style.strongCellBackgroundColor
             
             setUserProfileImage(cell)
             cell.userProfileImage.layer.cornerRadius = cell.userProfileImage.frame.size.width / 2;
             cell.userProfileImage.clipsToBounds = true
             cell.userProfileImage.layer.borderWidth = 1
-            cell.userProfileImage.layer.borderColor = Style.pages.userProfile.userProfileImageBorderColor.CGColor
+            //cell.userProfileImage.layer.borderColor = Style.pages.userProfile.userProfileImageBorderColor.CGColor
             
             return cell
         }else{
@@ -152,7 +151,7 @@ class ProfileTableViewController: UITableViewController {
                 
                 cell.textLabel?.text = userName.uppercaseString.stringByReplacingCharactersInRange(range, withString: "\n")
                 cell.textLabel?.numberOfLines = 0
-                cell.textLabel?.textColor = Style.pages.userProfile.leftLabelFontColor
+                cell.textLabel?.textColor = Style.textStrongColor
                 cell.textLabel?.font = UIFont.systemFontOfSize(35)
                 
                 
@@ -163,10 +162,11 @@ class ProfileTableViewController: UITableViewController {
                 let activityLabel = UILabel(frame: CGRectMake(0, 0, 60, 60))
                 activityLabel.center = CGPointMake(23,23)
                 activityLabel.textAlignment = NSTextAlignment.Center
-                activityLabel.textColor = Style.pages.userProfile.activityBulletFontColor
+                activityLabel.textColor = Style.textColorWhite
+                activityLabel.font = UIFont.systemFontOfSize(23)
                 
                 
-                activityLabel.layer.backgroundColor = Style.pages.userProfile.activityBulletColor.CGColor
+                activityLabel.layer.backgroundColor = Style.controllerColor.CGColor
                 
                 cell.accessoryView = activityLabel
                 cell.accessoryView!.frame = CGRectMake(0, 0, 60, 60)
@@ -195,15 +195,11 @@ class ProfileTableViewController: UITableViewController {
                     }}
                 
                 
-                cell.textLabel?.font = UIFont.systemFontOfSize(15)
-                //cell.textLabel?.numberOfLines = 2
-                cell.textLabel?.textColor = Style.general.lightFontColor
-                //cell.detailTextLabel?.text = "7 days ago"
-                
-                
-                //cell.accessoryView!.backgroundColor = Style.detailsCellBackground
-                cell.contentView.backgroundColor = Style.detailsCellBackground
-                cell.backgroundColor = Style.detailsCellBackground
+                cell.textLabel?.font = UIFont.systemFontOfSize(16)
+                cell.textLabel?.textColor = Style.textLightColor
+
+                cell.contentView.backgroundColor = Style.viewBackgroundColor
+                cell.backgroundColor = Style.viewBackgroundColor
                 
                 
                 

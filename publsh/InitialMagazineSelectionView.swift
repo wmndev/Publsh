@@ -17,11 +17,11 @@ class InitialMagazineSelectionView: UITableViewController {
         super.viewDidLoad()
         
         //navigation
-        self.view.backgroundColor = Style.detailsCellBackground
+        self.view.backgroundColor = Style.viewBackgroundColor
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationItem.title = "DISCOVER MAGAZINES"
-        
+        self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : Style.textColorWhite]
         
         
         let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
@@ -128,17 +128,17 @@ class InitialMagazineSelectionView: UITableViewController {
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let  headerCell = tableView.dequeueReusableCellWithIdentifier("sectionHeader") as! CostumHeaderCell
         
-        headerCell.backgroundColor = Style.header.sectionHeaderBackgroundColor
+        headerCell.backgroundColor = Style.viewBackgroundColor
         
         headerCell.userName.text = magazines[section]["name"] as? String
-        headerCell.layer.cornerRadius = 2
+//        headerCell.layer.cornerRadius = 2
         headerCell.followButton.layer.borderWidth = 1
         headerCell.followButton.layer.cornerRadius = 2
         
         headerCell.followButton.clipsToBounds = true
         
-        headerCell.followButton.setTitleColor(Style.controller.buttonsNotSelectedColor, forState: UIControlState.Normal)
-        headerCell.followButton.layer.borderColor = Style.controller.buttonsNotSelectedBorderColor.CGColor
+        headerCell.followButton.setTitleColor(Style.textStrongColor, forState: UIControlState.Normal)
+        headerCell.followButton.layer.borderColor = Style.controllerColor.CGColor
         
         headerCell.cellImage.layer.cornerRadius = headerCell.cellImage.frame.size.width / 2;
         headerCell.cellImage.clipsToBounds = true
