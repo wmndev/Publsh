@@ -12,7 +12,6 @@
 		0F1445B21C4DE43100FA0932 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1445B11C4DE43100FA0932 /* Style.swift */; };
 		0F1B01DF1C4756CB00EA0E94 /* InitialMagazineSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1B01DE1C4756CB00EA0E94 /* InitialMagazineSelectionView.swift */; };
 		0F1B01E11C47597C00EA0E94 /* CostumHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1B01E01C47597C00EA0E94 /* CostumHeaderCell.swift */; };
-		0F1ED4FB1C5097FC006977F5 /* Feed In Filled 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F1ED4FA1C5097FC006977F5 /* Feed In Filled 2.png */; };
 		0F1ED4FF1C55BABE006977F5 /* UserActivityTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1ED4FE1C55BABE006977F5 /* UserActivityTableViewController.swift */; };
 		0F1ED5011C55BF4D006977F5 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1ED5001C55BF4D006977F5 /* Types.swift */; };
 		0F5F09B71C211A4E009F5A7B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5F09B61C211A4E009F5A7B /* AppDelegate.swift */; };
@@ -23,11 +22,11 @@
 		0F5F09C41C211A4E009F5A7B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F5F09C21C211A4E009F5A7B /* LaunchScreen.storyboard */; };
 		0F5F09CC1C211CF3009F5A7B /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 0F5F09CB1C211CF3009F5A7B /* Podfile */; };
 		0F69DCEC1C2654FA0074A52C /* FirstSignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F69DCEB1C2654FA0074A52C /* FirstSignupViewController.swift */; };
-		0F69DCEE1C2679BF0074A52C /* magazine.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0F69DCED1C2679BF0074A52C /* magazine.jpg */; };
 		0F6E403D1C3B7940004411A1 /* MagazinesSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6E403C1C3B7940004411A1 /* MagazinesSelectionViewController.swift */; };
 		0F81DE181C49F5C100593379 /* MagazineIntroCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F81DE171C49F5C100593379 /* MagazineIntroCell.swift */; };
 		0F81DE1A1C4A01E500593379 /* MagazineIntroDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F81DE191C4A01E500593379 /* MagazineIntroDetails.swift */; };
-		0FB311251C2A5BE400B404F0 /* zevel.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0FB311241C2A5BE400B404F0 /* zevel.jpg */; };
+		0F863CF91C5C869800BF8325 /* MagazineTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F863CF81C5C869800BF8325 /* MagazineTableViewController.swift */; };
+		0F863CFB1C5C890900BF8325 /* MagazineIntroductionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F863CFA1C5C890900BF8325 /* MagazineIntroductionCell.swift */; };
 		B35A2BFAAF3473886F764EED /* libPods-publsh.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A3C5F2883D73C44DA5F1E23 /* libPods-publsh.a */; };
 /* End PBXBuildFile section */
 
@@ -38,7 +37,6 @@
 		0F1445B11C4DE43100FA0932 /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		0F1B01DE1C4756CB00EA0E94 /* InitialMagazineSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialMagazineSelectionView.swift; sourceTree = "<group>"; };
 		0F1B01E01C47597C00EA0E94 /* CostumHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CostumHeaderCell.swift; sourceTree = "<group>"; };
-		0F1ED4FA1C5097FC006977F5 /* Feed In Filled 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Feed In Filled 2.png"; sourceTree = "<group>"; };
 		0F1ED4FE1C55BABE006977F5 /* UserActivityTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserActivityTableViewController.swift; sourceTree = "<group>"; };
 		0F1ED5001C55BF4D006977F5 /* Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 		0F5F09B31C211A4E009F5A7B /* publsh.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = publsh.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -51,11 +49,11 @@
 		0F5F09C51C211A4E009F5A7B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0F5F09CB1C211CF3009F5A7B /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		0F69DCEB1C2654FA0074A52C /* FirstSignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstSignupViewController.swift; sourceTree = "<group>"; };
-		0F69DCED1C2679BF0074A52C /* magazine.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = magazine.jpg; sourceTree = "<group>"; };
 		0F6E403C1C3B7940004411A1 /* MagazinesSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagazinesSelectionViewController.swift; sourceTree = "<group>"; };
 		0F81DE171C49F5C100593379 /* MagazineIntroCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagazineIntroCell.swift; sourceTree = "<group>"; };
 		0F81DE191C4A01E500593379 /* MagazineIntroDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagazineIntroDetails.swift; sourceTree = "<group>"; };
-		0FB311241C2A5BE400B404F0 /* zevel.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = zevel.jpg; sourceTree = "<group>"; };
+		0F863CF81C5C869800BF8325 /* MagazineTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagazineTableViewController.swift; sourceTree = "<group>"; };
+		0F863CFA1C5C890900BF8325 /* MagazineIntroductionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagazineIntroductionCell.swift; sourceTree = "<group>"; };
 		0FF8354A1C2120A30036CCAD /* publsh-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "publsh-Bridging-Header.h"; sourceTree = "<group>"; };
 		A55D3AE16C229989278F6EF9 /* Pods-publsh.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-publsh.release.xcconfig"; path = "Pods/Target Support Files/Pods-publsh/Pods-publsh.release.xcconfig"; sourceTree = "<group>"; };
 		B412B357C3918DCF73F4C6FE /* Pods-publsh.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-publsh.debug.xcconfig"; path = "Pods/Target Support Files/Pods-publsh/Pods-publsh.debug.xcconfig"; sourceTree = "<group>"; };
@@ -103,19 +101,18 @@
 				0F81DE171C49F5C100593379 /* MagazineIntroCell.swift */,
 				0F1B01DE1C4756CB00EA0E94 /* InitialMagazineSelectionView.swift */,
 				0F1B01E01C47597C00EA0E94 /* CostumHeaderCell.swift */,
-				0FB311241C2A5BE400B404F0 /* zevel.jpg */,
 				0F5F09B61C211A4E009F5A7B /* AppDelegate.swift */,
 				0F1445B11C4DE43100FA0932 /* Style.swift */,
 				0F5F09B81C211A4E009F5A7B /* ViewController.swift */,
 				0F5F09BA1C211A4E009F5A7B /* Main.storyboard */,
+				0F863CF81C5C869800BF8325 /* MagazineTableViewController.swift */,
+				0F863CFA1C5C890900BF8325 /* MagazineIntroductionCell.swift */,
 				0F81DE191C4A01E500593379 /* MagazineIntroDetails.swift */,
 				0F6E403C1C3B7940004411A1 /* MagazinesSelectionViewController.swift */,
 				0F69DCEB1C2654FA0074A52C /* FirstSignupViewController.swift */,
-				0F69DCED1C2679BF0074A52C /* magazine.jpg */,
 				0F5F09C01C211A4E009F5A7B /* Assets.xcassets */,
 				0F5F09C21C211A4E009F5A7B /* LaunchScreen.storyboard */,
 				0F5F09C51C211A4E009F5A7B /* Info.plist */,
-				0F1ED4FA1C5097FC006977F5 /* Feed In Filled 2.png */,
 				0F5F09BD1C211A4E009F5A7B /* publsh.xcdatamodeld */,
 			);
 			path = publsh;
@@ -200,12 +197,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0F69DCEE1C2679BF0074A52C /* magazine.jpg in Resources */,
 				0F5F09C41C211A4E009F5A7B /* LaunchScreen.storyboard in Resources */,
 				0F5F09C11C211A4E009F5A7B /* Assets.xcassets in Resources */,
 				0F5F09CC1C211CF3009F5A7B /* Podfile in Resources */,
-				0FB311251C2A5BE400B404F0 /* zevel.jpg in Resources */,
-				0F1ED4FB1C5097FC006977F5 /* Feed In Filled 2.png in Resources */,
 				0F5F09BC1C211A4E009F5A7B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -265,12 +259,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F863CF91C5C869800BF8325 /* MagazineTableViewController.swift in Sources */,
 				0F6E403D1C3B7940004411A1 /* MagazinesSelectionViewController.swift in Sources */,
 				0F1ED4FF1C55BABE006977F5 /* UserActivityTableViewController.swift in Sources */,
 				0F5F09BF1C211A4E009F5A7B /* publsh.xcdatamodeld in Sources */,
 				0F1ED5011C55BF4D006977F5 /* Types.swift in Sources */,
 				0F81DE181C49F5C100593379 /* MagazineIntroCell.swift in Sources */,
 				0F81DE1A1C4A01E500593379 /* MagazineIntroDetails.swift in Sources */,
+				0F863CFB1C5C890900BF8325 /* MagazineIntroductionCell.swift in Sources */,
 				0F1B01DF1C4756CB00EA0E94 /* InitialMagazineSelectionView.swift in Sources */,
 				0F5F09B91C211A4E009F5A7B /* ViewController.swift in Sources */,
 				0F1445AE1C4DB71500FA0932 /* ProfileTableViewController.swift in Sources */,

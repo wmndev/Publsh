@@ -49,107 +49,86 @@ class InitialMagazineSelectionView: UITableViewController {
     // MARK: - Table view data source
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return magazines.count
+        return 1
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
-    }
-    
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
-        return 60
+        return magazines.count
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat{
-        if indexPath.row == 0 {
-            let screenWidth = tableView.frame.size.width
-            if indexPath.section % 3 == 0{
-                return screenWidth * 0.75
-            }
-            return screenWidth
-        }
-        return UITableViewAutomaticDimension
-    }
-    
-    override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.row == 1{
-            return UITableViewAutomaticDimension
-        }
-        let screenWidth = tableView.frame.size.width
-        if indexPath.row == 0 {
-            
-            if indexPath.section % 3 == 0{
-                return screenWidth * 0.75
-            }
-            return screenWidth
-        }
-        return screenWidth
+        return 80
     }
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    
+        let cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "magazineCell")
+        cell.selectionStyle = UITableViewCellSelectionStyle.None
         
-        let reuseID = indexPath.row == 0 ? "magazineImages" : "magazineFooter"
+        let image = UIImage(named: "sample.jpg")
+        let newImage = resizeImage(image!, toTheSize: CGSizeMake(60, 60))
         
+        cell.imageView?.layer.cornerRadius = 30 //(cell.imageView?.frame.size.width)! / 2;
+        cell.imageView?.clipsToBounds = true
+        cell.imageView?.layer.borderWidth = 1
+        cell.imageView?.layer.borderColor = Style.textLightColor.CGColor
+        cell.imageView?.image = newImage
         
-        if indexPath.row == 0{
-            let cell = tableView.dequeueReusableCellWithIdentifier(reuseID, forIndexPath: indexPath) as! MagazineIntroCell
-            return cell
-        }else{
-            let cell = tableView.dequeueReusableCellWithIdentifier(reuseID, forIndexPath: indexPath) as! MagazineIntroDetails
-            
-            let attachment = NSTextAttachment()
-            attachment.image = UIImage(named: "glasses_filled.png")
-            let attachmentString = NSAttributedString(attachment: attachment)
-            
-            
-            let myString = NSMutableAttributedString(string: String(magazines[indexPath.section]["numOfFolloweres"] as! Int) + " readers ")
-            myString.appendAttributedString(attachmentString)
-            
-            
-            cell.readersButton.setAttributedTitle(myString, forState: .Normal)
-            
-            cell.username.setTitle(magazines[indexPath.section]["createdBy"] as? String , forState: UIControlState.Normal)
-            
-            //cell.username.titleLabel!.text = magazines[indexPath.section]["createdBy"] as? String
-            
-            cell.magazineDescription.text = "When you use iTunes to update or restore iOS on your iPhone, iPad, or iPod touch, you might see an error code or alert message. Most of these errors happen because your computer has older versions of software or can’t connect to the server."
-            
-            return cell
-            
-        }
+        cell.textLabel?.text = magazines[indexPath.row].objectForKey("name") as? String
+        cell.textLabel?.textColor = Style.textStrongColor
+        cell.textLabel?.font = UIFont.boldSystemFontOfSize(16.0)
+        
+        cell.detailTextLabel?.text = magazines[indexPath.row].objectForKey("description") as? String
+        cell.detailTextLabel?.textColor = Style.textLightColor
+        cell.textLabel?.font = UIFont.boldSystemFontOfSize(14.0)
+        cell.detailTextLabel?.numberOfLines = 3
         
         
-        //set Image
+        let accessoryButton = UIButton(frame: CGRectMake(0, 0, 36, 36))
+        accessoryButton.center = CGPointMake(18, 20)
+        accessoryButton.titleLabel!.textAlignment = NSTextAlignment.Center
+        accessoryButton.titleLabel!.font = UIFont.systemFontOfSize(20)
+        accessoryButton.setTitleColor(Style.navigationBarBackgroundColor, forState: UIControlState.Normal)
+        accessoryButton.setTitle("+", forState: UIControlState.Normal)
         
+        accessoryButton.layer.cornerRadius = accessoryButton.frame.size.width / 2;
+        accessoryButton.clipsToBounds = true
+        accessoryButton.layer.borderWidth = 1
+        accessoryButton.layer.borderColor = Style.navigationBarBackgroundColor.CGColor;
+        accessoryButton.addTarget(self, action: "addMagazineButtonTouched", forControlEvents: .TouchUpInside)
+
+        cell.accessoryView = accessoryButton
         
+        return cell
     }
     
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let  headerCell = tableView.dequeueReusableCellWithIdentifier("sectionHeader") as! CostumHeaderCell
-        
-        headerCell.backgroundColor = Style.viewBackgroundColor
-        
-        headerCell.userName.text = magazines[section]["name"] as? String
-//        headerCell.layer.cornerRadius = 2
-        headerCell.followButton.layer.borderWidth = 1
-        headerCell.followButton.layer.cornerRadius = 2
-        
-        headerCell.followButton.clipsToBounds = true
-        
-        headerCell.followButton.setTitleColor(Style.textStrongColor, forState: UIControlState.Normal)
-        headerCell.followButton.layer.borderColor = Style.controllerColor.CGColor
-        
-        headerCell.cellImage.layer.cornerRadius = headerCell.cellImage.frame.size.width / 2;
-        headerCell.cellImage.clipsToBounds = true
-        headerCell.cellImage.layer.borderWidth = 1
-        headerCell.cellImage.layer.borderColor = UIColor.whiteColor().CGColor;
-        
-        return headerCell
-        
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.performSegueWithIdentifier("showMagazineDetails", sender: self)
     }
     
     
+    func addMagazineButtonTouched(){
+        
+    }
+    
+    func resizeImage(image:UIImage, toTheSize size:CGSize)->UIImage{
+        
+        
+        let scale = CGFloat(max(size.width/image.size.width,
+            size.height/image.size.height))
+        let width:CGFloat  = image.size.width * scale
+        let height:CGFloat = image.size.height * scale;
+        
+        let rr:CGRect = CGRectMake( 0, 0, width, height);
+        
+        UIGraphicsBeginImageContextWithOptions(size, false, 0);
+        image.drawInRect(rr)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext();
+        return newImage
+    }
+ 
     
     /*
     // Override to support conditional editing of the table view.

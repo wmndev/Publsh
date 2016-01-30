@@ -120,7 +120,7 @@ class ProfileTableViewController: UITableViewController {
         if indexPath.row == 1{
             return 110
         }
-        return 70
+        return 80
     }
     
     
