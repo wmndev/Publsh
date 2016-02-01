@@ -10,6 +10,10 @@ import UIKit
 
 class MagazineTableViewController: UITableViewController {
     
+    var magazine: PFObject?
+    
+    var user = PFUser()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -17,8 +21,10 @@ class MagazineTableViewController: UITableViewController {
         self.view.backgroundColor = Style.viewBackgroundColor
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationItem.title = "MAGAZINE NAME"
+        self.navigationItem.title = magazine!.objectForKey("name") as? String
         self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : Style.textColorWhite]
+        
+        loadUser()
     }
     
     override func didReceiveMemoryWarning() {
@@ -46,16 +52,19 @@ class MagazineTableViewController: UITableViewController {
             cell.selectionStyle = UITableViewCellSelectionStyle.None
             cell.contentView.backgroundColor = Style.strongCellBackgroundColor
             
+            cell.collectedByLabel.textColor = Style.textLightColor
+            
             setUserProfileImage(cell)
             cell.userProfileImage.layer.cornerRadius = cell.userProfileImage.frame.size.width / 2;
             cell.userProfileImage.clipsToBounds = true
             cell.userProfileImage.layer.borderWidth = 1
             
-            cell.username.text = "Itay Wiseman"
-            cell.username.textColor = Style.textColorWhite
+            cell.username.setTitleColor(Style.textColorWhite, forState: UIControlState.Normal)
+            cell.username.setTitle(user.objectForKey("name") as? String, forState: UIControlState.Normal)
             
-            cell.magazineDescription.text = "The ideal mix of spine-tingling mystery and suspense. Each issue offers at least seven new mystery short stories plus one - an outstanding tale from the genre's past."
+            cell.magazineDescription.text = magazine!.objectForKey("description") as? String
             cell.magazineDescription.textColor = Style.textLightColor
+            cell.magazineDescription.lineBreakMode = .ByWordWrapping
             
             
             
@@ -90,12 +99,24 @@ class MagazineTableViewController: UITableViewController {
     func setUserProfileImage(cell: MagazineIntroductionCell){
         //get user image
         
-        let userImageFile: PFFile = (PFUser.currentUser()?.objectForKey("image"))! as! PFFile
+        let userImageFile: PFFile = (user.objectForKey("image"))! as! PFFile
         
         userImageFile.getDataInBackgroundWithBlock { (data, error) -> Void in
             if(error == nil){
                 cell.userProfileImage.image =  UIImage(data: data!)
             }
+        }
+    }
+    
+    
+    func loadUser(){
+        let userQuery = PFUser.query()
+        userQuery?.whereKey("objectId", equalTo: magazine!.objectForKey("createdBy")!)
+        
+        do{
+              user = try userQuery?.findObjects()[0] as! PFUser
+        }catch{
+            print("cant load user")
         }
     }
     
@@ -135,14 +156,14 @@ class MagazineTableViewController: UITableViewController {
     }
     */
     
-    /*
+    
     // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using segue.destinationViewController.
-    // Pass the selected object to the new view controller.
+        
+
     }
-    */
+    
     
 }

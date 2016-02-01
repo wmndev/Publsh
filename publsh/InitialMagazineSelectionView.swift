@@ -11,6 +11,7 @@ import UIKit
 class InitialMagazineSelectionView: UITableViewController {
     
     var magazines = [PFObject]()
+    var rowIndex = -1;
     
     
     override func viewDidLoad() {
@@ -104,6 +105,7 @@ class InitialMagazineSelectionView: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        rowIndex = indexPath.row
         self.performSegueWithIdentifier("showMagazineDetails", sender: self)
     }
     
@@ -171,14 +173,9 @@ class InitialMagazineSelectionView: UITableViewController {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
-        if segue.identifier == "toUserProfile"{
-            let button = sender as! UIButton
-            
-            let userId = button.titleLabel?.text
-            
-            let destinationVC = segue.destinationViewController as! ProfileTableViewController
-            destinationVC.userId = userId!
-            
+        if segue.identifier == "showMagazineDetails"{
+            let destinationVC = segue.destinationViewController as! MagazineTableViewController
+            destinationVC.magazine = magazines[rowIndex]            
         }
         
         // Get the new view controller using segue.destinationViewController.

@@ -12,13 +12,15 @@ class MagazineIntroductionCell: UITableViewCell {
 
     @IBOutlet var userProfileImage: UIImageView!
     
-    @IBOutlet var username: UILabel!
-    
+    @IBOutlet var collectedByLabel: UILabel!
+    @IBOutlet var username: UIButton!
     @IBOutlet var magazineDescription: UILabel!
     
     @IBOutlet var pickMagazineButton: UIButton!
    
     @IBAction func pickMagazinePressed(sender: AnyObject) {
+    }
+    @IBAction func usernamePressed(sender: AnyObject) {
     }
     override func awakeFromNib() {
         super.awakeFromNib()
