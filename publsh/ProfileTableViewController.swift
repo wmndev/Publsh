@@ -61,14 +61,16 @@ class ProfileTableViewController: UITableViewController {
     
     
     func loadUserStats(){
-        let userQuery = PFUser.query()
-        userQuery?.whereKey("objectId", equalTo: userId)
+//        let userQuery = PFUser.query()
+//        userQuery?.whereKey("objectId", equalTo: userId)
+//        
+//        do{
+//            try user = userQuery?.findObjects()[0] as! PFUser
+//        }catch{
+//            print("cant load user")
+//        }
         
-        do{
-            try user = userQuery?.findObjects()[0] as! PFUser
-        }catch{
-            print("cant load user")
-        }
+        userId = user.objectId!
         
         let query = PFQuery(className:"UserStats")
         query.whereKey("userId", equalTo: userId)

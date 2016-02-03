@@ -193,13 +193,13 @@
                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                             <state key="normal" title="Button"/>
                                             <connections>
-                                                <action selector="usernamePressed:" destination="h6p-TY-0xo" eventType="touchUpInside" id="G9K-2C-i5f"/>
+                                                <segue destination="KX5-TA-X21" kind="show" identifier="showUserProfile" id="Fzw-jv-dUI"/>
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jFL-GP-IQA">
-                                            <rect key="frame" x="8" y="86" width="584" height="52"/>
+                                            <rect key="frame" x="8" y="86" width="584" height="81"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="52" id="n65-XP-ij2"/>
+                                                <constraint firstAttribute="height" constant="81" id="n65-XP-ij2"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -261,7 +261,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="detailedLogCell" rowHeight="80" id="X5V-l3-eE4">
-                                <rect key="frame" x="0.0" y="28" width="600" height="80"/>
+                                <rect key="frame" x="0.0" y="92" width="600" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="X5V-l3-eE4" id="X11-vx-H21">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="80"/>
@@ -269,7 +269,7 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="profileHeader" rowHeight="150" id="UZz-7r-bW9" customClass="ProfileHeaderCell" customModule="publsh" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="108" width="600" height="150"/>
+                                <rect key="frame" x="0.0" y="172" width="600" height="150"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UZz-7r-bW9" id="RUu-J4-ldi">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="150"/>
@@ -306,7 +306,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JbX-iU-02x" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2537" y="418"/>
+            <point key="canvasLocation" x="2574" y="1142"/>
         </scene>
         <!--User Activity Table View Controller-->
         <scene sceneID="rw4-tv-51S">
@@ -318,7 +318,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="activityCell" id="4oL-Ea-j7n">
-                                <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4oL-Ea-j7n" id="Iq7-jg-P5F">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>

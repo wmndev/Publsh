@@ -17,6 +17,9 @@ class MagazineTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //tableView.rowHeight = UITableViewAutomaticDimension
+        //tableView.estimatedRowHeight = 70.0
+        
         //navigation
         self.view.backgroundColor = Style.viewBackgroundColor
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
@@ -80,20 +83,20 @@ class MagazineTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.row == 0{
-            return UITableViewAutomaticDimension
-        }
-        //            let screenWidth = tableView.frame.size.width
-        //           if indexPath.row == 0 {
-        //
-        //            if indexPath.section % 3 == 0{
-        //                   return screenWidth * 0.75
-        //               }
-        //                return screenWidth
-        //            }
-        //            return screenWidth
+//        if indexPath.row == 0{
+//            return UITableViewAutomaticDimension
+//        }
+//                    let screenWidth = tableView.frame.size.width
+//                   if indexPath.row == 0 {
+//        
+//                    if indexPath.section % 3 == 0{
+//                           return screenWidth * 0.75
+//                       }
+//                        return screenWidth
+//                    }
+//                    return screenWidth
         
-        return 70
+        return 70.0
     }
     
     func setUserProfileImage(cell: MagazineIntroductionCell){
@@ -161,7 +164,10 @@ class MagazineTableViewController: UITableViewController {
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
+        if segue.identifier == "showUserProfile"{
+            let destinationVC = segue.destinationViewController as! ProfileTableViewController
+            destinationVC.user = self.user
+        }
 
     }
     

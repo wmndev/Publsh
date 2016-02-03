@@ -20,8 +20,7 @@ class MagazineIntroductionCell: UITableViewCell {
    
     @IBAction func pickMagazinePressed(sender: AnyObject) {
     }
-    @IBAction func usernamePressed(sender: AnyObject) {
-    }
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
