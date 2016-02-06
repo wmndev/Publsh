@@ -13,6 +13,12 @@ class InitialMagazineSelectionView: UITableViewController {
     var magazines = [PFObject]()
     var rowIndex = -1;
     
+    @IBAction func donePressed(sender: AnyObject) {
+        
+        let viewController:UIViewController = UIStoryboard(name: "App", bundle: nil).instantiateViewControllerWithIdentifier("appInit") as UIViewController
+        self.presentViewController(viewController, animated: true, completion: nil)
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +30,7 @@ class InitialMagazineSelectionView: UITableViewController {
         self.navigationItem.title = "DISCOVER MAGAZINES"
         self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : Style.textColorWhite]
         
-       
+        
         
         
         let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
@@ -32,7 +38,7 @@ class InitialMagazineSelectionView: UITableViewController {
         activityIndicator.frame = self.view.bounds
         activityIndicator.startAnimating()
         
-        var query = PFQuery(className:"Magazine")
+        let query = PFQuery(className:"Magazine")
         query.findObjectsInBackgroundWithBlock { (data, error) -> Void in
             if error == nil {
                 if let results = data {
@@ -47,7 +53,7 @@ class InitialMagazineSelectionView: UITableViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        navigationController?.hidesBarsOnSwipe = true
+        //navigationController?.hidesBarsOnSwipe = true
     }
     
     override func didReceiveMemoryWarning() {
@@ -81,7 +87,7 @@ class InitialMagazineSelectionView: UITableViewController {
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    
+        
         let cell = tableView.dequeueReusableCellWithIdentifier("magazineCell", forIndexPath: indexPath) as! MagazineIntroCell
         
         cell.mImage.layer.cornerRadius = (cell.mImage.frame.size.width) / 2;
@@ -106,37 +112,37 @@ class InitialMagazineSelectionView: UITableViewController {
         cell.filter2.setTitleColor(Style.textLightColor, forState: UIControlState.Normal)
         cell.filter3.setTitleColor(Style.textLightColor, forState: UIControlState.Normal)
         
-//        let cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "magazineCell")
-//        cell.selectionStyle = UITableViewCellSelectionStyle.None
-//        
-//        let image = UIImage(named: "sample.jpg")
-//        let newImage = resizeImage(image!, toTheSize: CGSizeMake(60, 60))
-//
-//        
-//        cell.textLabel?.text = magazines[indexPath.row].objectForKey("name") as? String
-//        cell.textLabel?.textColor = Style.textStrongColor
-//        cell.textLabel?.font = UIFont.boldSystemFontOfSize(16.0)
-//        
-//        cell.detailTextLabel?.text = magazines[indexPath.row].objectForKey("description") as? String
-//        cell.detailTextLabel?.textColor = Style.textLightColor
-//        cell.textLabel?.font = UIFont.boldSystemFontOfSize(14.0)
-//        cell.detailTextLabel?.numberOfLines = 3
-//        
-//        
-//        let accessoryButton = UIButton(frame: CGRectMake(0, 0, 36, 36))
-//        accessoryButton.center = CGPointMake(18, 20)
-//        accessoryButton.titleLabel!.textAlignment = NSTextAlignment.Center
-//        accessoryButton.titleLabel!.font = UIFont.systemFontOfSize(20)
-//        accessoryButton.setTitleColor(Style.navigationBarBackgroundColor, forState: UIControlState.Normal)
-//        accessoryButton.setTitle("+", forState: UIControlState.Normal)
-//        
-//        accessoryButton.layer.cornerRadius = accessoryButton.frame.size.width / 2;
-//        accessoryButton.clipsToBounds = true
-//        accessoryButton.layer.borderWidth = 1
-//        accessoryButton.layer.borderColor = Style.navigationBarBackgroundColor.CGColor;
-//        accessoryButton.addTarget(self, action: "addMagazineButtonTouched", forControlEvents: .TouchUpInside)
-//
-//        cell.accessoryView = accessoryButton
+        //        let cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "magazineCell")
+        //        cell.selectionStyle = UITableViewCellSelectionStyle.None
+        //
+        //        let image = UIImage(named: "sample.jpg")
+        //        let newImage = resizeImage(image!, toTheSize: CGSizeMake(60, 60))
+        //
+        //
+        //        cell.textLabel?.text = magazines[indexPath.row].objectForKey("name") as? String
+        //        cell.textLabel?.textColor = Style.textStrongColor
+        //        cell.textLabel?.font = UIFont.boldSystemFontOfSize(16.0)
+        //
+        //        cell.detailTextLabel?.text = magazines[indexPath.row].objectForKey("description") as? String
+        //        cell.detailTextLabel?.textColor = Style.textLightColor
+        //        cell.textLabel?.font = UIFont.boldSystemFontOfSize(14.0)
+        //        cell.detailTextLabel?.numberOfLines = 3
+        //
+        //
+        //        let accessoryButton = UIButton(frame: CGRectMake(0, 0, 36, 36))
+        //        accessoryButton.center = CGPointMake(18, 20)
+        //        accessoryButton.titleLabel!.textAlignment = NSTextAlignment.Center
+        //        accessoryButton.titleLabel!.font = UIFont.systemFontOfSize(20)
+        //        accessoryButton.setTitleColor(Style.navigationBarBackgroundColor, forState: UIControlState.Normal)
+        //        accessoryButton.setTitle("+", forState: UIControlState.Normal)
+        //
+        //        accessoryButton.layer.cornerRadius = accessoryButton.frame.size.width / 2;
+        //        accessoryButton.clipsToBounds = true
+        //        accessoryButton.layer.borderWidth = 1
+        //        accessoryButton.layer.borderColor = Style.navigationBarBackgroundColor.CGColor;
+        //        accessoryButton.addTarget(self, action: "addMagazineButtonTouched", forControlEvents: .TouchUpInside)
+        //
+        //        cell.accessoryView = accessoryButton
         
         return cell
     }
@@ -175,7 +181,7 @@ class InitialMagazineSelectionView: UITableViewController {
         UIGraphicsEndImageContext();
         return newImage
     }
- 
+    
     
     /*
     // Override to support conditional editing of the table view.

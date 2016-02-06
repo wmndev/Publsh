@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -237,7 +237,11 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="BUZ-03-Owo">
                         <nil key="title"/>
-                        <barButtonItem key="rightBarButtonItem" title="Skip" style="plain" id="3AF-2J-6ql"/>
+                        <barButtonItem key="rightBarButtonItem" title="Skip" style="plain" id="3AF-2J-6ql">
+                            <connections>
+                                <action selector="donePressed:" destination="Krr-9b-M9T" id="YH3-EB-4Ie"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <segue destination="ZG3-MR-B9s" kind="show" identifier="showMagazineDetails" id="Gxd-uc-Q9d"/>
@@ -245,7 +249,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IBd-Bu-l0o" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1951" y="418"/>
+            <point key="canvasLocation" x="1711" y="418"/>
         </scene>
         <!--Magazine Table View Controller-->
         <scene sceneID="aEw-BN-Gkq">
@@ -361,7 +365,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y4k-wo-NhF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1783" y="1142"/>
+            <point key="canvasLocation" x="1711" y="1252"/>
         </scene>
         <!--Profile Table View Controller-->
         <scene sceneID="oLp-8c-rcM">
@@ -418,7 +422,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JbX-iU-02x" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2574" y="1142"/>
+            <point key="canvasLocation" x="2432" y="816"/>
         </scene>
         <!--User Activity Table View Controller-->
         <scene sceneID="rw4-tv-51S">
@@ -446,7 +450,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VRK-Kt-hKA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3313" y="418"/>
+            <point key="canvasLocation" x="3090" y="816"/>
         </scene>
         <!--Magazines Selection View Controller-->
         <scene sceneID="H00-Ch-crP">
@@ -549,7 +553,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EZ2-Mi-aoz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2335" y="-302"/>
+            <point key="canvasLocation" x="4430" y="106"/>
         </scene>
         <!--Table View Controller-->
         <scene sceneID="vRv-J1-H1f">
@@ -584,7 +588,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hsf-Hn-uoI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4471" y="37"/>
+            <point key="canvasLocation" x="4963" y="-599"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="nWB-eJ-ivq">
@@ -602,7 +606,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Num-KY-U1S" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3717" y="-163"/>
+            <point key="canvasLocation" x="4430" y="-615"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="uOq-8B-J0g">
