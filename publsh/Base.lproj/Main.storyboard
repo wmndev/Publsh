@@ -105,16 +105,127 @@
         <scene sceneID="jla-ha-qjC">
             <objects>
                 <tableViewController id="Krr-9b-M9T" customClass="InitialMagazineSelectionView" customModule="publsh" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Nk4-AA-yqA">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="126" sectionHeaderHeight="28" sectionFooterHeight="28" id="Nk4-AA-yqA">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="magazineCell" rowHeight="140" id="wa6-ay-17E" customClass="MagazineIntroDetails" customModule="publsh" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="92" width="600" height="140"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="magazineCell" rowHeight="110" id="wa6-ay-17E" customClass="MagazineIntroCell" customModule="publsh" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="92" width="600" height="110"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wa6-ay-17E" id="Mvj-2F-xIZ">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="139"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="109"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sample" translatesAutoresizingMaskIntoConstraints="NO" id="oEw-8c-NCJ">
+                                            <rect key="frame" x="8" y="25" width="60" height="60"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="60" id="bqK-3t-Thu"/>
+                                                <constraint firstAttribute="width" constant="60" id="qnC-bQ-NMK"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This will be the title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nmF-Ur-3dZ">
+                                            <rect key="frame" x="76" y="25" width="448" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="cmQ-gP-zAK"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This will be the descriotion This will be the descriotion " lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mh3-Y0-VsG">
+                                            <rect key="frame" x="76" y="47" width="448" height="16"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" relation="lessThanOrEqual" constant="46" id="0V5-0O-AOo"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="center" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pEF-zN-zse">
+                                            <rect key="frame" x="76" y="84" width="46" height="20"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="20" id="6T4-Kg-HqG"/>
+                                                <constraint firstAttribute="width" relation="lessThanOrEqual" constant="70" id="xgV-Gq-TYC"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <state key="normal" title="#Sports"/>
+                                            <connections>
+                                                <action selector="filter:" destination="wa6-ay-17E" eventType="touchUpInside" id="ig9-QN-BBr"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rAw-r7-wLd">
+                                            <rect key="frame" x="130" y="84" width="49" height="20"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="20" id="0xn-PY-0Pt"/>
+                                                <constraint firstAttribute="width" relation="lessThanOrEqual" constant="70" id="1Q5-jW-KgE"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <state key="normal" title="#fashion"/>
+                                            <connections>
+                                                <action selector="filter:" destination="wa6-ay-17E" eventType="touchUpInside" id="cZd-gm-7kn"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NsP-uU-xgX">
+                                            <rect key="frame" x="532" y="42" width="60" height="25"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="60" id="BGC-3c-osA"/>
+                                                <constraint firstAttribute="height" constant="25" id="MqB-YN-GrG"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
+                                            <state key="normal" title="GET"/>
+                                            <connections>
+                                                <action selector="addMagazine:" destination="wa6-ay-17E" eventType="touchUpInside" id="QfY-Q2-Ok5"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T9g-xs-cZP">
+                                            <rect key="frame" x="187" y="84" width="51" height="20"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" relation="lessThanOrEqual" constant="70" id="4XG-cs-IgA"/>
+                                                <constraint firstAttribute="height" constant="20" id="4r2-Bn-iMS"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <state key="normal" title="#animals"/>
+                                            <connections>
+                                                <action selector="filter:" destination="wa6-ay-17E" eventType="touchUpInside" id="b1z-FK-16Q"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="nmF-Ur-3dZ" firstAttribute="top" secondItem="Mvj-2F-xIZ" secondAttribute="top" constant="25" id="02i-QU-6ON"/>
+                                        <constraint firstItem="oEw-8c-NCJ" firstAttribute="leading" secondItem="Mvj-2F-xIZ" secondAttribute="leading" constant="8" id="6dL-2V-uW5"/>
+                                        <constraint firstAttribute="trailing" secondItem="NsP-uU-xgX" secondAttribute="trailing" constant="8" id="7Nc-Ah-ZEU"/>
+                                        <constraint firstItem="NsP-uU-xgX" firstAttribute="leading" secondItem="Mh3-Y0-VsG" secondAttribute="trailing" constant="8" id="C43-SM-qCK"/>
+                                        <constraint firstItem="NsP-uU-xgX" firstAttribute="leading" secondItem="nmF-Ur-3dZ" secondAttribute="trailing" constant="8" id="CIn-9S-ePB"/>
+                                        <constraint firstItem="pEF-zN-zse" firstAttribute="leading" secondItem="oEw-8c-NCJ" secondAttribute="trailing" constant="8" id="CMU-5v-BXB"/>
+                                        <constraint firstItem="NsP-uU-xgX" firstAttribute="centerY" secondItem="Mvj-2F-xIZ" secondAttribute="centerY" id="E5n-a9-kiI"/>
+                                        <constraint firstAttribute="bottom" secondItem="rAw-r7-wLd" secondAttribute="bottom" constant="5" id="FvD-vq-v1p"/>
+                                        <constraint firstItem="nmF-Ur-3dZ" firstAttribute="leading" secondItem="oEw-8c-NCJ" secondAttribute="trailing" constant="8" id="OkD-bA-19M"/>
+                                        <constraint firstAttribute="bottom" secondItem="pEF-zN-zse" secondAttribute="bottom" constant="5" id="QjL-fz-1Uk"/>
+                                        <constraint firstAttribute="bottom" secondItem="T9g-xs-cZP" secondAttribute="bottom" constant="5" id="R80-ZN-y82"/>
+                                        <constraint firstItem="T9g-xs-cZP" firstAttribute="leading" secondItem="rAw-r7-wLd" secondAttribute="trailing" constant="8" id="RPu-yc-r9f"/>
+                                        <constraint firstItem="rAw-r7-wLd" firstAttribute="leading" secondItem="pEF-zN-zse" secondAttribute="trailing" constant="8" id="eta-A3-jhF"/>
+                                        <constraint firstItem="oEw-8c-NCJ" firstAttribute="centerY" secondItem="Mvj-2F-xIZ" secondAttribute="centerY" id="mfD-hu-4Jp"/>
+                                        <constraint firstItem="T9g-xs-cZP" firstAttribute="leading" secondItem="rAw-r7-wLd" secondAttribute="trailing" constant="8" id="sFU-T3-jZd"/>
+                                        <constraint firstItem="Mh3-Y0-VsG" firstAttribute="leading" secondItem="oEw-8c-NCJ" secondAttribute="trailing" constant="8" id="uQ3-6G-wTw"/>
+                                        <constraint firstItem="Mh3-Y0-VsG" firstAttribute="top" secondItem="nmF-Ur-3dZ" secondAttribute="bottom" constant="1" id="ubJ-e4-AGs"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="filter1" destination="pEF-zN-zse" id="HWQ-Dc-XSg"/>
+                                    <outlet property="filter2" destination="rAw-r7-wLd" id="qe2-MZ-r3F"/>
+                                    <outlet property="filter3" destination="T9g-xs-cZP" id="gP2-op-1FI"/>
+                                    <outlet property="follow" destination="NsP-uU-xgX" id="fd0-YR-LxR"/>
+                                    <outlet property="mDescription" destination="Mh3-Y0-VsG" id="IIc-rp-Ch5"/>
+                                    <outlet property="mImage" destination="oEw-8c-NCJ" id="86O-6e-WW4"/>
+                                    <outlet property="mTitle" destination="nmF-Ur-3dZ" id="QfZ-Pr-SLj"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="headerCell" rowHeight="40" id="3qo-y5-BXd" customClass="MagazineIntroCell" customModule="publsh" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="202" width="600" height="40"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3qo-y5-BXd" id="XPW-Mc-RNx">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="39"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -126,6 +237,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="BUZ-03-Owo">
                         <nil key="title"/>
+                        <barButtonItem key="rightBarButtonItem" title="Skip" style="plain" id="3AF-2J-6ql"/>
                     </navigationItem>
                     <connections>
                         <segue destination="ZG3-MR-B9s" kind="show" identifier="showMagazineDetails" id="Gxd-uc-Q9d"/>
@@ -133,7 +245,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IBd-Bu-l0o" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1783" y="418"/>
+            <point key="canvasLocation" x="1951" y="418"/>
         </scene>
         <!--Magazine Table View Controller-->
         <scene sceneID="aEw-BN-Gkq">
@@ -511,4 +623,7 @@
             <point key="canvasLocation" x="984" y="418"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="sample" width="1688" height="1126"/>
+    </resources>
 </document>

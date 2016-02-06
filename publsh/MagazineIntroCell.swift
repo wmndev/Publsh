@@ -9,9 +9,22 @@
 import UIKit
 
 class MagazineIntroCell: UITableViewCell {
-
-    @IBOutlet var magImage: UIImageView!
     
+    @IBOutlet var mImage: UIImageView!
+    @IBOutlet var mTitle: UILabel!
+    @IBOutlet var mDescription: UILabel!
+    @IBOutlet var filter1: UIButton!
+    @IBOutlet var filter2: UIButton!
+    @IBOutlet var filter3: UIButton!
+    @IBOutlet var follow: UIButton!
+    
+    @IBAction func filter(sender: AnyObject) {
+        
+    }
+    
+    @IBAction func addMagazine(sender: AnyObject) {
+    }
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

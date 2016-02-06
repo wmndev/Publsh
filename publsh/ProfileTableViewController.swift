@@ -137,7 +137,7 @@ class ProfileTableViewController: UITableViewController {
             setUserProfileImage(cell)
             cell.userProfileImage.layer.cornerRadius = cell.userProfileImage.frame.size.width / 2;
             cell.userProfileImage.clipsToBounds = true
-            cell.userProfileImage.layer.borderWidth = 1
+            cell.userProfileImage.layer.borderWidth = 0.25
             //cell.userProfileImage.layer.borderColor = Style.pages.userProfile.userProfileImageBorderColor.CGColor
             
             return cell
