@@ -244,6 +244,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="skipDoneBarButton" destination="3AF-2J-6ql" id="TjH-bd-KI7"/>
                         <segue destination="ZG3-MR-B9s" kind="show" identifier="showMagazineDetails" id="Gxd-uc-Q9d"/>
                     </connections>
                 </tableViewController>

@@ -13,6 +13,7 @@ class InitialMagazineSelectionView: UITableViewController {
     var magazines = [PFObject]()
     var rowIndex = -1;
     
+    @IBOutlet var skipDoneBarButton: UIBarButtonItem!
     @IBAction func donePressed(sender: AnyObject) {
         
         let viewController:UIViewController = UIStoryboard(name: "App", bundle: nil).instantiateViewControllerWithIdentifier("appInit") as UIViewController
