@@ -8,7 +8,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="publsh" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginScreen" id="BYZ-38-t0r" customClass="ViewController" customModule="publsh" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -31,7 +31,7 @@
                                     </mask>
                                 </variation>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OFA-Cj-kjV">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OFA-Cj-kjV" customClass="FBSDKLoginButton">
                                 <rect key="frame" x="154" y="208" width="292" height="55"/>
                                 <color key="backgroundColor" red="0.074509803920000006" green="0.2470588235" blue="0.62745098040000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -47,9 +47,6 @@
                                         <exclude reference="OUh-sX-Bzb"/>
                                     </mask>
                                 </variation>
-                                <connections>
-                                    <action selector="connectWithFacebook:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DNF-fZ-sjU"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X2I-VC-7mG">
                                 <rect key="frame" x="154" y="272" width="292" height="55"/>
@@ -94,6 +91,7 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="facebookLoginButton" destination="OFA-Cj-kjV" id="vPu-WL-Eay"/>
                         <segue destination="rxF-1t-tmn" kind="show" identifier="afterSignup" id="zAU-6x-w5i"/>
                     </connections>
                 </viewController>
@@ -104,7 +102,7 @@
         <!--Initial Magazine Selection View-->
         <scene sceneID="jla-ha-qjC">
             <objects>
-                <tableViewController id="Krr-9b-M9T" customClass="InitialMagazineSelectionView" customModule="publsh" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="InitialMagazinesSelection" id="Krr-9b-M9T" customClass="InitialMagazineSelectionView" customModule="publsh" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="126" sectionHeaderHeight="28" sectionFooterHeight="28" id="Nk4-AA-yqA">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -19,18 +19,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
+        /*
         Parse.setApplicationId("dboMn73kG989FKBy6SAN1heJ6pRfzqDmS4sBwCbx", clientKey:"exCRvWXWK6dVUm3Skg3Nd8EcD6VNQL2i9oIAIyzt")
                 PFFacebookUtils.initializeFacebookWithApplicationLaunchOptions(launchOptions);
+*/
         //window?.tintColor = Style.buttonsColor
         
         UINavigationBar.appearance().translucent = false
         UINavigationBar.appearance().barTintColor = Style.navigationBarBackgroundColor
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
 
+        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        
+        
+        let mainStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
+        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        var initialViewController: UIViewController
+        
+        if(FBSDKAccessToken.currentAccessToken() != nil){
+            let vc = mainStoryboard.instantiateViewControllerWithIdentifier("InitialMagazinesSelection") as! InitialMagazineSelectionView
+            initialViewController = vc
+        }else{
+            initialViewController = mainStoryboard.instantiateViewControllerWithIdentifier("LoginScreen")
+        }
+        
+        self.window?.rootViewController = initialViewController
+        
+        self.window?.makeKeyAndVisible()
+        
         return true
     }
     
-    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
         return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
     }
 
