@@ -60,6 +60,7 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
     }
     
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
+        AmazonClientManager.sharedInstance.fbLogin()
         self.performSegueWithIdentifier("afterSignup", sender: self)
         print("segued due to login")
     }
@@ -72,17 +73,17 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
     }
     
     
-    func createFreshUser(user: PFUser){
-        let userStats = PFObject(className:"UserStats")
-        userStats["userId"] = user.objectId
-        userStats["numOfFollowers"] = 0
-        userStats["numOfFollowing"] = 0
-        userStats["numOfMagazines"] = 0
-        userStats["numOfActivityActions"] = 0
-        do{
-            try userStats.save()
-        }catch{print("issue with saving to user stats")}
-    }
+    //func createFreshUser(user: PFUser){
+//        let userStats = PFObject(className:"UserStats")
+//        userStats["userId"] = user.objectId
+//        userStats["numOfFollowers"] = 0
+//        userStats["numOfFollowing"] = 0
+//        userStats["numOfMagazines"] = 0
+//        userStats["numOfActivityActions"] = 0
+//        do{
+//            try userStats.save()
+//        }catch{print("issue with saving to user stats")}
+    //}
     
 //    override func viewWillAppear(animated: Bool) {
 //        self.loadData()

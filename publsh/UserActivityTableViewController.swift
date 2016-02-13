@@ -13,7 +13,7 @@ class UserActivityTableViewController: UITableViewController {
     var source = Types.Sources.NA
     var userId = ""
     
-    var activities = [PFObject]()
+   // var activities = [PFObject]()
     
     
     override func viewDidLoad() {
@@ -32,36 +32,36 @@ class UserActivityTableViewController: UITableViewController {
     
     
     func loadActivities(){
-        var query = PFQuery()
-        
-        switch(source){
-        case Types.Sources.ACTIVITIES:
-            query = PFQuery(className: "ActivityLog")
-            query.whereKey("userId", equalTo: userId)
-            break
-        case Types.Sources.FOLLOWERS:
-            query = PFQuery(className: "followUser")
-            query.whereKey("followingUserId", equalTo: userId)
-            break
-        case Types.Sources.MAGAZINES:
-            query = PFQuery(className: "Magazine")
-            query.whereKey("createdBy", equalTo: userId)
-            break
-        default:
-            break
-        }
-        
-        query.findObjectsInBackgroundWithBlock { (data, error) -> Void in
-            if error == nil {
-                if let results = data {
-                    self.activities = results
-                }
-                self.tableView.reloadData()
-            }else{
-                
-                print(error)
-            }
-        }
+//        var query = PFQuery()
+//        
+//        switch(source){
+//        case Types.Sources.ACTIVITIES:
+//            query = PFQuery(className: "ActivityLog")
+//            query.whereKey("userId", equalTo: userId)
+//            break
+//        case Types.Sources.FOLLOWERS:
+//            query = PFQuery(className: "followUser")
+//            query.whereKey("followingUserId", equalTo: userId)
+//            break
+//        case Types.Sources.MAGAZINES:
+//            query = PFQuery(className: "Magazine")
+//            query.whereKey("createdBy", equalTo: userId)
+//            break
+//        default:
+//            break
+//        }
+//        
+//        query.findObjectsInBackgroundWithBlock { (data, error) -> Void in
+//            if error == nil {
+//                if let results = data {
+//                    self.activities = results
+//                }
+//                self.tableView.reloadData()
+//            }else{
+//                
+//                print(error)
+//            }
+//        }
     }
     
     
@@ -77,14 +77,14 @@ class UserActivityTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return activities.count
+        return 3 //activities.count
     }
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         //let cell = tableView.dequeueReusableCellWithIdentifier("activityCell", forIndexPath: indexPath)
         let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "activityCell")
-        cell.textLabel?.text = activities[indexPath.row].objectForKey("name") as! String
+        //cell.textLabel?.text = activities[indexPath.row].objectForKey("name") as! String
         
         return cell
     }

@@ -26,6 +26,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 */
         //window?.tintColor = Style.buttonsColor
         
+        
+        // Override point for customization after application launch.
+        let credentialProvider = AWSCognitoCredentialsProvider(regionType: Constants.COGNITO_REGIONTYPE, identityPoolId: Constants.COGNITO_IDENTITY_POOL_ID)
+        
+        let configuration = AWSServiceConfiguration(
+            region: Constants.COGNITO_REGIONTYPE,
+            credentialsProvider: credentialProvider)
+        
+        
+        AWSServiceManager.defaultServiceManager().defaultServiceConfiguration = configuration
+        
         UINavigationBar.appearance().translucent = false
         UINavigationBar.appearance().barTintColor = Style.navigationBarBackgroundColor
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
@@ -37,9 +48,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         var initialViewController: UIViewController
         
-        if(FBSDKAccessToken.currentAccessToken() != nil){
+        if(AmazonClientManager.sharedInstance.isLoggedInWithFacebook()){
+            let nav = UINavigationController()
+
             let vc = mainStoryboard.instantiateViewControllerWithIdentifier("InitialMagazinesSelection") as! InitialMagazineSelectionView
-            initialViewController = vc
+            nav.viewControllers = [vc]
+            initialViewController = nav
         }else{
             initialViewController = mainStoryboard.instantiateViewControllerWithIdentifier("LoginScreen")
         }

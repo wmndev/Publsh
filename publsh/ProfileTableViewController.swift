@@ -10,11 +10,11 @@ import UIKit
 
 class ProfileTableViewController: UITableViewController {
     
-    var userStats = [PFObject]()
+    //var userStats = [PFObject]()
     
     var userId = ""
     
-    var user =  PFUser()
+    //var user =  PFUser()
     
     var source = Types.Sources.NA
     
@@ -70,36 +70,36 @@ class ProfileTableViewController: UITableViewController {
 //            print("cant load user")
 //        }
         
-        userId = user.objectId!
+//        userId = user.objectId!
+//        
+//        let query = PFQuery(className:"UserStats")
+//        query.whereKey("userId", equalTo: userId)
+//        query.findObjectsInBackgroundWithBlock { (data, error) -> Void in
+//            if error == nil {
+//                if let results = data {
+//                    self.userStats.append(results[0])
+//                    //activityIndicator.stopAnimating()
+//                }
+//                self.tableView.reloadData()
+//            }else{
+//                
+//                print(error)
+//            }
+//        }
         
-        let query = PFQuery(className:"UserStats")
-        query.whereKey("userId", equalTo: userId)
-        query.findObjectsInBackgroundWithBlock { (data, error) -> Void in
-            if error == nil {
-                if let results = data {
-                    self.userStats.append(results[0])
-                    //activityIndicator.stopAnimating()
-                }
-                self.tableView.reloadData()
-            }else{
-                
-                print(error)
-            }
-        }
         
-        
-        let followQuery = PFQuery(className: "followUser")
-        followQuery.whereKey("followUserId", equalTo:  (PFUser.currentUser()?.objectId)!)
-        followQuery.whereKey("followingUserId", equalTo:  userId)
-        followQuery.findObjectsInBackgroundWithBlock { (data, error) -> Void in
-            if error == nil{
-                if let results = data{
-                    self.isFollowUser = results.count > 0
-                }
-                self.tableView.reloadData()
-            }
-            self.createNavigationButton()
-        }
+//        let followQuery = PFQuery(className: "followUser")
+//        followQuery.whereKey("followUserId", equalTo:  (PFUser.currentUser()?.objectId)!)
+//        followQuery.whereKey("followingUserId", equalTo:  userId)
+//        followQuery.findObjectsInBackgroundWithBlock { (data, error) -> Void in
+//            if error == nil{
+//                if let results = data{
+//                    self.isFollowUser = results.count > 0
+//                }
+//                self.tableView.reloadData()
+//            }
+//            self.createNavigationButton()
+//        }
         
     }
     
@@ -148,10 +148,10 @@ class ProfileTableViewController: UITableViewController {
             
             if indexPath.row == 1{
                 
-                let userName = (PFUser.currentUser()?.objectForKey("name"))! as! String
-                let range = userName.rangeOfString(" ")!
+//                let userName = (PFUser.currentUser()?.objectForKey("name"))! as! String
+//                let range = userName.rangeOfString(" ")!
                 
-                cell.textLabel?.text = userName.uppercaseString.stringByReplacingCharactersInRange(range, withString: "\n")
+//                cell.textLabel?.text = userName.uppercaseString.stringByReplacingCharactersInRange(range, withString: "\n")
                 cell.textLabel?.numberOfLines = 0
                 cell.textLabel?.textColor = Style.textStrongColor
                 cell.textLabel?.font = UIFont.systemFontOfSize(35)
@@ -178,23 +178,23 @@ class ProfileTableViewController: UITableViewController {
                 cell.accessoryView!.layer.borderWidth = 2
                 cell.accessoryView!.layer.borderColor = UIColor.whiteColor().CGColor;
                 
-                if userStats.count > 0{
-                    switch(indexPath.row){
-                    case 2:
-                        activityLabel.text = String(userStats[0].objectForKey("numOfMagazines") as! Int)
-                        cell.textLabel?.text = "PUBLISHED MAGAZINES"
-                        break
-                    case 3:
-                        activityLabel.text = String(userStats[0].objectForKey("numOfActivityActions") as! Int)
-                        cell.textLabel?.text = "LAST MONTH ACTIVITIES"
-                        break
-                    case 4:
-                        activityLabel.text = String(userStats[0].objectForKey("numOfFollowers") as! Int)
-                        cell.textLabel?.text = "PUSBLHERS FOLLOW"
-                        break
-                    default:
-                        break
-                    }}
+//                if userStats.count > 0{
+//                    switch(indexPath.row){
+//                    case 2:
+//                        activityLabel.text = String(userStats[0].objectForKey("numOfMagazines") as! Int)
+//                        cell.textLabel?.text = "PUBLISHED MAGAZINES"
+//                        break
+//                    case 3:
+//                        activityLabel.text = String(userStats[0].objectForKey("numOfActivityActions") as! Int)
+//                        cell.textLabel?.text = "LAST MONTH ACTIVITIES"
+//                        break
+//                    case 4:
+//                        activityLabel.text = String(userStats[0].objectForKey("numOfFollowers") as! Int)
+//                        cell.textLabel?.text = "PUSBLHERS FOLLOW"
+//                        break
+//                    default:
+//                        break
+//                    }}
                 
                 
                 cell.textLabel?.font = UIFont.systemFontOfSize(16)
@@ -211,33 +211,33 @@ class ProfileTableViewController: UITableViewController {
     }
     
     func followTapped(){
-        if !isFollowUser{
-            var followUser = PFObject(className: "followUser", dictionary: ["followUserId": (PFUser.currentUser()?.objectId)!, "followingUserId": userId])
-            followUser.saveInBackgroundWithBlock { (ok, error) -> Void in
-                if ok{
-                    self.isFollowUser = true
-                    self.createNavigationButton()
-                }else{
-                    print(error)
-                }
-            }
-        }else{
-            let query = PFQuery(className: "followUser")
-            query.whereKey("followUserId", equalTo: (PFUser.currentUser()?.objectId)!)
-            query.whereKey("followingUserId", equalTo: userId)
-            
-            query.findObjectsInBackgroundWithBlock({ (data, error) -> Void in
-                if error == nil{
-                    if let results = data{
-                        for res in results{
-                            res.deleteEventually()
-                        }
-                        self.isFollowUser = false
-                    }
-                    self.createNavigationButton()
-                }
-            })
-        }
+//        if !isFollowUser{
+//            var followUser = PFObject(className: "followUser", dictionary: ["followUserId": (PFUser.currentUser()?.objectId)!, "followingUserId": userId])
+//            followUser.saveInBackgroundWithBlock { (ok, error) -> Void in
+//                if ok{
+//                    self.isFollowUser = true
+//                    self.createNavigationButton()
+//                }else{
+//                    print(error)
+//                }
+//            }
+//        }else{
+//            let query = PFQuery(className: "followUser")
+//            query.whereKey("followUserId", equalTo: (PFUser.currentUser()?.objectId)!)
+//            query.whereKey("followingUserId", equalTo: userId)
+//            
+//            query.findObjectsInBackgroundWithBlock({ (data, error) -> Void in
+//                if error == nil{
+//                    if let results = data{
+//                        for res in results{
+//                            res.deleteEventually()
+//                        }
+//                        self.isFollowUser = false
+//                    }
+//                    self.createNavigationButton()
+//                }
+//            })
+//        }
         
     }
     
@@ -245,13 +245,13 @@ class ProfileTableViewController: UITableViewController {
     func setUserProfileImage(cell: ProfileHeaderCell){
         //get user image
         
-        let userImageFile: PFFile = (PFUser.currentUser()?.objectForKey("image"))! as! PFFile
-        
-        userImageFile.getDataInBackgroundWithBlock { (data, error) -> Void in
-            if(error == nil){
-                cell.userProfileImage.image =  UIImage(data: data!)
-            }
-        }
+//        let userImageFile: PFFile = (PFUser.currentUser()?.objectForKey("image"))! as! PFFile
+//        
+//        userImageFile.getDataInBackgroundWithBlock { (data, error) -> Void in
+//            if(error == nil){
+//                cell.userProfileImage.image =  UIImage(data: data!)
+//            }
+//        }
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

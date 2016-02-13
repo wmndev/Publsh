@@ -52,18 +52,18 @@ extension MagazinesSelectionViewController : UITextFieldDelegate {
             activityIndicator.frame = textField.bounds
             activityIndicator.startAnimating()
             
-            let query =  PFQuery(className: "Magazine")
-            query.whereKey("name", containsString: textField.text)
-            query.whereKey("isPublic", equalTo: true)
-            
-            query.findObjectsInBackgroundWithBlock({ (results, error) -> Void in
-                activityIndicator.removeFromSuperview()
-                if let data = results{
-                    self.magazines = data as [PFObject]
-                    self.collectionView!.reloadData()
-                }
-                
-            })
+//            let query =  PFQuery(className: "Magazine")
+//            query.whereKey("name", containsString: textField.text)
+//            query.whereKey("isPublic", equalTo: true)
+//            
+//            query.findObjectsInBackgroundWithBlock({ (results, error) -> Void in
+//                activityIndicator.removeFromSuperview()
+//                if let data = results{
+//                    self.magazines = data as [PFObject]
+//                    self.collectionView!.reloadData()
+//                }
+//                
+//            })
         }
     }
 }
@@ -71,7 +71,7 @@ extension MagazinesSelectionViewController : UITextFieldDelegate {
 
 class MagazinesSelectionViewController: UICollectionViewController {
     
-    var magazines = [PFObject]()
+    //var magazines = [PFObject]()
     
     
     
@@ -114,7 +114,7 @@ class MagazinesSelectionViewController: UICollectionViewController {
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return magazines.count
+        return 4 /*magazines.count*/
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {

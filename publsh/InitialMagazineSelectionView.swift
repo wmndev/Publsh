@@ -10,7 +10,7 @@ import UIKit
 
 class InitialMagazineSelectionView: UITableViewController {
     
-    var magazines = [PFObject]()
+    //var magazines = [PFObject]()
     var rowIndex = -1;
     
     @IBOutlet var skipDoneBarButton: UIBarButtonItem!
@@ -24,12 +24,14 @@ class InitialMagazineSelectionView: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        getTableRow()
+        
         //navigation
         self.view.backgroundColor = Style.viewBackgroundColor
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationItem.title = "DISCOVER MAGAZINES"
-        self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : Style.textColorWhite]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : Style.textColorWhite]
         
         
         
@@ -39,16 +41,50 @@ class InitialMagazineSelectionView: UITableViewController {
         activityIndicator.frame = self.view.bounds
         activityIndicator.startAnimating()
         
-        let query = PFQuery(className:"Magazine")
-        query.findObjectsInBackgroundWithBlock { (data, error) -> Void in
-            if error == nil {
-                if let results = data {
-                    self.magazines = results
-                    activityIndicator.stopAnimating()
+//        let query = PFQuery(className:"Magazine")
+//        query.findObjectsInBackgroundWithBlock { (data, error) -> Void in
+//            if error == nil {
+//                if let results = data {
+//                    self.magazines = results
+//                    activityIndicator.stopAnimating()
+//                }
+//                self.tableView.reloadData()
+//            }
+//        }
+    }
+    
+    func getTableRow() {
+        let dynamoDBObjectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
+        
+        dynamoDBObjectMapper .load(Magazine.self, hashKey: 1000000, rangeKey: 2000000) .continueWithExecutor(AWSExecutor.mainThreadExecutor(), withBlock: { (task:AWSTask!) -> AnyObject! in
+            if (task.error == nil) {
+                if (task.result != nil) {
+                    let tableRow = task.result as! Magazine
+                    print(tableRow.id)
+                    print(tableRow.userId)
+                    print(tableRow.name)
+                    print(tableRow.desc)
+                    
+                    
+                    
+//                    self.hashKeyTextField.text = tableRow.UserId
+//                    self.rangeKeyTextField.text = tableRow.GameTitle
+//                    self.attribute1TextField.text = tableRow.TopScore?.stringValue
+//                    self.attribute2TextField.text = tableRow.Wins?.stringValue
+//                    self.attribute3TextField.text = tableRow.Losses?.stringValue
                 }
-                self.tableView.reloadData()
+            } else {
+                print(task.error!)
+                print("Error: \(task.error)")
+                let alertController = UIAlertController(title: "Failed to get item from table.", message: task.error!.description, preferredStyle: UIAlertControllerStyle.Alert)
+                let okAction = UIAlertAction(title: "OK56", style: UIAlertActionStyle.Cancel, handler: { (action:UIAlertAction) -> Void in
+                })
+                alertController.addAction(okAction)
+                self.presentViewController(alertController, animated: true, completion: nil)
+                
             }
-        }
+            return nil
+        })
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -72,7 +108,7 @@ class InitialMagazineSelectionView: UITableViewController {
         if section == 0{
             return 0
         }
-        return magazines.count
+        return 4 //magazines.count
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat{
@@ -96,11 +132,11 @@ class InitialMagazineSelectionView: UITableViewController {
         cell.mImage.layer.borderWidth = 0.25
         cell.mImage.layer.borderColor = Style.textLightColor.CGColor
         
-        cell.mTitle.text = (magazines[indexPath.row].objectForKey("name") as? String)! + " >"
+        //cell.mTitle.text = (magazines[indexPath.row].objectForKey("name") as? String)! + " >"
         cell.mTitle.textColor = Style.textStrongColor
         //        cell.textLabel?.font = UIFont.boldSystemFontOfSize(16.0)
         
-        cell.mDescription.text = magazines[indexPath.row].objectForKey("description") as? String
+        //cell.mDescription.text = magazines[indexPath.row].objectForKey("description") as? String
         cell.mDescription.textColor = Style.textStrongColor
         
         cell.follow.layer.cornerRadius = 6 //cell.follow.frame.size.width / 2;
@@ -225,10 +261,10 @@ class InitialMagazineSelectionView: UITableViewController {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
-        if segue.identifier == "showMagazineDetails"{
-            let destinationVC = segue.destinationViewController as! MagazineTableViewController
-            destinationVC.magazine = magazines[rowIndex]            
-        }
+//        if segue.identifier == "showMagazineDetails"{
+//            let destinationVC = segue.destinationViewController as! MagazineTableViewController
+//            destinationVC.magazine = magazines[rowIndex]            
+//        }
         
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
