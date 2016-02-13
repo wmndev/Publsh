@@ -10,8 +10,10 @@ import UIKit
 
 class InitialMagazineSelectionView: UITableViewController {
     
-    //var magazines = [PFObject]()
+    var magazines = [Magazine]()
     var rowIndex = -1;
+    
+    var activityIndicator = UIActivityIndicatorView()
     
     @IBOutlet var skipDoneBarButton: UIBarButtonItem!
     @IBAction func donePressed(sender: AnyObject) {
@@ -36,7 +38,7 @@ class InitialMagazineSelectionView: UITableViewController {
         
         
         
-        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+        activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
         self.view.addSubview(activityIndicator)
         activityIndicator.frame = self.view.bounds
         activityIndicator.startAnimating()
@@ -56,35 +58,68 @@ class InitialMagazineSelectionView: UITableViewController {
     func getTableRow() {
         let dynamoDBObjectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
         
-        dynamoDBObjectMapper .load(Magazine.self, hashKey: 1000000, rangeKey: 2000000) .continueWithExecutor(AWSExecutor.mainThreadExecutor(), withBlock: { (task:AWSTask!) -> AnyObject! in
-            if (task.error == nil) {
-                if (task.result != nil) {
-                    let tableRow = task.result as! Magazine
-                    print(tableRow.id)
-                    print(tableRow.userId)
-                    print(tableRow.name)
-                    print(tableRow.desc)
+        
+        let scanExpression = AWSDynamoDBScanExpression()
+        scanExpression.limit = 10
+        
+        dynamoDBObjectMapper.scan(Magazine.self, expression: scanExpression).continueWithBlock { (task) -> AnyObject? in
+            if task.error != nil{
+                print(task.error)
+            }
+            if task.exception != nil{
+                print(task.exception)
+            }
+            
+            if task.result != nil{
+                
+                let paginatedOutput = task.result as! AWSDynamoDBPaginatedOutput
+                
+                self.magazines = paginatedOutput.items as! [Magazine]
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.activityIndicator.stopAnimating()
                     
-                    
-                    
-//                    self.hashKeyTextField.text = tableRow.UserId
-//                    self.rangeKeyTextField.text = tableRow.GameTitle
-//                    self.attribute1TextField.text = tableRow.TopScore?.stringValue
-//                    self.attribute2TextField.text = tableRow.Wins?.stringValue
-//                    self.attribute3TextField.text = tableRow.Losses?.stringValue
-                }
-            } else {
-                print(task.error!)
-                print("Error: \(task.error)")
-                let alertController = UIAlertController(title: "Failed to get item from table.", message: task.error!.description, preferredStyle: UIAlertControllerStyle.Alert)
-                let okAction = UIAlertAction(title: "OK56", style: UIAlertActionStyle.Cancel, handler: { (action:UIAlertAction) -> Void in
+                    self.tableView.reloadData()
                 })
-                alertController.addAction(okAction)
-                self.presentViewController(alertController, animated: true, completion: nil)
+                
+
                 
             }
+            
             return nil
-        })
+        }
+        
+//        dynamoDBObjectMapper .load(Magazine.self, hashKey: 1000000, rangeKey: 2000000) .continueWithExecutor(AWSExecutor.mainThreadExecutor(), withBlock: { (task:AWSTask!) -> AnyObject! in
+//            if (task.error == nil) {
+//                if (task.result != nil) {
+//                    let tableRow = task.result as! Magazine
+//                    print(tableRow.id)
+//                    print(tableRow.userId)
+//                    print(tableRow.name)
+//                    print(tableRow.desc)
+//                    
+//                    
+//                    
+////                    self.hashKeyTextField.text = tableRow.UserId
+////                    self.rangeKeyTextField.text = tableRow.GameTitle
+////                    self.attribute1TextField.text = tableRow.TopScore?.stringValue
+////                    self.attribute2TextField.text = tableRow.Wins?.stringValue
+////                    self.attribute3TextField.text = tableRow.Losses?.stringValue
+//                }
+//            } else {
+//                print(task.error!)
+//                print("Error: \(task.error)")
+//                let alertController = UIAlertController(title: "Failed to get item from table.", message: task.error!.description, preferredStyle: UIAlertControllerStyle.Alert)
+//                let okAction = UIAlertAction(title: "OK56", style: UIAlertActionStyle.Cancel, handler: { (action:UIAlertAction) -> Void in
+//                })
+//                alertController.addAction(okAction)
+//                self.presentViewController(alertController, animated: true, completion: nil)
+//                
+//            }
+//            return nil
+//        }).continueWithBlock { (task) -> AnyObject? in
+//            return nil
+//        }
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -108,7 +143,7 @@ class InitialMagazineSelectionView: UITableViewController {
         if section == 0{
             return 0
         }
-        return 4 //magazines.count
+        return magazines.count
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat{
@@ -132,11 +167,11 @@ class InitialMagazineSelectionView: UITableViewController {
         cell.mImage.layer.borderWidth = 0.25
         cell.mImage.layer.borderColor = Style.textLightColor.CGColor
         
-        //cell.mTitle.text = (magazines[indexPath.row].objectForKey("name") as? String)! + " >"
+        cell.mTitle.text = magazines[indexPath.row].name! + ">"    //(magazines[indexPath.row].objectForKey("name") as? String)! + " >"
         cell.mTitle.textColor = Style.textStrongColor
         //        cell.textLabel?.font = UIFont.boldSystemFontOfSize(16.0)
         
-        //cell.mDescription.text = magazines[indexPath.row].objectForKey("description") as? String
+        cell.mDescription.text = magazines[indexPath.row].desc
         cell.mDescription.textColor = Style.textStrongColor
         
         cell.follow.layer.cornerRadius = 6 //cell.follow.frame.size.width / 2;

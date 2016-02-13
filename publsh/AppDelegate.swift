@@ -20,30 +20,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-        /*
-        Parse.setApplicationId("dboMn73kG989FKBy6SAN1heJ6pRfzqDmS4sBwCbx", clientKey:"exCRvWXWK6dVUm3Skg3Nd8EcD6VNQL2i9oIAIyzt")
-                PFFacebookUtils.initializeFacebookWithApplicationLaunchOptions(launchOptions);
-*/
-        //window?.tintColor = Style.buttonsColor
-        
-        
-        // Override point for customization after application launch.
-        let credentialProvider = AWSCognitoCredentialsProvider(regionType: Constants.COGNITO_REGIONTYPE, identityPoolId: Constants.COGNITO_IDENTITY_POOL_ID)
-        
-        let configuration = AWSServiceConfiguration(
-            region: Constants.COGNITO_REGIONTYPE,
-            credentialsProvider: credentialProvider)
-        
-        
-        AWSServiceManager.defaultServiceManager().defaultServiceConfiguration = configuration
-        
         UINavigationBar.appearance().translucent = false
         UINavigationBar.appearance().barTintColor = Style.navigationBarBackgroundColor
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
-
-        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
-        
+        AmazonClientManager.sharedInstance.application(application, didFinishLaunchingWithOptions: launchOptions)
+     
         let mainStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         var initialViewController: UIViewController
