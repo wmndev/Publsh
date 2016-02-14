@@ -23,6 +23,11 @@ struct Constants {
     static let COGNITO_REGIONTYPE = AWSRegionType.USEast1
     static let COGNITO_IDENTITY_POOL_ID = "us-east-1:4faf0986-319c-4172-ac1b-b325f50f17e2"
     
+    
+    //S3 - Buckets
+    
+    static let S3_PROFILE_BUCKET = "publsh.profiles"
+    
     // MARK: Optional: Enable Facebook Login
     
     /**
@@ -88,5 +93,6 @@ struct Constants {
     static let COGNITO_PUSH_NOTIF = "CognitoPushNotification"
     static let GOOGLE_CLIENT_SCOPE = "https://www.googleapis.com/auth/userinfo.profile"
     static let GOOGLE_OIDC_SCOPE = "openid"
+    
     
 }

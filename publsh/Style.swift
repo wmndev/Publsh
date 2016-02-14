@@ -10,13 +10,20 @@ import Foundation
 
 struct Style{
     
-    static var navigationBarBackgroundColor = colorWithHexString("#2980B9")
+    static var navigationBarBackgroundColor = colorWithHexString("#0F3057")//2980B9
+    
     static var textColorWhite = colorWithHexString("#FFFFFF")
+    
     static var viewBackgroundColor = colorWithHexString("#FFFFFF")
+    
     static var strongCellBackgroundColor = colorWithHexString("#34495E")
+    
     static var textStrongColor = colorWithHexString("#2C3E50")
+    
     static var textLightColor = colorWithHexString("#95A5A6")
+    
     static var approvalColor = colorWithHexString("#1ABC9C")
+    
     static var controllerColor = colorWithHexString("#2980B9")
     
 }

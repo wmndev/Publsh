@@ -138,7 +138,7 @@ class AmazonClientManager : NSObject {
                 }
             }
             return task
-        }.continueWithBlock(self.completionHandler!)
+            }.continueWithBlock(self.completionHandler!)
     }
     
     func initializeClients(logins: [NSObject : AnyObject]?) -> AWSTask? {
@@ -195,7 +195,8 @@ class AmazonClientManager : NSObject {
         }
     }
     
-    func fbLogin() {
+    func fbLogin(completionHandler: AWSContinuationBlock) {
+        self.completionHandler = completionHandler
         if FBSDKAccessToken.currentAccessToken() != nil {
             self.completeFBLogin()
         } else {

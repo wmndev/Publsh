@@ -14,30 +14,6 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
     @IBOutlet var facebookLoginButton: FBSDKLoginButton!
     let permissions = ["public_profile"]
     
-    //    @IBAction func connectWithFacebook(sender: AnyObject) {
-    //        if PFUser.currentUser() != nil{
-    //            self.performSegueWithIdentifier("afterSignup", sender: self)
-    //        }else{
-    //            PFFacebookUtils.logInInBackgroundWithReadPermissions(permissions) { (user, error) -> Void in
-    //                if error != nil{
-    //                    print(error)
-    //                }
-    //                if user == nil{
-    //                    print("fuck!")
-    //                }else{
-    //                    if ((user?.isNew ) != nil){
-    //                        self.createFreshUser(user!)
-    //                    }
-    //                    self.loadData()
-    //                    self.performSegueWithIdentifier("afterSignup", sender: self)
-    //
-    //                }
-    //
-    //
-    //            }
-    //        }
-    //
-    //    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -48,10 +24,6 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
             facebookLoginButton.readPermissions = ["public_profile"]
             facebookLoginButton.delegate = self
         }
-        
-        //        if PFUser.currentUser() != nil{
-        //            self.performSegueWithIdentifier("afterSignup", sender: self)
-        //        }
     }
     
     
@@ -60,7 +32,14 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
     }
     
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
-        AmazonClientManager.sharedInstance.fbLogin()
+        AmazonClientManager.sharedInstance.fbLogin{
+            (task) -> AnyObject? in
+            self.performSegueWithIdentifier("afterSignup", sender: self)
+            return nil
+        }
+        
+        loadFBUserData()
+        
         self.performSegueWithIdentifier("afterSignup", sender: self)
         print("segued due to login")
     }
@@ -73,24 +52,7 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
     }
     
     
-    //func createFreshUser(user: PFUser){
-//        let userStats = PFObject(className:"UserStats")
-//        userStats["userId"] = user.objectId
-//        userStats["numOfFollowers"] = 0
-//        userStats["numOfFollowing"] = 0
-//        userStats["numOfMagazines"] = 0
-//        userStats["numOfActivityActions"] = 0
-//        do{
-//            try userStats.save()
-//        }catch{print("issue with saving to user stats")}
-    //}
-    
-//    override func viewWillAppear(animated: Bool) {
-//        self.loadData()
-//    }
-    
-    
-    func loadData(){
+    func loadFBUserData(){
         let graphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, name, gender"])
         graphRequest.startWithCompletionHandler( {
             
@@ -104,39 +66,24 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
                 
                 print(result)
                 
-                //                PFUser.currentUser()?["gender"] = result["gender"]
-                //                PFUser.currentUser()?["name"] = result["name"]
-                //                PFUser.currentUser()?["facebookId"] = result["id"]
-                //
-                //
-                //                do{
-                //                    try PFUser.currentUser()?.save()
-                //                }catch{
-                //                    print("error")
-                //                }
-                //
-                //
-                //                let userId = result["id"] as! String
-                //
-                //                let facebookProfilePictureUrl = "https://graph.facebook.com/" + userId + "/picture?type=large"
-                //
-                //                if let fbpicUrl = NSURL(string: facebookProfilePictureUrl) {
-                //
-                //                    if let data = NSData(contentsOfURL: fbpicUrl) {
-                //
-                //                        //self.userImage.image = UIImage(data: data)
-                //
-                //                        let imageFile:PFFile = PFFile(data: data)!
-                //                        
-                //                        PFUser.currentUser()?["image"] = imageFile
-                //                        
-                //                        do{
-                //                            try PFUser.currentUser()?.save()
-                //                        }catch{print("error2")}
-                //                        
-                //                    }
-                //                    
-                //                }
+                // PFUser.currentUser()?["gender"] = result["gender"]
+                // PFUser.currentUser()?["name"] = result["name"]
+                // PFUser.currentUser()?["facebookId"] = result["id"]
+                
+                let userId = result["id"] as! String
+                let fbProfileImgUrl = "https://graph.facebook.com/" + userId + "/picture?type=large"
+                if let fbpicUrl = NSURL(string: fbProfileImgUrl) {
+                    
+                    if let data = NSData(contentsOfURL: fbpicUrl) {
+                        
+                        
+                        let imageFile:UIImage = UIImage(data: data)!
+                        AWSS3Manager.uploadImage(imageFile, fileIdentity: userId)
+                        
+                        
+                    }
+                    
+                }
                 
             }
             

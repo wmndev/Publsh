@@ -34,6 +34,7 @@
 		0FD206101C6C611C00325AC1 /* DeveloperAuthenticatedIdentityProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD2060C1C6C611C00325AC1 /* DeveloperAuthenticatedIdentityProvider.m */; };
 		0FD206111C6C611C00325AC1 /* DeveloperAuthenticationClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD2060E1C6C611C00325AC1 /* DeveloperAuthenticationClient.m */; };
 		0FD206141C6D85C700325AC1 /* Magazine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD206131C6D85C700325AC1 /* Magazine.swift */; };
+		0FD206171C70333900325AC1 /* AWSS3Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD206161C70333900325AC1 /* AWSS3Manager.swift */; };
 		B35A2BFAAF3473886F764EED /* libPods-publsh.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A3C5F2883D73C44DA5F1E23 /* libPods-publsh.a */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +72,7 @@
 		0FD2060D1C6C611C00325AC1 /* DeveloperAuthenticationClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeveloperAuthenticationClient.h; sourceTree = "<group>"; };
 		0FD2060E1C6C611C00325AC1 /* DeveloperAuthenticationClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeveloperAuthenticationClient.m; sourceTree = "<group>"; };
 		0FD206131C6D85C700325AC1 /* Magazine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Magazine.swift; sourceTree = "<group>"; };
+		0FD206161C70333900325AC1 /* AWSS3Manager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AWSS3Manager.swift; sourceTree = "<group>"; };
 		0FF8354A1C2120A30036CCAD /* publsh-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "publsh-Bridging-Header.h"; sourceTree = "<group>"; };
 		A55D3AE16C229989278F6EF9 /* Pods-publsh.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-publsh.release.xcconfig"; path = "Pods/Target Support Files/Pods-publsh/Pods-publsh.release.xcconfig"; sourceTree = "<group>"; };
 		B412B357C3918DCF73F4C6FE /* Pods-publsh.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-publsh.debug.xcconfig"; path = "Pods/Target Support Files/Pods-publsh/Pods-publsh.debug.xcconfig"; sourceTree = "<group>"; };
@@ -111,11 +113,9 @@
 		0F5F09B51C211A4E009F5A7B /* publsh */ = {
 			isa = PBXGroup;
 			children = (
-				0FD206121C6D85AC00325AC1 /* Model */,
+				0FD206151C7032E000325AC1 /* AWS */,
 				0FD206081C6C610400325AC1 /* DeveloperAuthenticated */,
-				0FA4EBE41C6C541700EDD3BD /* AmazonClientManager.swift */,
 				0F1ED4FE1C55BABE006977F5 /* UserActivityTableViewController.swift */,
-				0FA4EBE61C6C560800EDD3BD /* Constants.swift */,
 				0F1445AD1C4DB71500FA0932 /* ProfileTableViewController.swift */,
 				0F1ED5001C55BF4D006977F5 /* Types.swift */,
 				0F1445AF1C4DBEF200FA0932 /* ProfileHeaderCell.swift */,
@@ -159,6 +159,17 @@
 				0FD206131C6D85C700325AC1 /* Magazine.swift */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		0FD206151C7032E000325AC1 /* AWS */ = {
+			isa = PBXGroup;
+			children = (
+				0FA4EBE61C6C560800EDD3BD /* Constants.swift */,
+				0FD206161C70333900325AC1 /* AWSS3Manager.swift */,
+				0FA4EBE41C6C541700EDD3BD /* AmazonClientManager.swift */,
+				0FD206121C6D85AC00325AC1 /* Model */,
+			);
+			name = AWS;
 			sourceTree = "<group>";
 		};
 		2399E998B55E5D64E19E2EE2 /* Frameworks */ = {
@@ -307,6 +318,7 @@
 				0F6E403D1C3B7940004411A1 /* MagazinesSelectionViewController.swift in Sources */,
 				0F1ED4FF1C55BABE006977F5 /* UserActivityTableViewController.swift in Sources */,
 				0F5F09BF1C211A4E009F5A7B /* publsh.xcdatamodeld in Sources */,
+				0FD206171C70333900325AC1 /* AWSS3Manager.swift in Sources */,
 				0F1ED5011C55BF4D006977F5 /* Types.swift in Sources */,
 				0FD206101C6C611C00325AC1 /* DeveloperAuthenticatedIdentityProvider.m in Sources */,
 				0F81DE181C49F5C100593379 /* MagazineIntroCell.swift in Sources */,

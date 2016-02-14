@@ -17,15 +17,12 @@ class InitialMagazineSelectionView: UITableViewController {
     
     @IBOutlet var skipDoneBarButton: UIBarButtonItem!
     @IBAction func donePressed(sender: AnyObject) {
-        
         let viewController:UIViewController = UIStoryboard(name: "App", bundle: nil).instantiateViewControllerWithIdentifier("appInit") as UIViewController
         self.presentViewController(viewController, animated: true, completion: nil)
-        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         if AmazonClientManager.sharedInstance.isConfigured() {
             // UIApplication.sharedApplication().networkActivityIndicatorVisible = true
