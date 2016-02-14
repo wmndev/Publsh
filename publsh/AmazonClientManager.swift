@@ -138,7 +138,7 @@ class AmazonClientManager : NSObject {
                 }
             }
             return task
-        }//.continueWithBlock(self.completionHandler!)
+        }.continueWithBlock(self.completionHandler!)
     }
     
     func initializeClients(logins: [NSObject : AnyObject]?) -> AWSTask? {

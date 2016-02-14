@@ -26,7 +26,21 @@ class InitialMagazineSelectionView: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        getTableRow()
+        
+        if AmazonClientManager.sharedInstance.isConfigured() {
+            // UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+            
+            AmazonClientManager.sharedInstance.resumeSession {
+                (task) -> AnyObject! in
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.activityIndicator.startAnimating()
+                    self.updateTableData()
+                }
+                return nil
+            }
+        }
+        
+        
         
         //navigation
         self.view.backgroundColor = Style.viewBackgroundColor
@@ -34,28 +48,16 @@ class InitialMagazineSelectionView: UITableViewController {
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationItem.title = "DISCOVER MAGAZINES"
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : Style.textColorWhite]
-        
-        
-        
+
         
         activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
         self.view.addSubview(activityIndicator)
         activityIndicator.frame = self.view.bounds
-        activityIndicator.startAnimating()
-        
-//        let query = PFQuery(className:"Magazine")
-//        query.findObjectsInBackgroundWithBlock { (data, error) -> Void in
-//            if error == nil {
-//                if let results = data {
-//                    self.magazines = results
-//                    activityIndicator.stopAnimating()
-//                }
-//                self.tableView.reloadData()
-//            }
-//        }
+    
+
     }
     
-    func getTableRow() {
+    func updateTableData() {
         let dynamoDBObjectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
         
         
@@ -147,7 +149,7 @@ class InitialMagazineSelectionView: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat{
-        return 110
+        return 90
     }
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
@@ -167,14 +169,14 @@ class InitialMagazineSelectionView: UITableViewController {
         cell.mImage.layer.borderWidth = 0.25
         cell.mImage.layer.borderColor = Style.textLightColor.CGColor
         
-        cell.mTitle.text = magazines[indexPath.row].name! + ">"    //(magazines[indexPath.row].objectForKey("name") as? String)! + " >"
+        cell.mTitle.text = magazines[indexPath.row].name! + " >"    //(magazines[indexPath.row].objectForKey("name") as? String)! + " >"
         cell.mTitle.textColor = Style.textStrongColor
         //        cell.textLabel?.font = UIFont.boldSystemFontOfSize(16.0)
         
         cell.mDescription.text = magazines[indexPath.row].desc
         cell.mDescription.textColor = Style.textStrongColor
         
-        cell.follow.layer.cornerRadius = 6 //cell.follow.frame.size.width / 2;
+//        cell.follow.layer.cornerRadius = 6
         cell.follow.clipsToBounds = true
         cell.follow.layer.borderWidth = 1
         cell.follow.layer.borderColor = Style.navigationBarBackgroundColor.CGColor;
