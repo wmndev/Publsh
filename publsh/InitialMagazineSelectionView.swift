@@ -24,6 +24,8 @@ class InitialMagazineSelectionView: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationItem.backBarButtonItem?.title = ""
+        
         if AmazonClientManager.sharedInstance.isConfigured() {
             // UIApplication.sharedApplication().networkActivityIndicatorVisible = true
             
@@ -45,6 +47,8 @@ class InitialMagazineSelectionView: UITableViewController {
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationItem.title = "DISCOVER MAGAZINES"
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : Style.textColorWhite]
+        
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
 
         
         activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
@@ -295,10 +299,12 @@ class InitialMagazineSelectionView: UITableViewController {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
-//        if segue.identifier == "showMagazineDetails"{
-//            let destinationVC = segue.destinationViewController as! MagazineTableViewController
-//            destinationVC.magazine = magazines[rowIndex]            
-//        }
+        if segue.identifier == "showMagazineDetails"{
+            let destinationVC = segue.destinationViewController as! MagazineTableViewController
+            destinationVC.navigationItem.title = magazines[rowIndex].name
+            
+            //destinationVC.magazine = magazines[rowIndex]
+        }
         
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.

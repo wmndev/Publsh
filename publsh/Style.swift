@@ -18,7 +18,7 @@ struct Style{
     
     static var strongCellBackgroundColor = colorWithHexString("#34495E")
     
-    static var textStrongColor = colorWithHexString("#2C3E50")
+    static var textStrongColor = colorWithHexString("#222222")
     
     static var textLightColor = colorWithHexString("#95A5A6")
     
@@ -26,56 +26,9 @@ struct Style{
     
     static var controllerColor = colorWithHexString("#2980B9")
     
+    static var defaultComponentColor = colorWithHexString("#00587A")
+    
 }
-
-//    
-//    
-//    struct header {
-//        static var sectionHeaderTitleFont = UIFont(name: "Helvetica-Bold", size: 15)
-//        static var sectionHeaderBackgroundColor = colorWithHexString("#FFFFFF")
-//        static var sectionHeaderAlpha: CGFloat = 0.95
-//    }
-//    
-//    
-//    struct pages {
-//        
-//        struct userProfile {
-//            static var leftLabelFontColor = colorWithHexString("#EB6E68")
-//            static var rightLabelFontColor = colorWithHexString("#F8BDBF")
-//            static var activityBulletColor = colorWithHexString("#EA5A51")
-//            static var activityBulletFontColor = colorWithHexString("#FFFFFF")
-//            static var userProfileImageBorderColor = colorWithHexString("#E8594B")
-//            
-//            
-//            
-//        }
-//    }
-//    
-//    struct general {
-//        static var lightFontColor =  colorWithHexString("#BBBBBB")
-//        static var cellBackgroundColor = colorWithHexString("#E35C49")
-//    }
-//    
-//    struct navigation {
-//        static var navigationBackgroundColor = colorWithHexString("#38393E")
-//        static var barButtonBackgroundColor = colorWithHexString("#3498db")
-//    }
-//
-//
-//    static var color = UIColor.whiteColor()
-//    
-//    
-//    
-//    static var detailsCellBackground = colorWithHexString("#FFFFFF")
-//
-//    
-//    
-//    struct controller {
-//        static var buttonsNotSelectedColor = colorWithHexString("#383732")
-//        static var buttonsNotSelectedBorderColor = colorWithHexString("#383732")        
-//        static var buttonSelected = colorWithHexString("#B8959B") //green
-//
-//    }
 
 
 

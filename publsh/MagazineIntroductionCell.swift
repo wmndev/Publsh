@@ -10,17 +10,18 @@ import UIKit
 
 class MagazineIntroductionCell: UITableViewCell {
 
-    @IBOutlet var userProfileImage: UIImageView!
     
-    @IBOutlet var collectedByLabel: UILabel!
-    @IBOutlet var username: UIButton!
-    @IBOutlet var magazineDescription: UILabel!
+    @IBOutlet var targetImage: UIImageView!
     
-    @IBOutlet var pickMagazineButton: UIButton!
-   
-    @IBAction func pickMagazinePressed(sender: AnyObject) {
-    }
-
+    @IBOutlet var magazinesBtn: UIButton!
+    
+    @IBOutlet var followersBtn: UIButton!
+    
+    @IBOutlet var followingBtn: UIButton!
+    
+    @IBOutlet var followBtn: UIButton!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

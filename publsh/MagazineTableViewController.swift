@@ -14,8 +14,18 @@ class MagazineTableViewController: UITableViewController {
 //    
 //    var user = PFUser()
     
+    var isMagazine = true
+    
+    
+    func initView(){
+      
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+       
         
         //tableView.rowHeight = UITableViewAutomaticDimension
         //tableView.estimatedRowHeight = 70.0
@@ -24,10 +34,15 @@ class MagazineTableViewController: UITableViewController {
         self.view.backgroundColor = Style.viewBackgroundColor
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
-//        self.navigationItem.title = magazine!.objectForKey("name") as? String
         self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : Style.textColorWhite]
-        
+
         //loadUser()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -53,21 +68,32 @@ class MagazineTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCellWithIdentifier("magazineHeaderCell", forIndexPath: indexPath) as! MagazineIntroductionCell
             
             cell.selectionStyle = UITableViewCellSelectionStyle.None
-            cell.contentView.backgroundColor = Style.strongCellBackgroundColor
             
-            cell.collectedByLabel.textColor = Style.textLightColor
+            craftMenuButton(cell.magazinesBtn,title: "17\nMagazines")
+            craftMenuButton(cell.followersBtn,title: "202\nFollowers")
+            craftMenuButton(cell.followingBtn,title: "5K\nFollowing")
+            
+            cell.followBtn.layer.borderWidth = 0.5
+            cell.followBtn.setTitleColor(Style.defaultComponentColor, forState: UIControlState.Normal)
+            cell.followBtn.layer.borderColor = Style.defaultComponentColor.CGColor
+            
+            //cell.contentView.backgroundColor = Style.strongCellBackgroundColor
+            
+            //cell.collectedByLabel.textColor = Style.textLightColor
             
             setUserProfileImage(cell)
-            cell.userProfileImage.layer.cornerRadius = cell.userProfileImage.frame.size.width / 2;
-            cell.userProfileImage.clipsToBounds = true
-            cell.userProfileImage.layer.borderWidth = 1
+            cell.targetImage.layer.cornerRadius = cell.targetImage.frame.size.width / 2;
+            cell.targetImage.clipsToBounds = true
+            cell.targetImage.layer.borderWidth = 0.25
             
-            cell.username.setTitleColor(Style.textColorWhite, forState: UIControlState.Normal)
+            //cell.username.setTitleColor(Style.textColorWhite, forState: UIControlState.Normal)
 //            cell.username.setTitle(user.objectForKey("name") as? String, forState: UIControlState.Normal)
             
 //            cell.magazineDescription.text = magazine!.objectForKey("description") as? String
-            cell.magazineDescription.textColor = Style.textLightColor
-            cell.magazineDescription.lineBreakMode = .ByWordWrapping
+            
+            
+            //cell.magazineDescription.textColor = Style.textLightColor
+            //cell.magazineDescription.lineBreakMode = .ByWordWrapping
             
             
             
@@ -79,6 +105,54 @@ class MagazineTableViewController: UITableViewController {
         }
         
         
+        
+    }
+    
+    
+    func craftMenuButton(button: UIButton, title: NSString){
+        
+        //------------------------
+        // 2 lines title
+        //------------------------
+        
+        //applying the line break mode
+        button.titleLabel?.lineBreakMode = NSLineBreakMode.ByWordWrapping;
+        button.titleLabel?.center = CGPointMake(30,22)
+        button.titleLabel?.textAlignment = NSTextAlignment.Center
+        
+        //var buttonText: NSString = "hello\nthere"
+        
+        //getting the range to separate the button title strings
+        let newlineRange: NSRange = title.rangeOfString("\n")
+        
+        //getting both substrings
+        var substring1: NSString = ""
+        var substring2: NSString = ""
+        
+        if(newlineRange.location != NSNotFound) {
+            substring1 = title.substringToIndex(newlineRange.location)
+            substring2 = title.substringFromIndex(newlineRange.location)
+        }
+        
+        //assigning diffrent fonts to both substrings
+        let titleAttributes : [String : AnyObject] = [NSFontAttributeName : UIFont(name: "Arial", size: 17.0)!,
+            NSForegroundColorAttributeName : Style.textStrongColor]
+        let subTitleAttributes : [String : AnyObject] = [NSFontAttributeName : UIFont(name: "Arial", size: 11.0)!,
+            NSForegroundColorAttributeName : Style.textLightColor]
+        
+        let attrString = NSMutableAttributedString(
+            string: substring1 as String,
+            attributes: titleAttributes)
+        
+        let attrString1 = NSMutableAttributedString(
+            string: substring2 as String,
+            attributes: subTitleAttributes)
+        
+        //appending both attributed strings
+        attrString.appendAttributedString(attrString1)
+        
+        //assigning the resultant attributed strings to the button
+        button.setAttributedTitle(attrString, forState: UIControlState.Normal)
         
     }
     
