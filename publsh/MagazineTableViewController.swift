@@ -10,23 +10,20 @@ import UIKit
 
 class MagazineTableViewController: UITableViewController {
     
-//    var magazine: PFObject?
-//    
-//    var user = PFUser()
+    var source = Types.Sources.NA
+    var object = NSObject()
     
-    var isMagazine = true
-    
-    
-    func initView(){
-      
+    func initView(object: NSObject, withTitle: String, source: Types.Sources){
+        self.object = object
+        self.source = source
+        self.navigationItem.title = withTitle
     }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-       
-        
+
         //tableView.rowHeight = UITableViewAutomaticDimension
         //tableView.estimatedRowHeight = 70.0
         
@@ -35,7 +32,7 @@ class MagazineTableViewController: UITableViewController {
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : Style.textColorWhite]
-
+        
         //loadUser()
     }
     
@@ -69,14 +66,30 @@ class MagazineTableViewController: UITableViewController {
             
             cell.selectionStyle = UITableViewCellSelectionStyle.None
             
-            craftMenuButton(cell.magazinesBtn,title: "17\nMagazines")
-            craftMenuButton(cell.followersBtn,title: "202\nFollowers")
-            craftMenuButton(cell.followingBtn,title: "5K\nFollowing")
+            if source == Types.Sources.MAGAZINE{
+                let magazine = object as! Magazine
+                craftMenuButton(cell.magazinesBtn,title: "\(magazine.statistics.objectForKey("contributers")!)\ncontributers")
+                craftMenuButton(cell.followersBtn,title: "\(magazine.statistics.objectForKey("sources")!)\nsources")
+                craftMenuButton(cell.followingBtn,title: "\(magazine.statistics.objectForKey("followers")!)\nfollowers")
+                
+                cell.createdByLabel.textColor = Style.textStrongColor
+                cell.usernameBtn.setTitleColor(Style.defaultComponentColor, forState: .Normal)
+                
+                cell.descLabel.text = magazine.desc!
+                
+            }else{
+                craftMenuButton(cell.magazinesBtn,title: "17\nmagazines")
+                craftMenuButton(cell.followersBtn,title: "202\nfollowers")
+                craftMenuButton(cell.followingBtn,title: "5K\nfollowing")
+            }
             
+            cell.followBtn.setTitle(source == Types.Sources.MAGAZINE ? "TAKE IT" : "FOLLOW", forState: UIControlState.Normal)
             cell.followBtn.layer.borderWidth = 0.5
-            cell.followBtn.setTitleColor(Style.defaultComponentColor, forState: UIControlState.Normal)
+            cell.followBtn.setTitleColor(Style.defaultComponentColor, forState: .Normal)
             cell.followBtn.layer.borderColor = Style.defaultComponentColor.CGColor
             
+            cell.descLabel.textColor = Style.textStrongLighterColor
+            cell.descLabel.lineBreakMode = .ByWordWrapping
             //cell.contentView.backgroundColor = Style.strongCellBackgroundColor
             
             //cell.collectedByLabel.textColor = Style.textLightColor
@@ -87,9 +100,9 @@ class MagazineTableViewController: UITableViewController {
             cell.targetImage.layer.borderWidth = 0.25
             
             //cell.username.setTitleColor(Style.textColorWhite, forState: UIControlState.Normal)
-//            cell.username.setTitle(user.objectForKey("name") as? String, forState: UIControlState.Normal)
+            //            cell.username.setTitle(user.objectForKey("name") as? String, forState: UIControlState.Normal)
             
-//            cell.magazineDescription.text = magazine!.objectForKey("description") as? String
+            //            cell.magazineDescription.text = magazine!.objectForKey("description") as? String
             
             
             //cell.magazineDescription.textColor = Style.textLightColor
@@ -152,23 +165,23 @@ class MagazineTableViewController: UITableViewController {
         attrString.appendAttributedString(attrString1)
         
         //assigning the resultant attributed strings to the button
-        button.setAttributedTitle(attrString, forState: UIControlState.Normal)
+        button.setAttributedTitle(attrString, forState: .Normal)
         
     }
     
     override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-//        if indexPath.row == 0{
-//            return UITableViewAutomaticDimension
-//        }
-//                    let screenWidth = tableView.frame.size.width
-//                   if indexPath.row == 0 {
-//        
-//                    if indexPath.section % 3 == 0{
-//                           return screenWidth * 0.75
-//                       }
-//                        return screenWidth
-//                    }
-//                    return screenWidth
+        //        if indexPath.row == 0{
+        //            return UITableViewAutomaticDimension
+        //        }
+        //                    let screenWidth = tableView.frame.size.width
+        //                   if indexPath.row == 0 {
+        //
+        //                    if indexPath.section % 3 == 0{
+        //                           return screenWidth * 0.75
+        //                       }
+        //                        return screenWidth
+        //                    }
+        //                    return screenWidth
         
         return 70.0
     }
@@ -176,26 +189,26 @@ class MagazineTableViewController: UITableViewController {
     func setUserProfileImage(cell: MagazineIntroductionCell){
         //get user image
         
-//        let userImageFile: PFFile = (user.objectForKey("image"))! as! PFFile
-//        
-//        userImageFile.getDataInBackgroundWithBlock { (data, error) -> Void in
-//            if(error == nil){
-//                cell.userProfileImage.image =  UIImage(data: data!)
-//            }
-//        }
+        //        let userImageFile: PFFile = (user.objectForKey("image"))! as! PFFile
+        //
+        //        userImageFile.getDataInBackgroundWithBlock { (data, error) -> Void in
+        //            if(error == nil){
+        //                cell.userProfileImage.image =  UIImage(data: data!)
+        //            }
+        //        }
     }
     
     
-//    func loadUser(){
-//        let userQuery = PFUser.query()
-//        userQuery?.whereKey("objectId", equalTo: magazine!.objectForKey("createdBy")!)
-//        
-//        do{
-//              user = try userQuery?.findObjects()[0] as! PFUser
-//        }catch{
-//            print("cant load user")
-//        }
-//    }
+    //    func loadUser(){
+    //        let userQuery = PFUser.query()
+    //        userQuery?.whereKey("objectId", equalTo: magazine!.objectForKey("createdBy")!)
+    //
+    //        do{
+    //              user = try userQuery?.findObjects()[0] as! PFUser
+    //        }catch{
+    //            print("cant load user")
+    //        }
+    //    }
     
     
     /*
@@ -242,7 +255,7 @@ class MagazineTableViewController: UITableViewController {
             //let destinationVC = segue.destinationViewController as! ProfileTableViewController
             //destinationVC.user = self.user
         }
-
+        
     }
     
     

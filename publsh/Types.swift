@@ -9,9 +9,8 @@
 import Foundation
 class Types{
  enum Sources : Int {
-    case MAGAZINES
-    case ACTIVITIES
-    case FOLLOWERS
+    case MAGAZINE
+    case USER
     case NA
 }
 }

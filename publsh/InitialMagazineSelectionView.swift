@@ -24,8 +24,6 @@ class InitialMagazineSelectionView: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.backBarButtonItem?.title = ""
-        
         if AmazonClientManager.sharedInstance.isConfigured() {
             // UIApplication.sharedApplication().networkActivityIndicatorVisible = true
             
@@ -39,15 +37,15 @@ class InitialMagazineSelectionView: UITableViewController {
             }
         }
         
-        
-        
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None;
+
         //navigation
         self.view.backgroundColor = Style.viewBackgroundColor
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationItem.title = "DISCOVER MAGAZINES"
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : Style.textColorWhite]
-        
+        self.navigationItem.backBarButtonItem?.title = ""
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
 
         
@@ -81,7 +79,7 @@ class InitialMagazineSelectionView: UITableViewController {
                 
                 dispatch_async(dispatch_get_main_queue(), {
                     self.activityIndicator.stopAnimating()
-                    
+                    self.tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine;
                     self.tableView.reloadData()
                 })
                 
@@ -296,14 +294,13 @@ class InitialMagazineSelectionView: UITableViewController {
     
     // MARK: - Navigation
     
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    // In a storyboard-based applicati  on, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         if segue.identifier == "showMagazineDetails"{
             let destinationVC = segue.destinationViewController as! MagazineTableViewController
-            destinationVC.navigationItem.title = magazines[rowIndex].name
-            
-            //destinationVC.magazine = magazines[rowIndex]
+            destinationVC.initView(magazines[rowIndex], withTitle: magazines[rowIndex].name!, source: Types.Sources.MAGAZINE)
+
         }
         
         // Get the new view controller using segue.destinationViewController.

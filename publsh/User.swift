@@ -1,39 +1,36 @@
 //
-//  Magazine.swift
+//  User.swift
 //  publsh
 //
-//  Created by Itai Wiseman on 2/11/16.
+//  Created by Itai Wiseman on 2/16/16.
 //  Copyright © 2016 iws. All rights reserved.
 //
 
 import Foundation
 
+class User: AWSDynamoDBObjectModel, AWSDynamoDBModeling{
 
-class Magazine: AWSDynamoDBObjectModel,AWSDynamoDBModeling{
-    
-    var id:NSNumber?  = 0
-    var userId:NSNumber? = 0
-    var score:NSNumber? = 0
-    var statistics : NSDictionary = [String : NSNumber]()
-
-    
+    var id:NSNumber?
     var name: String?
-    var desc: String?
+    var fb_id:String?
+    var email:String?
+    var gender:String?
+    var statistics : NSDictionary = [String : NSNumber]()
+    var about:String?
+    var socialPings : NSDictionary = [String : NSNumber]() //twitter, Facebook etc. addresses
     
+
     class func dynamoDBTableName() -> String! {
-        return "Magazine"
+        return "User"
     }
     
     class func hashKeyAttribute() -> String! {
         return "id"
     }
     
-    class func rangeKeyAttribute() -> String! {
-        return "userId"
-    }
     
     class func ignoreAttributes() -> Array<AnyObject>! {
-        return ["name","desc"]
+        return ["email", "gender", "socialPings", "about"]
     }
     
     //MARK: NSObjectProtocol hack
@@ -44,6 +41,5 @@ class Magazine: AWSDynamoDBObjectModel,AWSDynamoDBModeling{
     override func `self`() -> Self {
         return self
     }
-    
-    
+
 }

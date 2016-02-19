@@ -273,14 +273,6 @@
                                                 <constraint firstAttribute="width" constant="80" id="GuR-MI-N5u"/>
                                             </constraints>
                                         </imageView>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MS6-IO-5ib">
-                                            <rect key="frame" x="107" y="63" width="476" height="25"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="25" id="Qgp-nH-Cj5"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                            <state key="normal" title="FOLLOW"/>
-                                        </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yn4-No-91w">
                                             <rect key="frame" x="240" y="8" width="60" height="45"/>
                                             <constraints>
@@ -289,15 +281,6 @@
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                             <state key="normal" title="Magazines"/>
-                                        </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gle-aJ-p7b">
-                                            <rect key="frame" x="390" y="8" width="60" height="45"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="45" id="FIU-zC-Bmr"/>
-                                                <constraint firstAttribute="width" constant="60" id="Ida-9d-ExZ"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                            <state key="normal" title="Following"/>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Se8-Ag-UeX">
                                             <rect key="frame" x="315" y="8" width="60" height="45"/>
@@ -308,27 +291,79 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                             <state key="normal" title="Followers"/>
                                         </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gle-aJ-p7b">
+                                            <rect key="frame" x="390" y="8" width="60" height="45"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="45" id="FIU-zC-Bmr"/>
+                                                <constraint firstAttribute="width" constant="60" id="Ida-9d-ExZ"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <state key="normal" title="Following"/>
+                                        </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Created by" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gRO-85-krX">
+                                            <rect key="frame" x="8" y="102" width="80" height="24"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="80" id="mM9-oB-nIL"/>
+                                                <constraint firstAttribute="height" constant="24" id="wbq-W7-JS9"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="15"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" red="0.34778591990470886" green="0.0" blue="0.99708324670791626" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fnv-e7-RWa">
+                                            <rect key="frame" x="88" y="102" width="504" height="24"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="24" id="5F9-eN-9Cq"/>
+                                            </constraints>
+                                            <state key="normal" title="username"/>
+                                        </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q9x-aL-GBZ">
+                                            <rect key="frame" x="8" y="134" width="1026" height="60"/>
+                                            <string key="text">I have a design that implements a dark blue UITextField, as the placeholder text is by default a dark grey colour I can barely make out what the place holder text says.</string>
+                                            <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="14"/>
+                                            <color key="textColor" red="0.27450980392156865" green="0.27450980392156865" blue="0.27450980392156865" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MS6-IO-5ib">
+                                            <rect key="frame" x="107" y="63" width="476" height="25"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="25" id="Qgp-nH-Cj5"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="11"/>
+                                            <state key="normal" title="FOLLOW"/>
+                                        </button>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="fnv-e7-RWa" firstAttribute="leading" secondItem="gRO-85-krX" secondAttribute="trailing" id="15E-Qb-5UW"/>
+                                        <constraint firstItem="q9x-aL-GBZ" firstAttribute="leading" secondItem="1Ay-rv-ccw" secondAttribute="leading" constant="8" id="2YR-MD-qsg"/>
+                                        <constraint firstAttribute="trailing" secondItem="fnv-e7-RWa" secondAttribute="trailing" constant="8" id="87K-pQ-ZlI"/>
+                                        <constraint firstItem="fnv-e7-RWa" firstAttribute="top" secondItem="MS6-IO-5ib" secondAttribute="bottom" constant="14" id="8NH-aE-C4z"/>
+                                        <constraint firstAttribute="trailing" secondItem="q9x-aL-GBZ" secondAttribute="trailing" constant="8" id="8Tr-vK-4i8"/>
                                         <constraint firstItem="MS6-IO-5ib" firstAttribute="top" secondItem="1Ay-rv-ccw" secondAttribute="topMargin" constant="55" id="A9u-Lt-XNg"/>
                                         <constraint firstItem="Se8-Ag-UeX" firstAttribute="centerX" secondItem="MS6-IO-5ib" secondAttribute="centerX" id="KkA-pl-9tw"/>
+                                        <constraint firstItem="gRO-85-krX" firstAttribute="top" secondItem="tAP-39-4oG" secondAttribute="bottom" constant="14" id="LvP-bQ-tgv"/>
                                         <constraint firstAttribute="trailing" secondItem="MS6-IO-5ib" secondAttribute="trailing" constant="17" id="PI5-xM-bY6"/>
                                         <constraint firstItem="Se8-Ag-UeX" firstAttribute="leading" secondItem="yn4-No-91w" secondAttribute="trailing" constant="15" id="V3V-Ta-enl"/>
                                         <constraint firstItem="Se8-Ag-UeX" firstAttribute="top" secondItem="1Ay-rv-ccw" secondAttribute="top" constant="8" id="V6H-w0-Lo6"/>
                                         <constraint firstItem="Gle-aJ-p7b" firstAttribute="leading" secondItem="Se8-Ag-UeX" secondAttribute="trailing" constant="15" id="Y4k-bw-nT9"/>
                                         <constraint firstItem="Gle-aJ-p7b" firstAttribute="top" secondItem="1Ay-rv-ccw" secondAttribute="top" constant="8" id="c6f-Pd-tKy"/>
                                         <constraint firstItem="MS6-IO-5ib" firstAttribute="leading" secondItem="tAP-39-4oG" secondAttribute="trailing" constant="19" id="dvW-PQ-Wvm"/>
+                                        <constraint firstItem="q9x-aL-GBZ" firstAttribute="top" secondItem="fnv-e7-RWa" secondAttribute="bottom" constant="8" id="eZK-Wb-iPG"/>
+                                        <constraint firstItem="gRO-85-krX" firstAttribute="leading" secondItem="1Ay-rv-ccw" secondAttribute="leading" constant="8" id="fHR-Pg-POO"/>
                                         <constraint firstItem="tAP-39-4oG" firstAttribute="top" secondItem="1Ay-rv-ccw" secondAttribute="top" constant="8" id="njK-Bu-OWp"/>
                                         <constraint firstItem="tAP-39-4oG" firstAttribute="leading" secondItem="1Ay-rv-ccw" secondAttribute="leading" constant="8" id="rv7-gE-tfW"/>
                                         <constraint firstItem="yn4-No-91w" firstAttribute="top" secondItem="1Ay-rv-ccw" secondAttribute="top" constant="8" id="xtK-Lj-PY8"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="createdByLabel" destination="gRO-85-krX" id="Dng-d1-2Fa"/>
+                                    <outlet property="descLabel" destination="q9x-aL-GBZ" id="pfq-Ef-EZr"/>
                                     <outlet property="followBtn" destination="MS6-IO-5ib" id="tvf-ez-aab"/>
                                     <outlet property="followersBtn" destination="Se8-Ag-UeX" id="6MR-Wt-JFg"/>
                                     <outlet property="followingBtn" destination="Gle-aJ-p7b" id="I8L-mA-1Fb"/>
                                     <outlet property="magazinesBtn" destination="yn4-No-91w" id="hks-PX-mOO"/>
                                     <outlet property="targetImage" destination="tAP-39-4oG" id="EV2-t0-UtM"/>
+                                    <outlet property="usernameBtn" destination="fnv-e7-RWa" id="0xK-pV-12a"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="articleDetails" rowHeight="246" id="XDq-2Z-0OD">

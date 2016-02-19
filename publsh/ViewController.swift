@@ -53,7 +53,7 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     
     func loadFBUserData(){
-        let graphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, name, gender"])
+        let graphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, name, gender, email"])
         graphRequest.startWithCompletionHandler( {
             
             (connection, result, error) -> Void in
@@ -76,6 +76,31 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
                     
                     if let data = NSData(contentsOfURL: fbpicUrl) {
                         
+                        //save to dynamoDb
+                        let user = User.self()
+                        user.fb_id = result["id"] as! String
+                        user.id = 2000000
+                        user.gender = result["gender"] as? String
+                        user.name = result["name"] as! String
+                        user.email = result["email"] as? String
+                        
+                        let statistics : [String : NSNumber] = ["magazines" : 0,
+                            "followers" : 0, "following" : 0]
+                        
+                        user.statistics = statistics
+                        
+                        let insertValues = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
+                        
+                        insertValues.save(user) .continueWithBlock({ (task: AWSTask!) -> AnyObject! in
+                            if ((task.error) != nil) {
+                                print("Failed")
+                                print("Error: \(task.error)")
+                            }
+                            if ((task.result) != nil){
+                                print("Something happened")
+                            }
+                            return nil
+                        })
                         
                         let imageFile:UIImage = UIImage(data: data)!
                         AWSS3Manager.uploadImage(imageFile, fileIdentity: userId)

@@ -18,6 +18,8 @@ struct Style{
     
     static var strongCellBackgroundColor = colorWithHexString("#34495E")
     
+    static var textStrongLighterColor = colorWithHexString("#464646")
+    
     static var textStrongColor = colorWithHexString("#222222")
     
     static var textLightColor = colorWithHexString("#95A5A6")

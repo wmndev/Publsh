@@ -21,6 +21,11 @@ class MagazineIntroductionCell: UITableViewCell {
     
     @IBOutlet var followBtn: UIButton!
     
+    @IBOutlet var createdByLabel: UILabel!
+    
+    @IBOutlet var usernameBtn: UIButton!
+    
+    @IBOutlet var descLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

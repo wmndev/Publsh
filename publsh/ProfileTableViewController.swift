@@ -257,21 +257,21 @@ class ProfileTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.row > 1 {
             
-            switch(indexPath.row){
-            case 2:
-                source = Types.Sources.MAGAZINES
-                break
-            case 3:
-                source = Types.Sources.ACTIVITIES
-                break
-            case 4:
-                source = Types.Sources.FOLLOWERS
-                break
-            default:
-                source = Types.Sources.NA
-                break
-                
-            }
+//            switch(indexPath.row){
+//            case 2:
+//                source = Types.Sources.MAGAZINES
+//                break
+//            case 3:
+//                source = Types.Sources.ACTIVITIES
+//                break
+//            case 4:
+//                source = Types.Sources.FOLLOWERS
+//                break
+//            default:
+//                source = Types.Sources.NA
+//                break
+//                
+//            }
             
             self.performSegueWithIdentifier("profileDDL", sender: self)
         }
