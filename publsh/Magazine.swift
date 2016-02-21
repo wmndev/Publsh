@@ -12,28 +12,28 @@ import Foundation
 class Magazine: AWSDynamoDBObjectModel,AWSDynamoDBModeling{
     
     var id:NSNumber?  = 0
-    var userId:NSNumber? = 0
+    var createdBy:NSNumber? = 0
     var score:NSNumber? = 0
     var statistics : NSDictionary = [String : NSNumber]()
-
-    
+    var content : NSDictionary = [NSNumber : NSSet]()
     var name: String?
     var desc: String?
+    var types:NSSet?
     
     class func dynamoDBTableName() -> String! {
         return "Magazine"
     }
     
     class func hashKeyAttribute() -> String! {
-        return "id"
+        return "name"
     }
     
     class func rangeKeyAttribute() -> String! {
-        return "userId"
+        return "createdBy"
     }
     
     class func ignoreAttributes() -> Array<AnyObject>! {
-        return ["name","desc"]
+        return ["desc", "types", "content"]
     }
     
     //MARK: NSObjectProtocol hack
@@ -45,5 +45,8 @@ class Magazine: AWSDynamoDBObjectModel,AWSDynamoDBModeling{
         return self
     }
     
-    
 }
+
+//class Article: AWSDynamoDBObjectModel,AWSDynamoDBModeling{
+//
+//}
