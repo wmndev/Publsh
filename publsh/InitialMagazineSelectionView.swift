@@ -230,7 +230,7 @@ class InitialMagazineSelectionView: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         rowIndex = indexPath.row
-        self.performSegueWithIdentifier("showMagazineDetails", sender: self)
+        self.performSegueWithIdentifier("showSelectedObject", sender: self)
     }
     
     
@@ -297,8 +297,8 @@ class InitialMagazineSelectionView: UITableViewController {
     // In a storyboard-based applicati  on, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
-        if segue.identifier == "showMagazineDetails"{
-            let destinationVC = segue.destinationViewController as! MagazineTableViewController
+        if segue.identifier == "showSelectedObject"{
+            let destinationVC = segue.destinationViewController as! SelectedObjectViewController
             destinationVC.initView(magazines[rowIndex], withTitle: magazines[rowIndex].name!, source: Types.Sources.MAGAZINE)
 
         }

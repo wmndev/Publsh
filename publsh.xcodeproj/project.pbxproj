@@ -24,12 +24,13 @@
 		0F5F09CC1C211CF3009F5A7B /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 0F5F09CB1C211CF3009F5A7B /* Podfile */; };
 		0F69DCEC1C2654FA0074A52C /* FirstSignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F69DCEB1C2654FA0074A52C /* FirstSignupViewController.swift */; };
 		0F6E403D1C3B7940004411A1 /* MagazinesSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6E403C1C3B7940004411A1 /* MagazinesSelectionViewController.swift */; };
+		0F732DED1C7A9D9C001A7A4F /* ObjectHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F732DEC1C7A9D9C001A7A4F /* ObjectHeaderCell.swift */; };
 		0F81DE181C49F5C100593379 /* MagazineIntroCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F81DE171C49F5C100593379 /* MagazineIntroCell.swift */; };
 		0F81DE1A1C4A01E500593379 /* MagazineIntroDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F81DE191C4A01E500593379 /* MagazineIntroDetails.swift */; };
-		0F863CF91C5C869800BF8325 /* MagazineTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F863CF81C5C869800BF8325 /* MagazineTableViewController.swift */; };
-		0F863CFB1C5C890900BF8325 /* MagazineIntroductionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F863CFA1C5C890900BF8325 /* MagazineIntroductionCell.swift */; };
+		0F863CF91C5C869800BF8325 /* SelectedObjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F863CF81C5C869800BF8325 /* SelectedObjectViewController.swift */; };
 		0FA4EBE51C6C541700EDD3BD /* AmazonClientManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA4EBE41C6C541700EDD3BD /* AmazonClientManager.swift */; };
 		0FA4EBE71C6C560800EDD3BD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA4EBE61C6C560800EDD3BD /* Constants.swift */; };
+		0FB59A8B1C7A8D920078437C /* ObjectSubtitleViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB59A8A1C7A8D920078437C /* ObjectSubtitleViewCell.swift */; };
 		0FB6BAF11C65AF5A00BE0100 /* App.Storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FB6BAF01C65AF5A00BE0100 /* App.Storyboard */; };
 		0FD2060F1C6C611C00325AC1 /* Crypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD2060A1C6C611C00325AC1 /* Crypto.m */; };
 		0FD206101C6C611C00325AC1 /* DeveloperAuthenticatedIdentityProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD2060C1C6C611C00325AC1 /* DeveloperAuthenticatedIdentityProvider.m */; };
@@ -61,12 +62,13 @@
 		0F5F09CB1C211CF3009F5A7B /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		0F69DCEB1C2654FA0074A52C /* FirstSignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstSignupViewController.swift; sourceTree = "<group>"; };
 		0F6E403C1C3B7940004411A1 /* MagazinesSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagazinesSelectionViewController.swift; sourceTree = "<group>"; };
+		0F732DEC1C7A9D9C001A7A4F /* ObjectHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectHeaderCell.swift; sourceTree = "<group>"; };
 		0F81DE171C49F5C100593379 /* MagazineIntroCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagazineIntroCell.swift; sourceTree = "<group>"; };
 		0F81DE191C4A01E500593379 /* MagazineIntroDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagazineIntroDetails.swift; sourceTree = "<group>"; };
-		0F863CF81C5C869800BF8325 /* MagazineTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagazineTableViewController.swift; sourceTree = "<group>"; };
-		0F863CFA1C5C890900BF8325 /* MagazineIntroductionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagazineIntroductionCell.swift; sourceTree = "<group>"; };
+		0F863CF81C5C869800BF8325 /* SelectedObjectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedObjectViewController.swift; sourceTree = "<group>"; };
 		0FA4EBE41C6C541700EDD3BD /* AmazonClientManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AmazonClientManager.swift; sourceTree = "<group>"; };
 		0FA4EBE61C6C560800EDD3BD /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		0FB59A8A1C7A8D920078437C /* ObjectSubtitleViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectSubtitleViewCell.swift; sourceTree = "<group>"; };
 		0FB6BAF01C65AF5A00BE0100 /* App.Storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = App.Storyboard; sourceTree = "<group>"; };
 		0FD206091C6C611C00325AC1 /* Crypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Crypto.h; sourceTree = "<group>"; };
 		0FD2060A1C6C611C00325AC1 /* Crypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Crypto.m; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				0FD206151C7032E000325AC1 /* AWS */,
 				0FD206081C6C610400325AC1 /* DeveloperAuthenticated */,
 				0F1ED4FE1C55BABE006977F5 /* UserActivityTableViewController.swift */,
+				0F732DEC1C7A9D9C001A7A4F /* ObjectHeaderCell.swift */,
 				0F1445AD1C4DB71500FA0932 /* ProfileTableViewController.swift */,
 				0F1445AF1C4DBEF200FA0932 /* ProfileHeaderCell.swift */,
 				0F81DE171C49F5C100593379 /* MagazineIntroCell.swift */,
@@ -130,8 +133,8 @@
 				0F5F09B81C211A4E009F5A7B /* ViewController.swift */,
 				0F5F09BA1C211A4E009F5A7B /* Main.storyboard */,
 				0FB6BAF01C65AF5A00BE0100 /* App.Storyboard */,
-				0F863CF81C5C869800BF8325 /* MagazineTableViewController.swift */,
-				0F863CFA1C5C890900BF8325 /* MagazineIntroductionCell.swift */,
+				0FB59A8A1C7A8D920078437C /* ObjectSubtitleViewCell.swift */,
+				0F863CF81C5C869800BF8325 /* SelectedObjectViewController.swift */,
 				0F81DE191C4A01E500593379 /* MagazineIntroDetails.swift */,
 				0F6E403C1C3B7940004411A1 /* MagazinesSelectionViewController.swift */,
 				0F69DCEB1C2654FA0074A52C /* FirstSignupViewController.swift */,
@@ -328,9 +331,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0F863CF91C5C869800BF8325 /* MagazineTableViewController.swift in Sources */,
+				0F863CF91C5C869800BF8325 /* SelectedObjectViewController.swift in Sources */,
 				0F6E403D1C3B7940004411A1 /* MagazinesSelectionViewController.swift in Sources */,
 				0F1ED4FF1C55BABE006977F5 /* UserActivityTableViewController.swift in Sources */,
+				0F732DED1C7A9D9C001A7A4F /* ObjectHeaderCell.swift in Sources */,
 				0F5F09BF1C211A4E009F5A7B /* publsh.xcdatamodeld in Sources */,
 				0FD206171C70333900325AC1 /* AWSS3Manager.swift in Sources */,
 				0F1ED5011C55BF4D006977F5 /* Types.swift in Sources */,
@@ -340,9 +344,9 @@
 				0F81DE1A1C4A01E500593379 /* MagazineIntroDetails.swift in Sources */,
 				0FD206141C6D85C700325AC1 /* Magazine.swift in Sources */,
 				0FA4EBE51C6C541700EDD3BD /* AmazonClientManager.swift in Sources */,
-				0F863CFB1C5C890900BF8325 /* MagazineIntroductionCell.swift in Sources */,
 				0F1B01DF1C4756CB00EA0E94 /* InitialMagazineSelectionView.swift in Sources */,
 				0F5F09B91C211A4E009F5A7B /* ViewController.swift in Sources */,
+				0FB59A8B1C7A8D920078437C /* ObjectSubtitleViewCell.swift in Sources */,
 				0F1445AE1C4DB71500FA0932 /* ProfileTableViewController.swift in Sources */,
 				0F1445B21C4DE43100FA0932 /* Style.swift in Sources */,
 				0F1B01E11C47597C00EA0E94 /* CostumHeaderCell.swift in Sources */,

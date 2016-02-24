@@ -44,6 +44,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.window?.makeKeyAndVisible()
         
+        AWSLogger.defaultLogger().logLevel = .Verbose
+        
         return true
     }
     

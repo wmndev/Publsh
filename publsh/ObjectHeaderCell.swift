@@ -1,31 +1,23 @@
 //
-//  MagazineIntroductionCell.swift
+//  ObjectHeaderCell.swift
 //  publsh
 //
-//  Created by Itai Wiseman on 1/30/16.
+//  Created by Itai Wiseman on 2/21/16.
 //  Copyright © 2016 iws. All rights reserved.
 //
 
 import UIKit
 
-class MagazineIntroductionCell: UITableViewCell {
-
+class ObjectHeaderCell: UITableViewCell {
+    
     
     @IBOutlet var targetImage: UIImageView!
     
-    @IBOutlet var magazinesBtn: UIButton!
-    
-    @IBOutlet var followersBtn: UIButton!
-    
+    @IBOutlet var totalBtn: UIButton!
+
     @IBOutlet var followingBtn: UIButton!
-    
+    @IBOutlet var followersBtn: UIButton!
     @IBOutlet var followBtn: UIButton!
-    
-    @IBOutlet var createdByLabel: UILabel!
-    
-    @IBOutlet var usernameBtn: UIButton!
-    
-    @IBOutlet var descLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

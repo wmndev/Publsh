@@ -47,6 +47,32 @@ class Magazine: AWSDynamoDBObjectModel,AWSDynamoDBModeling{
     
 }
 
-//class Article: AWSDynamoDBObjectModel,AWSDynamoDBModeling{
-//
-//}
+class Article: AWSDynamoDBObjectModel,AWSDynamoDBModeling{
+    var sourceId:NSNumber?
+    var articleId:NSNumber?
+    var img:String?
+    var link:String?
+    var title:String?
+    
+    
+    class func dynamoDBTableName() -> String! {
+        return "FeedContent"
+    }
+    
+    class func hashKeyAttribute() -> String! {
+        return "sourceId"
+    }
+    
+    class func rangeKeyAttribute() -> String! {
+        return "articleId"
+    }
+    
+    //MARK: NSObjectProtocol hack
+    override func isEqual(object: AnyObject?) -> Bool {
+        return super.isEqual(object)
+    }
+    
+    override func `self`() -> Self {
+        return self
+    }
+}

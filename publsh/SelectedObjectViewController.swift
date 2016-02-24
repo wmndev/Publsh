@@ -8,24 +8,28 @@
 
 import UIKit
 
-class MagazineTableViewController: UITableViewController {
+class SelectedObjectViewController: UITableViewController {
     
     var source = Types.Sources.NA
     var object = NSObject()
+    var data:[AnyObject]?
+    
     
     func initView(object: NSObject, withTitle: String, source: Types.Sources){
         self.object = object
         self.source = source
         self.navigationItem.title = withTitle
+        
+        getLinkedData()
     }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
-        //tableView.rowHeight = UITableViewAutomaticDimension
-        //tableView.estimatedRowHeight = 70.0
+        
+        tableView.rowHeight = UITableViewAutomaticDimension
+        // tableView.estimatedRowHeight = 70.0
         
         //navigation
         self.view.backgroundColor = Style.viewBackgroundColor
@@ -54,6 +58,50 @@ class MagazineTableViewController: UITableViewController {
         return 1
     }
     
+    //    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat{
+    //        if indexPath.row == 0{
+    //            return UITableViewAutomaticDimension
+    //        }
+    //        return 50.0
+    //    }
+    
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
+        return 96.0
+    }
+    
+    
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let cell = tableView.dequeueReusableCellWithIdentifier("objectHeaderCell") as! ObjectHeaderCell
+        
+        cell.selectionStyle = UITableViewCellSelectionStyle.None
+        
+        if source == Types.Sources.MAGAZINE{
+            let magazine = object as! Magazine
+            craftMenuButton(cell.totalBtn,title: "\(magazine.statistics.objectForKey("contributers")!)\ncontributers")
+            craftMenuButton(cell.followersBtn,title: "\(magazine.statistics.objectForKey("sources")!)\nsources")
+            craftMenuButton(cell.followingBtn,title: "\(magazine.statistics.objectForKey("followers")!)\nfollowers")
+            
+            
+            
+        }else{
+            craftMenuButton(cell.totalBtn,title: "17\nmagazines")
+            craftMenuButton(cell.followersBtn,title: "202\nfollowers")
+            craftMenuButton(cell.followingBtn,title: "5K\nfollowing")
+        }
+        
+        cell.followBtn.setTitle(source == Types.Sources.MAGAZINE ? "TAKE IT" : "FOLLOW", forState: UIControlState.Normal)
+        cell.followBtn.layer.borderWidth = 1
+        cell.followBtn.setTitleColor(Style.defaultComponentColor, forState: .Normal)
+        cell.followBtn.layer.borderColor = Style.defaultComponentColor.CGColor
+        
+        setUserProfileImage(cell)
+        cell.targetImage.layer.cornerRadius = cell.targetImage.frame.size.width / 2;
+        cell.targetImage.clipsToBounds = true
+        cell.targetImage.layer.borderWidth = 0.25
+        
+        return cell
+    }
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return 2
@@ -62,42 +110,31 @@ class MagazineTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.row == 0{
-            let cell = tableView.dequeueReusableCellWithIdentifier("magazineHeaderCell", forIndexPath: indexPath) as! MagazineIntroductionCell
+            let cell = tableView.dequeueReusableCellWithIdentifier("objectSubtitleCell", forIndexPath: indexPath) as! ObjectSubtitleViewCell
             
             cell.selectionStyle = UITableViewCellSelectionStyle.None
             
             if source == Types.Sources.MAGAZINE{
                 let magazine = object as! Magazine
-                craftMenuButton(cell.magazinesBtn,title: "\(magazine.statistics.objectForKey("contributers")!)\ncontributers")
-                craftMenuButton(cell.followersBtn,title: "\(magazine.statistics.objectForKey("sources")!)\nsources")
-                craftMenuButton(cell.followingBtn,title: "\(magazine.statistics.objectForKey("followers")!)\nfollowers")
                 
-                cell.createdByLabel.textColor = Style.textStrongColor
-                cell.usernameBtn.setTitleColor(Style.defaultComponentColor, forState: .Normal)
+                cell.username.setTitleColor(Style.defaultComponentColor, forState: .Normal)
                 
-                cell.descLabel.text = magazine.desc!
+                cell.desc.text = magazine.desc!
+                cell.desc.textColor = Style.textStrongLighterColor
+                cell.desc.lineBreakMode = .ByWordWrapping
                 
             }else{
-                craftMenuButton(cell.magazinesBtn,title: "17\nmagazines")
-                craftMenuButton(cell.followersBtn,title: "202\nfollowers")
-                craftMenuButton(cell.followingBtn,title: "5K\nfollowing")
+                
             }
             
-            cell.followBtn.setTitle(source == Types.Sources.MAGAZINE ? "TAKE IT" : "FOLLOW", forState: UIControlState.Normal)
-            cell.followBtn.layer.borderWidth = 0.5
-            cell.followBtn.setTitleColor(Style.defaultComponentColor, forState: .Normal)
-            cell.followBtn.layer.borderColor = Style.defaultComponentColor.CGColor
             
-            cell.descLabel.textColor = Style.textStrongLighterColor
-            cell.descLabel.lineBreakMode = .ByWordWrapping
+            
+            
             //cell.contentView.backgroundColor = Style.strongCellBackgroundColor
             
             //cell.collectedByLabel.textColor = Style.textLightColor
             
-            setUserProfileImage(cell)
-            cell.targetImage.layer.cornerRadius = cell.targetImage.frame.size.width / 2;
-            cell.targetImage.clipsToBounds = true
-            cell.targetImage.layer.borderWidth = 0.25
+            
             
             //cell.username.setTitleColor(Style.textColorWhite, forState: UIControlState.Normal)
             //            cell.username.setTitle(user.objectForKey("name") as? String, forState: UIControlState.Normal)
@@ -119,6 +156,53 @@ class MagazineTableViewController: UITableViewController {
         
         
         
+    }
+    
+    
+    func getLinkedData(){
+        if source == Types.Sources.MAGAZINE{
+            let magazine = object as! Magazine
+            
+            for  (srcId, artclIds) in magazine.content{
+                
+                let cond = AWSDynamoDBCondition()
+                
+                let nsarr = artclIds.allObjects as NSArray
+                
+                for arId in nsarr{
+                    let articleIdStr: String  = String(arId)
+                    
+                    let v1    = AWSDynamoDBAttributeValue();
+                    v1.N = articleIdStr
+                    cond.comparisonOperator = AWSDynamoDBComparisonOperator.EQ
+                    cond.attributeValueList = [ v1 ]
+                    let c = [ "articleId" : cond ]
+                    
+                    let sourceId = Int(srcId as! String)!
+                    
+                    self.query(sourceId , keyConditions:c).continueWithSuccessBlock({ (task: AWSTask!) -> AWSTask! in
+                        
+                        let results = task.result as! AWSDynamoDBPaginatedOutput
+                        for r in results.items {
+                            print(r)
+                        }
+                        return nil
+                    })
+                    
+                }
+            }
+            
+        }
+    }
+    
+    func query(hash: NSNumber, keyConditions:[NSObject:AnyObject]) -> AWSTask! {
+        let dynamoDBObjectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
+        
+        let exp = AWSDynamoDBQueryExpression()
+        exp.hashKeyValues      = hash
+        exp.rangeKeyConditions = keyConditions
+        
+        return dynamoDBObjectMapper.query(Article.self, expression: exp)
     }
     
     
@@ -170,23 +254,13 @@ class MagazineTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        //        if indexPath.row == 0{
-        //            return UITableViewAutomaticDimension
-        //        }
-        //                    let screenWidth = tableView.frame.size.width
-        //                   if indexPath.row == 0 {
-        //
-        //                    if indexPath.section % 3 == 0{
-        //                           return screenWidth * 0.75
-        //                       }
-        //                        return screenWidth
-        //                    }
-        //                    return screenWidth
-        
-        return 70.0
+        if indexPath.row == 0{
+            return 100.0
+        }
+        return 50.0
     }
     
-    func setUserProfileImage(cell: MagazineIntroductionCell){
+    func setUserProfileImage(cell: ObjectHeaderCell){
         //get user image
         
         //        let userImageFile: PFFile = (user.objectForKey("image"))! as! PFFile
