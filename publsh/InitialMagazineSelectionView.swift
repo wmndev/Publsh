@@ -83,50 +83,16 @@ class InitialMagazineSelectionView: UITableViewController {
                     self.tableView.reloadData()
                 })
                 
-
-                
             }
             
             return nil
         }
-        
-//        dynamoDBObjectMapper .load(Magazine.self, hashKey: 1000000, rangeKey: 2000000) .continueWithExecutor(AWSExecutor.mainThreadExecutor(), withBlock: { (task:AWSTask!) -> AnyObject! in
-//            if (task.error == nil) {
-//                if (task.result != nil) {
-//                    let tableRow = task.result as! Magazine
-//                    print(tableRow.id)
-//                    print(tableRow.userId)
-//                    print(tableRow.name)
-//                    print(tableRow.desc)
-//                    
-//                    
-//                    
-////                    self.hashKeyTextField.text = tableRow.UserId
-////                    self.rangeKeyTextField.text = tableRow.GameTitle
-////                    self.attribute1TextField.text = tableRow.TopScore?.stringValue
-////                    self.attribute2TextField.text = tableRow.Wins?.stringValue
-////                    self.attribute3TextField.text = tableRow.Losses?.stringValue
-//                }
-//            } else {
-//                print(task.error!)
-//                print("Error: \(task.error)")
-//                let alertController = UIAlertController(title: "Failed to get item from table.", message: task.error!.description, preferredStyle: UIAlertControllerStyle.Alert)
-//                let okAction = UIAlertAction(title: "OK56", style: UIAlertActionStyle.Cancel, handler: { (action:UIAlertAction) -> Void in
-//                })
-//                alertController.addAction(okAction)
-//                self.presentViewController(alertController, animated: true, completion: nil)
-//                
-//            }
-//            return nil
-//        }).continueWithBlock { (task) -> AnyObject? in
-//            return nil
-//        }
+
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        //navigationController?.hidesBarsOnSwipe = true
     }
     
     override func didReceiveMemoryWarning() {
@@ -168,14 +134,12 @@ class InitialMagazineSelectionView: UITableViewController {
         cell.mImage.layer.borderWidth = 0.25
         cell.mImage.layer.borderColor = Style.textLightColor.CGColor
         
-        cell.mTitle.text = magazines[indexPath.row].name! + " >"    //(magazines[indexPath.row].objectForKey("name") as? String)! + " >"
+        cell.mTitle.text = magazines[indexPath.row].name!
         cell.mTitle.textColor = Style.textStrongColor
-        //        cell.textLabel?.font = UIFont.boldSystemFontOfSize(16.0)
         
         cell.mDescription.text = magazines[indexPath.row].desc
         cell.mDescription.textColor = Style.textStrongColor
         
-//        cell.follow.layer.cornerRadius = 6
         cell.follow.clipsToBounds = true
         cell.follow.layer.borderWidth = 1
         cell.follow.layer.borderColor = Style.navigationBarBackgroundColor.CGColor;
@@ -184,38 +148,7 @@ class InitialMagazineSelectionView: UITableViewController {
         cell.filter1.setTitleColor(Style.textLightColor, forState: UIControlState.Normal)
         cell.filter2.setTitleColor(Style.textLightColor, forState: UIControlState.Normal)
         cell.filter3.setTitleColor(Style.textLightColor, forState: UIControlState.Normal)
-        
-        //        let cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "magazineCell")
-        //        cell.selectionStyle = UITableViewCellSelectionStyle.None
-        //
-        //        let image = UIImage(named: "sample.jpg")
-        //        let newImage = resizeImage(image!, toTheSize: CGSizeMake(60, 60))
-        //
-        //
-        //        cell.textLabel?.text = magazines[indexPath.row].objectForKey("name") as? String
-        //        cell.textLabel?.textColor = Style.textStrongColor
-        //        cell.textLabel?.font = UIFont.boldSystemFontOfSize(16.0)
-        //
-        //        cell.detailTextLabel?.text = magazines[indexPath.row].objectForKey("description") as? String
-        //        cell.detailTextLabel?.textColor = Style.textLightColor
-        //        cell.textLabel?.font = UIFont.boldSystemFontOfSize(14.0)
-        //        cell.detailTextLabel?.numberOfLines = 3
-        //
-        //
-        //        let accessoryButton = UIButton(frame: CGRectMake(0, 0, 36, 36))
-        //        accessoryButton.center = CGPointMake(18, 20)
-        //        accessoryButton.titleLabel!.textAlignment = NSTextAlignment.Center
-        //        accessoryButton.titleLabel!.font = UIFont.systemFontOfSize(20)
-        //        accessoryButton.setTitleColor(Style.navigationBarBackgroundColor, forState: UIControlState.Normal)
-        //        accessoryButton.setTitle("+", forState: UIControlState.Normal)
-        //
-        //        accessoryButton.layer.cornerRadius = accessoryButton.frame.size.width / 2;
-        //        accessoryButton.clipsToBounds = true
-        //        accessoryButton.layer.borderWidth = 1
-        //        accessoryButton.layer.borderColor = Style.navigationBarBackgroundColor.CGColor;
-        //        accessoryButton.addTarget(self, action: "addMagazineButtonTouched", forControlEvents: .TouchUpInside)
-        //
-        //        cell.accessoryView = accessoryButton
+
         
         return cell
     }
@@ -236,23 +169,6 @@ class InitialMagazineSelectionView: UITableViewController {
     
     func addMagazineButtonTouched(){
         
-    }
-    
-    func resizeImage(image:UIImage, toTheSize size:CGSize)->UIImage{
-        
-        
-        let scale = CGFloat(max(size.width/image.size.width,
-            size.height/image.size.height))
-        let width:CGFloat  = image.size.width * scale
-        let height:CGFloat = image.size.height * scale;
-        
-        let rr:CGRect = CGRectMake( 0, 0, width, height);
-        
-        UIGraphicsBeginImageContextWithOptions(size, false, 0);
-        image.drawInRect(rr)
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext();
-        return newImage
     }
     
     

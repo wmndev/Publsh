@@ -12,7 +12,7 @@ class SelectedObjectViewController: UITableViewController {
     
     var source = Types.Sources.NA
     var object = NSObject()
-    var data:[AnyObject]?
+    var data = [AnyObject]()
     
     
     func initView(object: NSObject, withTitle: String, source: Types.Sources){
@@ -27,24 +27,23 @@ class SelectedObjectViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.backgroundColor = Style.grayBackgroundColor
         
+        //for Auto cell height
         tableView.rowHeight = UITableViewAutomaticDimension
-        // tableView.estimatedRowHeight = 70.0
+        
+        
+        //register default cell
+        self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "clearCell")
         
         //navigation
-        self.view.backgroundColor = Style.viewBackgroundColor
+
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : Style.textColorWhite]
-        
-        //loadUser()
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        
-    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -54,67 +53,92 @@ class SelectedObjectViewController: UITableViewController {
     // MARK: - Table view data source
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
+        return 2
     }
     
-    //    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat{
-    //        if indexPath.row == 0{
-    //            return UITableViewAutomaticDimension
-    //        }
-    //        return 50.0
-    //    }
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat{
+        if indexPath.section == 0 && indexPath.row == 0 {
+            return UITableViewAutomaticDimension
+        }
+        return 50
+    }
+    
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
-        return 96.0
+        if section == 0{
+            return 96.0
+        } else{
+            return 15.0
+        }
     }
     
-    
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let cell = tableView.dequeueReusableCellWithIdentifier("objectHeaderCell") as! ObjectHeaderCell
-        
-        cell.selectionStyle = UITableViewCellSelectionStyle.None
-        
-        if source == Types.Sources.MAGAZINE{
-            let magazine = object as! Magazine
-            craftMenuButton(cell.totalBtn,title: "\(magazine.statistics.objectForKey("contributers")!)\ncontributers")
-            craftMenuButton(cell.followersBtn,title: "\(magazine.statistics.objectForKey("sources")!)\nsources")
-            craftMenuButton(cell.followingBtn,title: "\(magazine.statistics.objectForKey("followers")!)\nfollowers")
+        if section == 0{
+            let cell = tableView.dequeueReusableCellWithIdentifier("objectHeaderCell") as! ObjectHeaderCell
             
             
             
+            //cell.selectionStyle = UITableViewCellSelectionStyle.None
+            
+            if source == Types.Sources.MAGAZINE{
+                //cell.contentView.backgroundColor = Style.magazine.headerBackgroundColor
+                
+                let magazine = object as! Magazine
+                craftMenuButton(cell.totalBtn,title: "\(magazine.statistics.objectForKey("contributers")!)\nhelpers")
+                craftMenuButton(cell.followersBtn,title: "\(magazine.statistics.objectForKey("sources")!)\nsources")
+                craftMenuButton(cell.followingBtn,title: "\(magazine.statistics.objectForKey("followers")!)\nfollowers")
+                
+                
+                
+            }else{
+                //cell.contentView.backgroundColor = Style.user.headerBackgroundColor
+                
+                craftMenuButton(cell.totalBtn,title: "17\nmagazines")
+                craftMenuButton(cell.followersBtn,title: "202\nfollowers")
+                craftMenuButton(cell.followingBtn,title: "5K\nfollowing")
+            }
+            
+            cell.followBtn.setTitle(source == Types.Sources.MAGAZINE ? "TAKE IT" : "FOLLOW", forState: UIControlState.Normal)
+            cell.followBtn.layer.borderWidth = 1
+            cell.followBtn.setTitleColor(Style.defaultComponentColor, forState: .Normal)
+            cell.followBtn.layer.borderColor = Style.defaultComponentColor.CGColor
+            
+            setUserProfileImage(cell)
+            cell.targetImage.layer.cornerRadius = cell.targetImage.frame.size.width / 2;
+            cell.targetImage.clipsToBounds = true
+            cell.targetImage.layer.borderWidth = 1
+            cell.targetImage.layer.borderColor = Style.textColorWhite.CGColor
+            
+            return cell
         }else{
-            craftMenuButton(cell.totalBtn,title: "17\nmagazines")
-            craftMenuButton(cell.followersBtn,title: "202\nfollowers")
-            craftMenuButton(cell.followingBtn,title: "5K\nfollowing")
+            let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "clearCell")
+            cell.layer.backgroundColor = UIColor.clearColor().CGColor
+            
+            return cell
         }
-        
-        cell.followBtn.setTitle(source == Types.Sources.MAGAZINE ? "TAKE IT" : "FOLLOW", forState: UIControlState.Normal)
-        cell.followBtn.layer.borderWidth = 1
-        cell.followBtn.setTitleColor(Style.defaultComponentColor, forState: .Normal)
-        cell.followBtn.layer.borderColor = Style.defaultComponentColor.CGColor
-        
-        setUserProfileImage(cell)
-        cell.targetImage.layer.cornerRadius = cell.targetImage.frame.size.width / 2;
-        cell.targetImage.clipsToBounds = true
-        cell.targetImage.layer.borderWidth = 0.25
-        
-        return cell
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 2
+        if section == 0{
+            return 1
+        }else{
+            return data.count
+        }
     }
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if indexPath.row == 0{
+        if indexPath.section == 0 && indexPath.row == 0{
             let cell = tableView.dequeueReusableCellWithIdentifier("objectSubtitleCell", forIndexPath: indexPath) as! ObjectSubtitleViewCell
             
             cell.selectionStyle = UITableViewCellSelectionStyle.None
             
+            //cell.separatorInset = UIEdgeInsetsMake(0, cell.bounds.size.width, 0, 0)
+            
+            
             if source == Types.Sources.MAGAZINE{
+                //cell.contentView.backgroundColor = Style.magazine.headerBackgroundColor
+                
                 let magazine = object as! Magazine
                 
                 cell.username.setTitleColor(Style.defaultComponentColor, forState: .Normal)
@@ -124,38 +148,53 @@ class SelectedObjectViewController: UITableViewController {
                 cell.desc.lineBreakMode = .ByWordWrapping
                 
             }else{
+                //cell.contentView.backgroundColor = Style.user.headerBackgroundColor
+                
+            }
+            return cell
+            
+        }else{
+            let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "articleDetails")
+            
+            if source == Types.Sources.MAGAZINE{
+                
+                let article:Article = data[indexPath.row] as! Article
+                
+                cell.textLabel?.text = article.title
+                cell.textLabel?.font = UIFont(name: "Arial", size: 14.0)
+                cell.textLabel?.numberOfLines = 2
+                
+                let articleImage = resizeImage(UIImage(data: article.imageData!)!, toTheSize: CGSizeMake(40, 40))
+                
+                cell.imageView!.image = articleImage
+                cell.imageView!.frame = CGRectMake(0, 0, 40, 40)
+                cell.imageView!.layer.cornerRadius = 20
+                cell.imageView!.clipsToBounds = true
+                cell.imageView?.layer.masksToBounds = true
+                //cell.imageView!.layer.borderWidth = 1
+                
                 
             }
             
-            
-            
-            
-            //cell.contentView.backgroundColor = Style.strongCellBackgroundColor
-            
-            //cell.collectedByLabel.textColor = Style.textLightColor
-            
-            
-            
-            //cell.username.setTitleColor(Style.textColorWhite, forState: UIControlState.Normal)
-            //            cell.username.setTitle(user.objectForKey("name") as? String, forState: UIControlState.Normal)
-            
-            //            cell.magazineDescription.text = magazine!.objectForKey("description") as? String
-            
-            
-            //cell.magazineDescription.textColor = Style.textLightColor
-            //cell.magazineDescription.lineBreakMode = .ByWordWrapping
-            
-            
-            
-            
-            return cell
-        }else{
-            let cell =  UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "articleDetails")
             return cell
         }
+    }
+    
+    func resizeImage(image:UIImage, toTheSize size:CGSize)->UIImage{
         
         
+        let scale = CGFloat(max(size.width/image.size.width,
+            size.height/image.size.height))
+        let width:CGFloat  = image.size.width * scale
+        let height:CGFloat = image.size.height * scale;
         
+        let rr:CGRect = CGRectMake( 0, 0, width, height);
+        
+        UIGraphicsBeginImageContextWithOptions(size, false, 0);
+        image.drawInRect(rr)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext();
+        return newImage
     }
     
     
@@ -183,9 +222,18 @@ class SelectedObjectViewController: UITableViewController {
                     self.query(sourceId , keyConditions:c).continueWithSuccessBlock({ (task: AWSTask!) -> AWSTask! in
                         
                         let results = task.result as! AWSDynamoDBPaginatedOutput
-                        for r in results.items {
-                            print(r)
+                        for item in results.items {
+                            let article:Article = item as! Article
+                            article.imageData = NSData(contentsOfURL: NSURL(string: article.img!)!)
+                            
+                            self.data.append(item)
                         }
+                        
+                        
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.tableView.reloadData()
+                        })
+                        
                         return nil
                     })
                     
@@ -232,10 +280,10 @@ class SelectedObjectViewController: UITableViewController {
         }
         
         //assigning diffrent fonts to both substrings
-        let titleAttributes : [String : AnyObject] = [NSFontAttributeName : UIFont(name: "Arial", size: 17.0)!,
+        let titleAttributes : [String : AnyObject] = [NSFontAttributeName : UIFont(name: "Arial", size: 25.0)!,
             NSForegroundColorAttributeName : Style.textStrongColor]
-        let subTitleAttributes : [String : AnyObject] = [NSFontAttributeName : UIFont(name: "Arial", size: 11.0)!,
-            NSForegroundColorAttributeName : Style.textLightColor]
+        let subTitleAttributes : [String : AnyObject] = [NSFontAttributeName : UIFont(name: "Arial", size: 12.0)!,
+            NSForegroundColorAttributeName : Style.textStrongLighterColor]
         
         let attrString = NSMutableAttributedString(
             string: substring1 as String,
@@ -257,69 +305,13 @@ class SelectedObjectViewController: UITableViewController {
         if indexPath.row == 0{
             return 100.0
         }
-        return 50.0
+        return 60.0
     }
     
     func setUserProfileImage(cell: ObjectHeaderCell){
-        //get user image
-        
-        //        let userImageFile: PFFile = (user.objectForKey("image"))! as! PFFile
-        //
-        //        userImageFile.getDataInBackgroundWithBlock { (data, error) -> Void in
-        //            if(error == nil){
-        //                cell.userProfileImage.image =  UIImage(data: data!)
-        //            }
-        //        }
     }
     
-    
-    //    func loadUser(){
-    //        let userQuery = PFUser.query()
-    //        userQuery?.whereKey("objectId", equalTo: magazine!.objectForKey("createdBy")!)
-    //
-    //        do{
-    //              user = try userQuery?.findObjects()[0] as! PFUser
-    //        }catch{
-    //            print("cant load user")
-    //        }
-    //    }
-    
-    
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-    // Return false if you do not want the specified item to be editable.
-    return true
-    }
-    */
-    
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-    if editingStyle == .Delete {
-    // Delete the row from the data source
-    tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-    } else if editingStyle == .Insert {
-    // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }
-    }
-    */
-    
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-    
-    }
-    */
-    
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-    // Return false if you do not want the item to be re-orderable.
-    return true
-    }
-    */
-    
+
     
     // MARK: - Navigation
     

@@ -53,6 +53,7 @@ class Article: AWSDynamoDBObjectModel,AWSDynamoDBModeling{
     var img:String?
     var link:String?
     var title:String?
+    var imageData:NSData?
     
     
     class func dynamoDBTableName() -> String! {

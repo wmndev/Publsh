@@ -10,13 +10,21 @@ import Foundation
 
 struct Style{
     
-    static var navigationBarBackgroundColor = colorWithHexString("#0F3057")//2980B9
+    struct magazine {
+        static var headerBackgroundColor = colorWithHexString("#2B81BA")
+    }
+    
+    struct user {
+        static var headerBackgroundColor = colorWithHexString("#13C7AE")
+    }
+    
+    static var navigationBarBackgroundColor = colorWithHexString("#2FA3D6")
     
     static var textColorWhite = colorWithHexString("#FFFFFF")
     
     static var viewBackgroundColor = colorWithHexString("#FFFFFF")
     
-    static var strongCellBackgroundColor = colorWithHexString("#34495E")
+    static var strongCellBackgroundColor = colorWithHexString("#34495E") //--
     
     static var textStrongLighterColor = colorWithHexString("#464646")
     
@@ -29,6 +37,8 @@ struct Style{
     static var controllerColor = colorWithHexString("#2980B9")
     
     static var defaultComponentColor = colorWithHexString("#00587A")
+    
+    static var grayBackgroundColor = colorWithHexString("#F2F2F2")
     
 }
 

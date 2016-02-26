@@ -24,6 +24,7 @@
 		0F5F09CC1C211CF3009F5A7B /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 0F5F09CB1C211CF3009F5A7B /* Podfile */; };
 		0F69DCEC1C2654FA0074A52C /* FirstSignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F69DCEB1C2654FA0074A52C /* FirstSignupViewController.swift */; };
 		0F6E403D1C3B7940004411A1 /* MagazinesSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6E403C1C3B7940004411A1 /* MagazinesSelectionViewController.swift */; };
+		0F6F38431C7D611700306197 /* graydot.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6F38421C7D611700306197 /* graydot.png */; };
 		0F732DED1C7A9D9C001A7A4F /* ObjectHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F732DEC1C7A9D9C001A7A4F /* ObjectHeaderCell.swift */; };
 		0F81DE181C49F5C100593379 /* MagazineIntroCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F81DE171C49F5C100593379 /* MagazineIntroCell.swift */; };
 		0F81DE1A1C4A01E500593379 /* MagazineIntroDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F81DE191C4A01E500593379 /* MagazineIntroDetails.swift */; };
@@ -62,6 +63,7 @@
 		0F5F09CB1C211CF3009F5A7B /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		0F69DCEB1C2654FA0074A52C /* FirstSignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstSignupViewController.swift; sourceTree = "<group>"; };
 		0F6E403C1C3B7940004411A1 /* MagazinesSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagazinesSelectionViewController.swift; sourceTree = "<group>"; };
+		0F6F38421C7D611700306197 /* graydot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = graydot.png; sourceTree = "<group>"; };
 		0F732DEC1C7A9D9C001A7A4F /* ObjectHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectHeaderCell.swift; sourceTree = "<group>"; };
 		0F81DE171C49F5C100593379 /* MagazineIntroCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagazineIntroCell.swift; sourceTree = "<group>"; };
 		0F81DE191C4A01E500593379 /* MagazineIntroDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagazineIntroDetails.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 				0F81DE191C4A01E500593379 /* MagazineIntroDetails.swift */,
 				0F6E403C1C3B7940004411A1 /* MagazinesSelectionViewController.swift */,
 				0F69DCEB1C2654FA0074A52C /* FirstSignupViewController.swift */,
+				0F6F38421C7D611700306197 /* graydot.png */,
 				0F5F09C01C211A4E009F5A7B /* Assets.xcassets */,
 				0F5F09C21C211A4E009F5A7B /* LaunchScreen.storyboard */,
 				0F5F09C51C211A4E009F5A7B /* Info.plist */,
@@ -270,6 +273,7 @@
 			files = (
 				0F5F09C41C211A4E009F5A7B /* LaunchScreen.storyboard in Resources */,
 				0FB6BAF11C65AF5A00BE0100 /* App.Storyboard in Resources */,
+				0F6F38431C7D611700306197 /* graydot.png in Resources */,
 				0F5F09C11C211A4E009F5A7B /* Assets.xcassets in Resources */,
 				0F5F09CC1C211CF3009F5A7B /* Podfile in Resources */,
 				0F5F09BC1C211A4E009F5A7B /* Main.storyboard in Resources */,
