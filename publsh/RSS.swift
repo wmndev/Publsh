@@ -66,47 +66,4 @@ class RssFeed : AWSDynamoDBObjectModel, AWSDynamoDBModeling{
     override func `self`() -> Self {
         return self
     }
-    
-
-    
-    
-    
-    /*
-    var id:NSNumber?  = 0
-    var userId:NSNumber? = 0
-    var score:NSNumber? = 0
-    var statistics : NSDictionary = [String : NSNumber]()
-    
-    
-    var name: String?
-    var desc: String?
-    
-    class func dynamoDBTableName() -> String! {
-    return "Magazine"
-    }
-    
-    class func hashKeyAttribute() -> String! {
-    return "id"
-    }
-    
-    class func rangeKeyAttribute() -> String! {
-    return "userId"
-    }
-    
-    class func ignoreAttributes() -> Array<AnyObject>! {
-    return ["name","desc"]
-    }
-    
-    //MARK: NSObjectProtocol hack
-    override func isEqual(object: AnyObject?) -> Bool {
-    return super.isEqual(object)
-    }
-    
-    override func `self`() -> Self {
-    return self
-    }
-*/
-    
-    
-    
 }

@@ -277,11 +277,11 @@ class ProfileTableViewController: UITableViewController {
         }
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let destinationVC = segue.destinationViewController as! UserActivityTableViewController
-        destinationVC.userId = userId
-        destinationVC.source = source
-    }
+//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//        let destinationVC = segue.destinationViewController as! UserActivityTableViewController
+//        destinationVC.userId = userId
+//        destinationVC.source = source
+//    }
     
     
     /*

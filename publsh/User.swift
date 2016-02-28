@@ -11,10 +11,11 @@ import Foundation
 class User: AWSDynamoDBObjectModel, AWSDynamoDBModeling{
 
     var id:NSNumber?
-    var name: String?
+    var username: String?
     var fb_id:String?
     var email:String?
     var gender:String?
+    var fullName:String?
     var statistics : NSDictionary = [String : NSNumber]()
     var about:String?
     var socialPings : NSDictionary = [String : NSNumber]() //twitter, Facebook etc. addresses

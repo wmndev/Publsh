@@ -12,8 +12,6 @@
 		0F1445B01C4DBEF200FA0932 /* ProfileHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1445AF1C4DBEF200FA0932 /* ProfileHeaderCell.swift */; };
 		0F1445B21C4DE43100FA0932 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1445B11C4DE43100FA0932 /* Style.swift */; };
 		0F1B01DF1C4756CB00EA0E94 /* InitialMagazineSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1B01DE1C4756CB00EA0E94 /* InitialMagazineSelectionView.swift */; };
-		0F1B01E11C47597C00EA0E94 /* CostumHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1B01E01C47597C00EA0E94 /* CostumHeaderCell.swift */; };
-		0F1ED4FF1C55BABE006977F5 /* UserActivityTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1ED4FE1C55BABE006977F5 /* UserActivityTableViewController.swift */; };
 		0F1ED5011C55BF4D006977F5 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1ED5001C55BF4D006977F5 /* Types.swift */; };
 		0F5F09B71C211A4E009F5A7B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5F09B61C211A4E009F5A7B /* AppDelegate.swift */; };
 		0F5F09B91C211A4E009F5A7B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5F09B81C211A4E009F5A7B /* ViewController.swift */; };
@@ -22,8 +20,6 @@
 		0F5F09C11C211A4E009F5A7B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F5F09C01C211A4E009F5A7B /* Assets.xcassets */; };
 		0F5F09C41C211A4E009F5A7B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F5F09C21C211A4E009F5A7B /* LaunchScreen.storyboard */; };
 		0F5F09CC1C211CF3009F5A7B /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 0F5F09CB1C211CF3009F5A7B /* Podfile */; };
-		0F69DCEC1C2654FA0074A52C /* FirstSignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F69DCEB1C2654FA0074A52C /* FirstSignupViewController.swift */; };
-		0F6E403D1C3B7940004411A1 /* MagazinesSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6E403C1C3B7940004411A1 /* MagazinesSelectionViewController.swift */; };
 		0F6F38431C7D611700306197 /* graydot.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6F38421C7D611700306197 /* graydot.png */; };
 		0F732DED1C7A9D9C001A7A4F /* ObjectHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F732DEC1C7A9D9C001A7A4F /* ObjectHeaderCell.swift */; };
 		0F81DE181C49F5C100593379 /* MagazineIntroCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F81DE171C49F5C100593379 /* MagazineIntroCell.swift */; };
@@ -49,8 +45,6 @@
 		0F1445AF1C4DBEF200FA0932 /* ProfileHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileHeaderCell.swift; sourceTree = "<group>"; };
 		0F1445B11C4DE43100FA0932 /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		0F1B01DE1C4756CB00EA0E94 /* InitialMagazineSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialMagazineSelectionView.swift; sourceTree = "<group>"; };
-		0F1B01E01C47597C00EA0E94 /* CostumHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CostumHeaderCell.swift; sourceTree = "<group>"; };
-		0F1ED4FE1C55BABE006977F5 /* UserActivityTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserActivityTableViewController.swift; sourceTree = "<group>"; };
 		0F1ED5001C55BF4D006977F5 /* Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 		0F5F09B31C211A4E009F5A7B /* publsh.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = publsh.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F5F09B61C211A4E009F5A7B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -61,8 +55,6 @@
 		0F5F09C31C211A4E009F5A7B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0F5F09C51C211A4E009F5A7B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0F5F09CB1C211CF3009F5A7B /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		0F69DCEB1C2654FA0074A52C /* FirstSignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstSignupViewController.swift; sourceTree = "<group>"; };
-		0F6E403C1C3B7940004411A1 /* MagazinesSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagazinesSelectionViewController.swift; sourceTree = "<group>"; };
 		0F6F38421C7D611700306197 /* graydot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = graydot.png; sourceTree = "<group>"; };
 		0F732DEC1C7A9D9C001A7A4F /* ObjectHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectHeaderCell.swift; sourceTree = "<group>"; };
 		0F81DE171C49F5C100593379 /* MagazineIntroCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagazineIntroCell.swift; sourceTree = "<group>"; };
@@ -124,13 +116,11 @@
 				0FD206181C72C9EE00325AC1 /* Utilities */,
 				0FD206151C7032E000325AC1 /* AWS */,
 				0FD206081C6C610400325AC1 /* DeveloperAuthenticated */,
-				0F1ED4FE1C55BABE006977F5 /* UserActivityTableViewController.swift */,
 				0F732DEC1C7A9D9C001A7A4F /* ObjectHeaderCell.swift */,
 				0F1445AD1C4DB71500FA0932 /* ProfileTableViewController.swift */,
 				0F1445AF1C4DBEF200FA0932 /* ProfileHeaderCell.swift */,
 				0F81DE171C49F5C100593379 /* MagazineIntroCell.swift */,
 				0F1B01DE1C4756CB00EA0E94 /* InitialMagazineSelectionView.swift */,
-				0F1B01E01C47597C00EA0E94 /* CostumHeaderCell.swift */,
 				0F5F09B61C211A4E009F5A7B /* AppDelegate.swift */,
 				0F5F09B81C211A4E009F5A7B /* ViewController.swift */,
 				0F5F09BA1C211A4E009F5A7B /* Main.storyboard */,
@@ -138,8 +128,6 @@
 				0FB59A8A1C7A8D920078437C /* ObjectSubtitleViewCell.swift */,
 				0F863CF81C5C869800BF8325 /* SelectedObjectViewController.swift */,
 				0F81DE191C4A01E500593379 /* MagazineIntroDetails.swift */,
-				0F6E403C1C3B7940004411A1 /* MagazinesSelectionViewController.swift */,
-				0F69DCEB1C2654FA0074A52C /* FirstSignupViewController.swift */,
 				0F6F38421C7D611700306197 /* graydot.png */,
 				0F5F09C01C211A4E009F5A7B /* Assets.xcassets */,
 				0F5F09C21C211A4E009F5A7B /* LaunchScreen.storyboard */,
@@ -336,8 +324,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0F863CF91C5C869800BF8325 /* SelectedObjectViewController.swift in Sources */,
-				0F6E403D1C3B7940004411A1 /* MagazinesSelectionViewController.swift in Sources */,
-				0F1ED4FF1C55BABE006977F5 /* UserActivityTableViewController.swift in Sources */,
 				0F732DED1C7A9D9C001A7A4F /* ObjectHeaderCell.swift in Sources */,
 				0F5F09BF1C211A4E009F5A7B /* publsh.xcdatamodeld in Sources */,
 				0FD206171C70333900325AC1 /* AWSS3Manager.swift in Sources */,
@@ -353,13 +339,11 @@
 				0FB59A8B1C7A8D920078437C /* ObjectSubtitleViewCell.swift in Sources */,
 				0F1445AE1C4DB71500FA0932 /* ProfileTableViewController.swift in Sources */,
 				0F1445B21C4DE43100FA0932 /* Style.swift in Sources */,
-				0F1B01E11C47597C00EA0E94 /* CostumHeaderCell.swift in Sources */,
 				0F1445B01C4DBEF200FA0932 /* ProfileHeaderCell.swift in Sources */,
 				0F00F7B11C76CF73007377BA /* RSS.swift in Sources */,
 				0F5F09B71C211A4E009F5A7B /* AppDelegate.swift in Sources */,
 				0FD2061A1C7424AE00325AC1 /* User.swift in Sources */,
 				0FD206111C6C611C00325AC1 /* DeveloperAuthenticationClient.m in Sources */,
-				0F69DCEC1C2654FA0074A52C /* FirstSignupViewController.swift in Sources */,
 				0FA4EBE71C6C560800EDD3BD /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

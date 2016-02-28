@@ -27,7 +27,7 @@ class SelectedObjectViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = Style.grayBackgroundColor
+        self.view.backgroundColor = Style.lightGrayBackgroundColor
         
         //for Auto cell height
         tableView.rowHeight = UITableViewAutomaticDimension

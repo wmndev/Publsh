@@ -24,6 +24,9 @@ class InitialMagazineSelectionView: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //for Auto cell height
+        tableView.rowHeight = UITableViewAutomaticDimension
+        
         if AmazonClientManager.sharedInstance.isConfigured() {
             // UIApplication.sharedApplication().networkActivityIndicatorVisible = true
             
@@ -100,7 +103,15 @@ class InitialMagazineSelectionView: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    // MARK: - Table view data source
+    // MARK: - Table view data source'
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat{
+        return UITableViewAutomaticDimension
+    }
+    
+    override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 90.0
+    }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 2
@@ -113,9 +124,9 @@ class InitialMagazineSelectionView: UITableViewController {
         return magazines.count
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat{
-        return 90
-    }
+//    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat{
+//        return 66
+//    }
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
         if section == 0{
@@ -137,17 +148,36 @@ class InitialMagazineSelectionView: UITableViewController {
         cell.mTitle.text = magazines[indexPath.row].name!
         cell.mTitle.textColor = Style.textStrongColor
         
-        cell.mDescription.text = magazines[indexPath.row].desc
-        cell.mDescription.textColor = Style.textStrongColor
         
         cell.follow.clipsToBounds = true
-        cell.follow.layer.borderWidth = 1
         cell.follow.layer.borderColor = Style.navigationBarBackgroundColor.CGColor;
-        cell.follow.setTitleColor(Style.navigationBarBackgroundColor, forState: UIControlState.Normal)
+        cell.follow.setTitleColor(Style.textColorWhite, forState: UIControlState.Normal)
+        cell.follow.layer.backgroundColor = Style.strongGrayBackgroundColor.CGColor
+        cell.follow.layer.cornerRadius = (cell.follow.frame.size.width) / 2;
+        cell.follow.clipsToBounds = true
         
-        cell.filter1.setTitleColor(Style.textLightColor, forState: UIControlState.Normal)
-        cell.filter2.setTitleColor(Style.textLightColor, forState: UIControlState.Normal)
-        cell.filter3.setTitleColor(Style.textLightColor, forState: UIControlState.Normal)
+        
+        cell.category1.backgroundColor = Style.category.green
+        cell.category1.textColor = Style.textColorWhite
+        cell.category1.text = "sport"
+        
+        cell.category1.clipsToBounds = true
+        cell.category1.layer.cornerRadius = 7
+        
+        
+        cell.category2.backgroundColor = Style.category.orange
+        cell.category2.textColor = Style.textColorWhite
+        cell.category2.text = "fashion"
+        
+        cell.category2.clipsToBounds = true
+        cell.category2.layer.cornerRadius = 7
+        
+        cell.category3.backgroundColor = Style.category.lightBlue
+        cell.category3.textColor = Style.textColorWhite
+        cell.category3.text = "motors"
+        
+        cell.category3.clipsToBounds = true
+        cell.category3.layer.cornerRadius = 7
 
         
         return cell

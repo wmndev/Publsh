@@ -12,8 +12,7 @@ import UIKit
 class ViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     @IBOutlet var facebookLoginButton: FBSDKLoginButton!
-    let permissions = ["public_profile"]
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -64,12 +63,6 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
                 
             } else if let result = result {
                 
-                print(result)
-                
-                // PFUser.currentUser()?["gender"] = result["gender"]
-                // PFUser.currentUser()?["name"] = result["name"]
-                // PFUser.currentUser()?["facebookId"] = result["id"]
-                
                 let userId = result["id"] as! String
                 let fbProfileImgUrl = "https://graph.facebook.com/" + userId + "/picture?type=large"
                 if let fbpicUrl = NSURL(string: fbProfileImgUrl) {
@@ -78,10 +71,10 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
                         
                         //save to dynamoDb
                         let user = User.self()
-                        user.fb_id = result["id"] as! String
+                        user.fb_id = result["id"] as? String
                         user.id = 2000000
                         user.gender = result["gender"] as? String
-                        user.name = result["name"] as! String
+                        user.fullName = result["name"] as? String
                         user.email = result["email"] as? String
                         
                         let statistics : [String : NSNumber] = ["magazines" : 0,
@@ -104,8 +97,6 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
                         
                         let imageFile:UIImage = UIImage(data: data)!
                         AWSS3Manager.uploadImage(imageFile, fileIdentity: userId)
-                        
-                        
                     }
                     
                 }

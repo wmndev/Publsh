@@ -18,7 +18,14 @@ struct Style{
         static var headerBackgroundColor = colorWithHexString("#13C7AE")
     }
     
-    static var navigationBarBackgroundColor = colorWithHexString("#2FA3D6")
+    struct category{
+        static var orange = colorWithHexString("#EDBB71")
+        static var lightBlue = colorWithHexString("#84D2F0")
+        static var green = colorWithHexString("#74CC98")
+        static var gray = colorWithHexString("#DEE2E5")
+    }
+    
+    static var navigationBarBackgroundColor = colorWithHexString("#2EA1D7")
     
     static var textColorWhite = colorWithHexString("#FFFFFF")
     
@@ -38,7 +45,8 @@ struct Style{
     
     static var defaultComponentColor = colorWithHexString("#00587A")
     
-    static var grayBackgroundColor = colorWithHexString("#F2F2F2")
+    static var lightGrayBackgroundColor = colorWithHexString("#F2F2F2")
+    static var strongGrayBackgroundColor = colorWithHexString("#DEE2E5")
     
 }
 

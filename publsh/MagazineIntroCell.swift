@@ -12,15 +12,12 @@ class MagazineIntroCell: UITableViewCell {
     
     @IBOutlet var mImage: UIImageView!
     @IBOutlet var mTitle: UILabel!
-    @IBOutlet var mDescription: UILabel!
-    @IBOutlet var filter1: UIButton!
-    @IBOutlet var filter2: UIButton!
-    @IBOutlet var filter3: UIButton!
     @IBOutlet var follow: UIButton!
     
-    @IBAction func filter(sender: AnyObject) {
-        
-    }
+    @IBOutlet var category1: UILabel!
+    @IBOutlet var category2: UILabel!
+    @IBOutlet var category3: UILabel!
+    
     
     @IBAction func addMagazine(sender: AnyObject) {
     }

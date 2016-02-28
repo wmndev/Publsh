@@ -19,6 +19,10 @@ class Magazine: AWSDynamoDBObjectModel,AWSDynamoDBModeling{
     var name: String?
     var desc: String?
     var types:NSSet?
+    var contributers:NSSet?
+    var sources:NSSet?
+    var followers:NSSet?
+    
     
     class func dynamoDBTableName() -> String! {
         return "Magazine"
