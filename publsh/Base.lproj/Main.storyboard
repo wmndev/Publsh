@@ -48,33 +48,12 @@
                                     </mask>
                                 </variation>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X2I-VC-7mG">
-                                <rect key="frame" x="20" y="261" width="560" height="55"/>
-                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="55" id="3rF-IF-XpJ"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="292" id="AUX-CM-cHE"/>
-                                    <constraint firstAttribute="height" constant="55" id="Sag-Yw-fQ7"/>
-                                    <constraint firstAttribute="height" constant="55" id="TAq-GU-1tL"/>
-                                    <constraint firstAttribute="width" constant="560" id="vFa-0l-AEi"/>
-                                </constraints>
-                                <state key="normal" title="Connect with Publsh">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="TAq-GU-1tL"/>
-                                    </mask>
-                                </variation>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.95686274509803926" green="0.95686274509803926" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="X2I-VC-7mG" firstAttribute="leading" secondItem="OFA-Cj-kjV" secondAttribute="leading" id="2Ip-b3-aQd"/>
                             <constraint firstItem="nms-Xc-A6D" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="73" id="6li-X1-maT"/>
                             <constraint firstItem="OFA-Cj-kjV" firstAttribute="centerX" secondItem="nms-Xc-A6D" secondAttribute="centerX" id="CsK-ch-zCL"/>
-                            <constraint firstItem="X2I-VC-7mG" firstAttribute="top" secondItem="OFA-Cj-kjV" secondAttribute="bottom" constant="-2" id="DXO-wi-68k"/>
                             <constraint firstAttribute="trailingMargin" secondItem="nms-Xc-A6D" secondAttribute="trailing" constant="-20" id="Gkr-cX-t8u"/>
                             <constraint firstItem="OFA-Cj-kjV" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="YJV-Sl-OUg"/>
                             <constraint firstItem="OFA-Cj-kjV" firstAttribute="top" secondItem="nms-Xc-A6D" secondAttribute="bottom" constant="39" id="azb-7a-g2k"/>
@@ -92,7 +71,8 @@
                     </view>
                     <connections>
                         <outlet property="facebookLoginButton" destination="OFA-Cj-kjV" id="vPu-WL-Eay"/>
-                        <segue destination="rxF-1t-tmn" kind="show" identifier="afterSignup" id="zAU-6x-w5i"/>
+                        <outlet property="titleLbl" destination="nms-Xc-A6D" id="q9F-eZ-B4x"/>
+                        <segue destination="JeZ-Cz-j6r" kind="show" identifier="afterSignup" id="LVR-aO-3s6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -229,7 +209,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IBd-Bu-l0o" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1711" y="418"/>
+            <point key="canvasLocation" x="2585" y="418"/>
         </scene>
         <!--Selected Object View Controller-->
         <scene sceneID="aEw-BN-Gkq">
@@ -363,7 +343,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y4k-wo-NhF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1711" y="1145"/>
+            <point key="canvasLocation" x="1648" y="1199"/>
         </scene>
         <!--Table View Controller-->
         <scene sceneID="rOe-NM-WpH">
@@ -391,7 +371,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qnp-N5-EBK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2394" y="1145"/>
+            <point key="canvasLocation" x="2477" y="1199"/>
         </scene>
         <!--Magazines Selection View Controller-->
         <scene sceneID="H00-Ch-crP">
@@ -549,6 +529,72 @@
             </objects>
             <point key="canvasLocation" x="4430" y="-615"/>
         </scene>
+        <!--Welcome View Controller-->
+        <scene sceneID="QH1-0Q-nsf">
+            <objects>
+                <viewController storyboardIdentifier="WelcomeViewController" id="JeZ-Cz-j6r" customClass="WelcomeViewController" customModule="publsh" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="R5l-Oq-MyD"/>
+                        <viewControllerLayoutGuide type="bottom" id="QX4-I9-laa"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="baf-BC-7ws">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8rc-ht-chi">
+                                <rect key="frame" x="20" y="267" width="560" height="66"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="66" id="rYb-lr-TQS"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="55"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="And your username is..?" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BnI-vJ-krh">
+                                <rect key="frame" x="20" y="285" width="560" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="ZBl-NB-1AZ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ame-mV-22b">
+                                <rect key="frame" x="550" y="285" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="OP6-70-gqy"/>
+                                    <constraint firstAttribute="height" constant="30" id="zNs-vb-hi7"/>
+                                </constraints>
+                                <state key="normal" image="Checked"/>
+                                <connections>
+                                    <action selector="confirmTouched:" destination="JeZ-Cz-j6r" eventType="touchUpInside" id="WRx-7x-k2x"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="BnI-vJ-krh" firstAttribute="leading" secondItem="baf-BC-7ws" secondAttribute="leadingMargin" id="4dq-WR-wXy"/>
+                            <constraint firstItem="BnI-vJ-krh" firstAttribute="centerY" secondItem="baf-BC-7ws" secondAttribute="centerY" id="728-FZ-cb5"/>
+                            <constraint firstItem="BnI-vJ-krh" firstAttribute="centerX" secondItem="baf-BC-7ws" secondAttribute="centerX" id="7LA-vD-bMP"/>
+                            <constraint firstItem="Ame-mV-22b" firstAttribute="centerY" secondItem="baf-BC-7ws" secondAttribute="centerY" id="E53-Sf-mWC"/>
+                            <constraint firstAttribute="trailing" secondItem="8rc-ht-chi" secondAttribute="trailing" constant="20" id="PXI-N6-eHP"/>
+                            <constraint firstItem="8rc-ht-chi" firstAttribute="centerY" secondItem="baf-BC-7ws" secondAttribute="centerY" id="SC5-w8-BD2"/>
+                            <constraint firstItem="BnI-vJ-krh" firstAttribute="trailing" secondItem="baf-BC-7ws" secondAttribute="trailingMargin" id="YtE-xn-faf"/>
+                            <constraint firstItem="Ame-mV-22b" firstAttribute="trailing" secondItem="baf-BC-7ws" secondAttribute="trailingMargin" id="ZHx-7V-cxw"/>
+                            <constraint firstItem="8rc-ht-chi" firstAttribute="leading" secondItem="baf-BC-7ws" secondAttribute="leading" constant="20" id="fH0-Sn-lFP"/>
+                            <constraint firstItem="8rc-ht-chi" firstAttribute="centerX" secondItem="baf-BC-7ws" secondAttribute="centerX" id="uG3-ZV-IXG"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="confirmButton" destination="Ame-mV-22b" id="IA1-yE-qYv"/>
+                        <outlet property="usernameTextField" destination="BnI-vJ-krh" id="nqS-4e-GJS"/>
+                        <outlet property="welcomeLabel" destination="8rc-ht-chi" id="bNC-jK-zlC"/>
+                        <segue destination="rxF-1t-tmn" kind="show" identifier="selectMagazines" id="Tv1-1g-Zdr"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3Tb-nf-tRF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1049" y="418"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="uOq-8B-J0g">
             <objects>
@@ -565,10 +611,11 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3JQ-y0-lm7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="984" y="418"/>
+            <point key="canvasLocation" x="1762" y="418"/>
         </scene>
     </scenes>
     <resources>
+        <image name="Checked" width="50" height="50"/>
         <image name="headline4" width="844" height="475"/>
         <image name="sample" width="1688" height="1126"/>
     </resources>

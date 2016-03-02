@@ -10,7 +10,6 @@ import Foundation
 
 class User: AWSDynamoDBObjectModel, AWSDynamoDBModeling{
 
-    var id:NSNumber?
     var username: String?
     var fb_id:String?
     var email:String?
@@ -18,7 +17,9 @@ class User: AWSDynamoDBObjectModel, AWSDynamoDBModeling{
     var fullName:String?
     var statistics : NSDictionary = [String : NSNumber]()
     var about:String?
-    var socialPings : NSDictionary = [String : NSNumber]() //twitter, Facebook etc. addresses
+    var socialPings : NSDictionary = [String : String]() //twitter, Facebook etc. addresses
+    var followers:NSSet?
+    var following:NSSet?
     
 
     class func dynamoDBTableName() -> String! {
@@ -26,7 +27,7 @@ class User: AWSDynamoDBObjectModel, AWSDynamoDBModeling{
     }
     
     class func hashKeyAttribute() -> String! {
-        return "id"
+        return "username"
     }
     
     

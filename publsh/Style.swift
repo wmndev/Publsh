@@ -25,11 +25,15 @@ struct Style{
         static var gray = colorWithHexString("#DEE2E5")
     }
     
-    static var navigationBarBackgroundColor = colorWithHexString("#2EA1D7")
     
-    static var textColorWhite = colorWithHexString("#FFFFFF")
     
-    static var viewBackgroundColor = colorWithHexString("#FFFFFF")
+    static var navigationBarBackgroundColor = baseColor
+    
+    static var welcomeScreenBackgroundColor = baseColor
+    
+    static var textColorWhite = whiteColor
+    
+    static var viewBackgroundColor = whiteColor
     
     static var strongCellBackgroundColor = colorWithHexString("#34495E") //--
     
@@ -47,6 +51,11 @@ struct Style{
     
     static var lightGrayBackgroundColor = colorWithHexString("#F2F2F2")
     static var strongGrayBackgroundColor = colorWithHexString("#DEE2E5")
+    
+    
+    static var whiteColor = colorWithHexString("#FFFFFF")
+    static var baseColor = colorWithHexString("#2EA1D7")
+    
     
 }
 

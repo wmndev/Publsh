@@ -9,8 +9,8 @@
 import UIKit
 import CoreData
 
-let themeColor = UIColor(red: 0.01, green: 0.41, blue: 0.22, alpha: 1.0)
-let screenSize: CGRect = UIScreen.mainScreen().bounds
+//let themeColor = UIColor(red: 0.01, green: 0.41, blue: 0.22, alpha: 1.0)
+//let screenSize: CGRect = UIScreen.mainScreen().bounds
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,22 +20,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-        UINavigationBar.appearance().translucent = false
-        UINavigationBar.appearance().barTintColor = Style.navigationBarBackgroundColor
-        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
-        
         AmazonClientManager.sharedInstance.application(application, didFinishLaunchingWithOptions: launchOptions)
         
         let mainStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         var initialViewController: UIViewController
-        
-        if(AmazonClientManager.sharedInstance.isLoggedInWithFacebook()){
-            let nav = UINavigationController()
 
-            let vc = mainStoryboard.instantiateViewControllerWithIdentifier("InitialMagazinesSelection") as! InitialMagazineSelectionView
-            nav.viewControllers = [vc]
-            initialViewController = nav
+        if AmazonClientManager.sharedInstance.isLoggedInWithFacebook(){
+            let defaults = NSUserDefaults.standardUserDefaults()
+            if let _ = defaults.stringForKey(AppConstants.USERNAME_KEY){
+                initialViewController = UIStoryboard(name: "App", bundle: nil).instantiateViewControllerWithIdentifier("appInit") as UIViewController
+            }else{
+               initialViewController = mainStoryboard.instantiateViewControllerWithIdentifier("WelcomeViewController")
+            }
+            
         }else{
             initialViewController = mainStoryboard.instantiateViewControllerWithIdentifier("LoginScreen")
         }

@@ -27,9 +27,11 @@ class InitialMagazineSelectionView: UITableViewController {
         //for Auto cell height
         tableView.rowHeight = UITableViewAutomaticDimension
         
+        activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+        self.view.addSubview(activityIndicator)
+        activityIndicator.frame = self.view.bounds
+        
         if AmazonClientManager.sharedInstance.isConfigured() {
-            // UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-            
             AmazonClientManager.sharedInstance.resumeSession {
                 (task) -> AnyObject! in
                 dispatch_async(dispatch_get_main_queue()) {
@@ -50,13 +52,6 @@ class InitialMagazineSelectionView: UITableViewController {
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : Style.textColorWhite]
         self.navigationItem.backBarButtonItem?.title = ""
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
-
-        
-        activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
-        self.view.addSubview(activityIndicator)
-        activityIndicator.frame = self.view.bounds
-    
-
     }
     
     func updateTableData() {
