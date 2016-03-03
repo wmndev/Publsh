@@ -28,6 +28,7 @@
 		0FB6BAF11C65AF5A00BE0100 /* App.Storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FB6BAF01C65AF5A00BE0100 /* App.Storyboard */; };
 		0FD1ECC41C83C8E200D5A988 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD1ECC31C83C8E200D5A988 /* WelcomeViewController.swift */; };
 		0FD1ECC61C87429A00D5A988 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD1ECC51C87429A00D5A988 /* AppConstants.swift */; };
+		0FD1ECC81C87770E00D5A988 /* EZLoadingActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD1ECC71C87770E00D5A988 /* EZLoadingActivity.swift */; };
 		0FD2060F1C6C611C00325AC1 /* Crypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD2060A1C6C611C00325AC1 /* Crypto.m */; };
 		0FD206101C6C611C00325AC1 /* DeveloperAuthenticatedIdentityProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD2060C1C6C611C00325AC1 /* DeveloperAuthenticatedIdentityProvider.m */; };
 		0FD206111C6C611C00325AC1 /* DeveloperAuthenticationClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD2060E1C6C611C00325AC1 /* DeveloperAuthenticationClient.m */; };
@@ -62,6 +63,7 @@
 		0FB6BAF01C65AF5A00BE0100 /* App.Storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = App.Storyboard; sourceTree = "<group>"; };
 		0FD1ECC31C83C8E200D5A988 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		0FD1ECC51C87429A00D5A988 /* AppConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
+		0FD1ECC71C87770E00D5A988 /* EZLoadingActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EZLoadingActivity.swift; sourceTree = "<group>"; };
 		0FD206091C6C611C00325AC1 /* Crypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Crypto.h; sourceTree = "<group>"; };
 		0FD2060A1C6C611C00325AC1 /* Crypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Crypto.m; sourceTree = "<group>"; };
 		0FD2060B1C6C611C00325AC1 /* DeveloperAuthenticatedIdentityProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeveloperAuthenticatedIdentityProvider.h; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 		0FD206181C72C9EE00325AC1 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				0FD1ECC71C87770E00D5A988 /* EZLoadingActivity.swift */,
 				0F1ED5001C55BF4D006977F5 /* Types.swift */,
 				0F1445B11C4DE43100FA0932 /* Style.swift */,
 				0FD1ECC51C87429A00D5A988 /* AppConstants.swift */,
@@ -336,6 +339,7 @@
 				0F5F09B91C211A4E009F5A7B /* ViewController.swift in Sources */,
 				0FB59A8B1C7A8D920078437C /* ObjectSubtitleViewCell.swift in Sources */,
 				0F1445B21C4DE43100FA0932 /* Style.swift in Sources */,
+				0FD1ECC81C87770E00D5A988 /* EZLoadingActivity.swift in Sources */,
 				0F00F7B11C76CF73007377BA /* RSS.swift in Sources */,
 				0F5F09B71C211A4E009F5A7B /* AppDelegate.swift in Sources */,
 				0FD2061A1C7424AE00325AC1 /* User.swift in Sources */,

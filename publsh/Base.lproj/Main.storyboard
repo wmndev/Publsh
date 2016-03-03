@@ -551,12 +551,12 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="And your username is..?" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BnI-vJ-krh">
-                                <rect key="frame" x="20" y="285" width="560" height="30"/>
+                                <rect key="frame" x="20" y="285" width="560" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="ZBl-NB-1AZ"/>
+                                    <constraint firstAttribute="height" constant="50" id="ZBl-NB-1AZ"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ame-mV-22b">
                                 <rect key="frame" x="550" y="285" width="30" height="30"/>
@@ -564,7 +564,7 @@
                                     <constraint firstAttribute="width" constant="30" id="OP6-70-gqy"/>
                                     <constraint firstAttribute="height" constant="30" id="zNs-vb-hi7"/>
                                 </constraints>
-                                <state key="normal" image="Checked"/>
+                                <state key="normal" title="Go"/>
                                 <connections>
                                     <action selector="confirmTouched:" destination="JeZ-Cz-j6r" eventType="touchUpInside" id="WRx-7x-k2x"/>
                                 </connections>
@@ -573,7 +573,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="BnI-vJ-krh" firstAttribute="leading" secondItem="baf-BC-7ws" secondAttribute="leadingMargin" id="4dq-WR-wXy"/>
-                            <constraint firstItem="BnI-vJ-krh" firstAttribute="centerY" secondItem="baf-BC-7ws" secondAttribute="centerY" id="728-FZ-cb5"/>
+                            <constraint firstItem="BnI-vJ-krh" firstAttribute="centerY" secondItem="baf-BC-7ws" secondAttribute="centerY" constant="10" id="728-FZ-cb5"/>
                             <constraint firstItem="BnI-vJ-krh" firstAttribute="centerX" secondItem="baf-BC-7ws" secondAttribute="centerX" id="7LA-vD-bMP"/>
                             <constraint firstItem="Ame-mV-22b" firstAttribute="centerY" secondItem="baf-BC-7ws" secondAttribute="centerY" id="E53-Sf-mWC"/>
                             <constraint firstAttribute="trailing" secondItem="8rc-ht-chi" secondAttribute="trailing" constant="20" id="PXI-N6-eHP"/>
@@ -615,7 +615,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Checked" width="50" height="50"/>
         <image name="headline4" width="844" height="475"/>
         <image name="sample" width="1688" height="1126"/>
     </resources>

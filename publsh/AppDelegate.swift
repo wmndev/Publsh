@@ -20,6 +20,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
+        UINavigationBar.appearance().translucent = false
+        UINavigationBar.appearance().barTintColor = Style.navigationBarBackgroundColor
+        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+        
         AmazonClientManager.sharedInstance.application(application, didFinishLaunchingWithOptions: launchOptions)
         
         let mainStoryboard = UIStoryboard.init(name: "Main", bundle: nil)

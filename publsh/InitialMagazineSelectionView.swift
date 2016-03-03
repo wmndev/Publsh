@@ -16,6 +16,7 @@ class InitialMagazineSelectionView: UITableViewController {
     var activityIndicator = UIActivityIndicatorView()
     
     @IBOutlet var skipDoneBarButton: UIBarButtonItem!
+    
     @IBAction func donePressed(sender: AnyObject) {
         let viewController:UIViewController = UIStoryboard(name: "App", bundle: nil).instantiateViewControllerWithIdentifier("appInit") as UIViewController
         self.presentViewController(viewController, animated: true, completion: nil)
@@ -48,6 +49,7 @@ class InitialMagazineSelectionView: UITableViewController {
         self.view.backgroundColor = Style.viewBackgroundColor
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.backgroundColor = Style.navigationBarBackgroundColor
         self.navigationItem.title = "DISCOVER MAGAZINES"
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : Style.textColorWhite]
         self.navigationItem.backBarButtonItem?.title = ""

@@ -36,23 +36,33 @@ class WelcomeViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var confirmButton: UIButton!
     
     @IBAction func confirmTouched(sender: AnyObject) {
+        EZLoadingActivity.show("Calm...", disableUI: true)
         persistUserCtxData()
         
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if AmazonClientManager.sharedInstance.isConfigured() {
+            AmazonClientManager.sharedInstance.resumeSession {
+                (task) -> AnyObject! in
+                return nil
+            }
+        }
+        
         view.backgroundColor = Style.textColorWhite
         
         welcomeLabel.textColor = Style.welcomeScreenBackgroundColor
         
         usernameTextField.delegate = self
-        usernameTextField.setBottomBorder(Style.category.orange)
-        usernameTextField.textColor = Style.category.gray
+        usernameTextField.setBottomBorder(Style.textStrongLighterColor)
+        usernameTextField.textColor = Style.textLightColor
         usernameTextField.text = "Your awsome username here.."
         usernameTextField.font = UIFont(name: "System", size: 20)
         usernameTextField.hidden = true
         
+        confirmButton.backgroundColor = Style.category.green
         confirmButton.hidden = true
     }
     
@@ -93,10 +103,11 @@ class WelcomeViewController: UIViewController, UITextFieldDelegate {
     
     
     //MARK - TextField Delegate
+    
     func textFieldDidEndEditing(textField: UITextField) {
         
         if usernameTextField.text == "" {
-            usernameTextField.font = UIFont.systemFontOfSize(20.0)
+            usernameTextField.font = UIFont.systemFontOfSize(25.0)
             usernameTextField.text = "Your awsome username here.."
             usernameTextField.textColor = Style.category.gray
         }
@@ -104,14 +115,31 @@ class WelcomeViewController: UIViewController, UITextFieldDelegate {
     
     func textFieldDidBeginEditing(textField: UITextField) {
         
-        if usernameTextField.textColor == Style.category.gray {
-            usernameTextField.font = UIFont.systemFontOfSize(25.0)
+        if usernameTextField.textColor == Style.textLightColor {
+            usernameTextField.font = UIFont.systemFontOfSize(35.0)
             usernameTextField.text = ""
-            usernameTextField.textColor = Style.textColorWhite
+            usernameTextField.textColor = Style.textStrongColor
         }
     }
     
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        let whitespaceSet = NSCharacterSet.whitespaceCharacterSet()
+        guard let text = textField.text else {
+            return true
+        }
+        let length = text.characters.count
+        
+        if  let _ = string.rangeOfCharacterFromSet(whitespaceSet) {return false}
+        if length > AppConstants.MAXIMUM_USERNAME_LENGTH {return false}
+        
+        if length >= AppConstants.MINIMUM_USERNAME_LENGTH{
+            confirmButton.hidden = false
+        }
+        
+        return true
+    }
     
+    //MARK -- AWS
     func persistUserCtxData(){
         let graphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, name, gender, email"])
         graphRequest.startWithCompletionHandler( {
@@ -145,18 +173,25 @@ class WelcomeViewController: UIViewController, UITextFieldDelegate {
                         
                         insertValues.save(user) .continueWithBlock({ (task: AWSTask!) -> AnyObject! in
                             if task.error != nil {
-                                print("Error: \(task.error)")
-                            }
+                                print("**-> Error: \(task.error)")
+                                EZLoadingActivity.hide(success: false, animated: false)
+                            }else{
+                                //saving into user defaults:
+                                let defaults = NSUserDefaults.standardUserDefaults()
+                                defaults.setObject(self.usernameTextField.text, forKey: AppConstants.USERNAME_KEY)
+                                
+                                let imageFile:UIImage = UIImage(data: data)!
+                                AWSS3Manager.uploadImage(imageFile, fileIdentity: userId)
+                                EZLoadingActivity.hide(success: true, animated: false)
+                                
+                                dispatch_async(dispatch_get_main_queue()) {
+                                    self.performSegueWithIdentifier("selectMagazines", sender: self)
+                                }
 
+                                
+                            }
                             return nil
                         })
-                        
-                        let imageFile:UIImage = UIImage(data: data)!
-                        AWSS3Manager.uploadImage(imageFile, fileIdentity: userId)
-                        
-                        //saving into user defaults:
-                        let defaults = NSUserDefaults.standardUserDefaults()
-                        defaults.setObject(self.usernameTextField.text, forKey: AppConstants.USERNAME_KEY)
                     }
                 }
             }

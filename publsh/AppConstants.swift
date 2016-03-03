@@ -11,6 +11,10 @@ import Foundation
 
 struct  AppConstants {
     static let USERNAME_KEY = "USERNAME_KEY"
+    
+    
+    static let MAXIMUM_USERNAME_LENGTH = 12
+    static let MINIMUM_USERNAME_LENGTH = 4
 }
 
 
