@@ -12,7 +12,7 @@ import Foundation
 class Magazine: AWSDynamoDBObjectModel,AWSDynamoDBModeling{
     
     var id:NSNumber?  = 0
-    var createdBy:NSNumber? = 0
+    var createdBy:String?
     var score:NSNumber? = 0
     var statistics : NSDictionary = [String : NSNumber]()
     var content : NSDictionary = [NSNumber : NSSet]()

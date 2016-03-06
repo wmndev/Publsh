@@ -12,16 +12,12 @@ class MagazineIntroCell: UITableViewCell {
     
     @IBOutlet var mImage: UIImageView!
     @IBOutlet var mTitle: UILabel!
-    @IBOutlet var follow: UIButton!
-    
-    @IBOutlet var category1: UILabel!
-    @IBOutlet var category2: UILabel!
-    @IBOutlet var category3: UILabel!
-    
-    
-    @IBAction func addMagazine(sender: AnyObject) {
-    }
 
+    @IBOutlet var category1: UILabel!
+    @IBOutlet var mDesc: UILabel!
+
+    @IBOutlet var numOfFollowers: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

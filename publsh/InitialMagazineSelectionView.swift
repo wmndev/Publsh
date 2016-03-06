@@ -11,6 +11,7 @@ import UIKit
 class InitialMagazineSelectionView: UITableViewController {
     
     var magazines = [Magazine]()
+    
     var rowIndex = -1;
     
     var activityIndicator = UIActivityIndicatorView()
@@ -25,8 +26,11 @@ class InitialMagazineSelectionView: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //for Auto cell height
-        tableView.rowHeight = UITableViewAutomaticDimension
+        // register UITableViewCell for reuse
+//        self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
+        
+        self.view.backgroundColor = Style.lightGrayBackgroundColor
+        
         
         activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
         self.view.addSubview(activityIndicator)
@@ -43,10 +47,8 @@ class InitialMagazineSelectionView: UITableViewController {
             }
         }
         
-        self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None;
-
+                
         //navigation
-        self.view.backgroundColor = Style.viewBackgroundColor
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.backgroundColor = Style.navigationBarBackgroundColor
@@ -87,7 +89,12 @@ class InitialMagazineSelectionView: UITableViewController {
             
             return nil
         }
-
+        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None;
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -103,89 +110,50 @@ class InitialMagazineSelectionView: UITableViewController {
     // MARK: - Table view data source'
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat{
-        return UITableViewAutomaticDimension
+        return 84
     }
     
-    override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 90.0
-    }
+//    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        return 15
+//    }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 2
+        return 1
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0{
-            return 0
-        }
         return magazines.count
-    }
-    
-//    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat{
-//        return 66
-//    }
-    
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
-        if section == 0{
-            return 40
-        }
-        return 0
     }
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("magazineCell", forIndexPath: indexPath) as! MagazineIntroCell
         
-        cell.mImage.layer.cornerRadius = (cell.mImage.frame.size.width) / 2;
-        cell.mImage.clipsToBounds = true
-        cell.mImage.layer.borderWidth = 0.25
+        let cell = tableView.dequeueReusableCellWithIdentifier("magazineCell", forIndexPath: indexPath) as! MagazineIntroCell
+
         cell.mImage.layer.borderColor = Style.textLightColor.CGColor
         
         cell.mTitle.text = magazines[indexPath.row].name!
         cell.mTitle.textColor = Style.textStrongColor
         
+        cell.mDesc.text = magazines[indexPath.row].desc!
+        cell.mTitle.textColor = Style.textStrongLighterColor
         
-        cell.follow.clipsToBounds = true
-        cell.follow.layer.borderColor = Style.navigationBarBackgroundColor.CGColor;
-        cell.follow.setTitleColor(Style.textColorWhite, forState: UIControlState.Normal)
-        cell.follow.layer.backgroundColor = Style.strongGrayBackgroundColor.CGColor
-        cell.follow.layer.cornerRadius = (cell.follow.frame.size.width) / 2;
-        cell.follow.clipsToBounds = true
+
         
         
-        cell.category1.backgroundColor = Style.category.green
-        cell.category1.textColor = Style.textColorWhite
+        cell.category1.backgroundColor = Style.category.gray
+        cell.category1.textColor = Style.textStrongLighterColor
         cell.category1.text = "sport"
-        
         cell.category1.clipsToBounds = true
         cell.category1.layer.cornerRadius = 7
         
+        cell.numOfFollowers.text = "122 followers"
+        cell.numOfFollowers.textColor = Style.textStrongLighterColor
         
-        cell.category2.backgroundColor = Style.category.orange
-        cell.category2.textColor = Style.textColorWhite
-        cell.category2.text = "fashion"
-        
-        cell.category2.clipsToBounds = true
-        cell.category2.layer.cornerRadius = 7
-        
-        cell.category3.backgroundColor = Style.category.lightBlue
-        cell.category3.textColor = Style.textColorWhite
-        cell.category3.text = "motors"
-        
-        cell.category3.clipsToBounds = true
-        cell.category3.layer.cornerRadius = 7
-
         
         return cell
-    }
-    
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "headerCell")
-        if section == 0{
-            cell.textLabel!.text = "Build your collection"
-        }
-        return cell
+        
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -243,7 +211,7 @@ class InitialMagazineSelectionView: UITableViewController {
         if segue.identifier == "showSelectedObject"{
             let destinationVC = segue.destinationViewController as! SelectedObjectViewController
             destinationVC.initView(magazines[rowIndex], withTitle: magazines[rowIndex].name!, source: Types.Sources.MAGAZINE)
-
+            
         }
         
         // Get the new view controller using segue.destinationViewController.

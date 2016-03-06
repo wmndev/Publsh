@@ -14,6 +14,8 @@ class SelectedObjectViewController: UITableViewController {
     var object = NSObject()
     var data = [AnyObject]()
     
+    let EXTRA_CELLS = 2
+    
     
     func initView(object: NSObject, withTitle: String, source: Types.Sources){
         self.object = object
@@ -38,10 +40,10 @@ class SelectedObjectViewController: UITableViewController {
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "clearCell")
         
         //navigation
-
+        
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : Style.textColorWhite]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : Style.textColorWhite]
     }
     
     
@@ -53,32 +55,31 @@ class SelectedObjectViewController: UITableViewController {
     // MARK: - Table view data source
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 2
+        return 1
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat{
-        if indexPath.section == 0 && indexPath.row == 0 {
-            return UITableViewAutomaticDimension
+        if indexPath.row == 0 {
+            return 96
+        }
+        if indexPath.row == 1 {
+            return 85
         }
         return 50
+        //return UITableViewAutomaticDimension
+        
     }
     
     
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
-        if section == 0{
-            return 96.0
-        } else{
-            return 15.0
-        }
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return EXTRA_CELLS + data.count
     }
     
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if section == 0{
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        if indexPath.row == 0{
             let cell = tableView.dequeueReusableCellWithIdentifier("objectHeaderCell") as! ObjectHeaderCell
-            
-            
-            
-            //cell.selectionStyle = UITableViewCellSelectionStyle.None
             
             if source == Types.Sources.MAGAZINE{
                 //cell.contentView.backgroundColor = Style.magazine.headerBackgroundColor
@@ -110,28 +111,13 @@ class SelectedObjectViewController: UITableViewController {
             cell.targetImage.layer.borderColor = Style.textColorWhite.CGColor
             
             return cell
-        }else{
-            let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "clearCell")
-            cell.layer.backgroundColor = UIColor.clearColor().CGColor
-            
-            return cell
         }
-    }
-    
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0{
-            return 1
-        }else{
-            return data.count
-        }
-    }
-    
-    
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if indexPath.section == 0 && indexPath.row == 0{
+        
+        
+        if indexPath.row == 1{
             let cell = tableView.dequeueReusableCellWithIdentifier("objectSubtitleCell", forIndexPath: indexPath) as! ObjectSubtitleViewCell
             
-            cell.selectionStyle = UITableViewCellSelectionStyle.None
+            //cell.selectionStyle = UITableViewCellSelectionStyle.None
             
             //cell.separatorInset = UIEdgeInsetsMake(0, cell.bounds.size.width, 0, 0)
             
@@ -142,6 +128,7 @@ class SelectedObjectViewController: UITableViewController {
                 let magazine = object as! Magazine
                 
                 cell.username.setTitleColor(Style.defaultComponentColor, forState: .Normal)
+                cell.username.setTitle(magazine.createdBy, forState: UIControlState.Normal)
                 
                 cell.desc.text = magazine.desc!
                 cell.desc.textColor = Style.textStrongLighterColor
@@ -158,7 +145,7 @@ class SelectedObjectViewController: UITableViewController {
             
             if source == Types.Sources.MAGAZINE{
                 
-                let article:Article = data[indexPath.row] as! Article
+                let article:Article = data[indexPath.row - EXTRA_CELLS] as! Article
                 
                 cell.textLabel?.text = article.title
                 cell.textLabel?.font = UIFont(name: "Arial", size: 14.0)
@@ -311,7 +298,7 @@ class SelectedObjectViewController: UITableViewController {
     func setUserProfileImage(cell: ObjectHeaderCell){
     }
     
-
+    
     
     // MARK: - Navigation
     

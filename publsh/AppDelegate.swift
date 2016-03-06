@@ -33,7 +33,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if AmazonClientManager.sharedInstance.isLoggedInWithFacebook(){
             let defaults = NSUserDefaults.standardUserDefaults()
             if let _ = defaults.stringForKey(AppConstants.USERNAME_KEY){
-                initialViewController = UIStoryboard(name: "App", bundle: nil).instantiateViewControllerWithIdentifier("appInit") as UIViewController
+                initialViewController = mainStoryboard.instantiateViewControllerWithIdentifier("WelcomeViewController")
+                //initialViewController = UIStoryboard(name: "App", bundle: nil).instantiateViewControllerWithIdentifier("appInit") as UIViewController
             }else{
                initialViewController = mainStoryboard.instantiateViewControllerWithIdentifier("WelcomeViewController")
             }

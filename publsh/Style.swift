@@ -29,6 +29,8 @@ struct Style{
     
     static var navigationBarBackgroundColor = baseColor
     
+    static var titleViewBackgroundColor = colorWithHexString("#28B4C1")
+    
     static var welcomeScreenBackgroundColor = baseColor
     
     static var textColorWhite = whiteColor
@@ -54,7 +56,7 @@ struct Style{
     
     
     static var whiteColor = colorWithHexString("#FFFFFF")
-    static var baseColor = colorWithHexString("#2EA1D7")
+    static var baseColor = colorWithHexString("#2DC9D7")
     
     
 }
