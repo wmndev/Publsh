@@ -25,6 +25,8 @@ extension UITextField{
     
 }
 
+
+
 class WelcomeViewController: UIViewController, UITextFieldDelegate {
     
     var wasAnimated = false
@@ -170,16 +172,17 @@ class WelcomeViewController: UIViewController, UITextFieldDelegate {
                         user.statistics = statistics
                         
                         let insertValues = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
-                        
+                        currentUser = user
                         insertValues.save(user) .continueWithBlock({ (task: AWSTask!) -> AnyObject! in
                             if task.error != nil {
                                 print("**-> Error: \(task.error)")
                                 EZLoadingActivity.hide(success: false, animated: false)
                             }else{
+                                currentUser = user
+                                
                                 //saving into user defaults:
                                 let defaults = NSUserDefaults.standardUserDefaults()
                                 defaults.setObject(self.usernameTextField.text, forKey: AppConstants.USERNAME_KEY)
-                                currentUsername = self.usernameTextField.text
                                 
                                 let imageFile:UIImage = UIImage(data: data)!
                                 AWSS3Manager.uploadImage(imageFile, fileIdentity: userId)

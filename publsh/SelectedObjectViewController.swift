@@ -24,9 +24,12 @@ class SelectedObjectViewController: UITableViewController {
         let magazine = object as! Magazine
         
         if isFollowing{
-             magazine.followers?.insert(currentUsername!)
+            if magazine.followers == nil{
+                magazine.followers = Set<String>()
+            }
+             magazine.followers?.insert(currentUser!.username!)
         }else{
-            magazine.followers?.remove(currentUsername!)
+            magazine.followers?.remove(currentUser!.username!)
         }
        
 
@@ -37,14 +40,8 @@ class SelectedObjectViewController: UITableViewController {
                 print("Error: \(task.error)")
             }else{
                 dispatch_async(dispatch_get_main_queue()) {
-                    
                     self.craftFollowButton((self.headerCell?.followBtn)!)
 
-//                    self.headerCell?.followBtn.setTitle("FOLLOWING", forState: UIControlState.Normal)
-//                    self.headerCell?.followBtn.layer.borderWidth = 1
-//                    self.headerCell?.followBtn.setTitleColor(Style.textColorWhite, forState: .Normal)
-//                    self.headerCell?.followBtn.backgroundColor = Style.approvalColor
-//                    self.headerCell?.followBtn.layer.borderColor = Style.approvalColor.CGColor
                 }
             }
             return nil
@@ -126,32 +123,16 @@ class SelectedObjectViewController: UITableViewController {
                 craftMenuButton(cell.followersBtn,title: "202\nfollowers")
                 craftMenuButton(cell.followingBtn,title: "5K\nfollowing")
             }
-            
-//            if isFollowing{
-//                self.headerCell?.followBtn.setTitle("FOLLOWING", forState: UIControlState.Normal)
-//                self.headerCell?.followBtn.layer.borderWidth = 1
-//                self.headerCell?.followBtn.setTitleColor(Style.textColorWhite, forState: .Normal)
-//                self.headerCell?.followBtn.backgroundColor = Style.approvalColor
-//                self.headerCell?.followBtn.layer.borderColor = Style.approvalColor.CGColor
-//            }else{
-//                cell.followBtn.setTitle(source == Types.Sources.MAGAZINE ? "GET" : "FOLLOW", forState: UIControlState.Normal)
-//                cell.followBtn.layer.borderWidth = 1
-//                cell.followBtn.setTitleColor(Style.defaultComponentColor, forState: .Normal)
-//                cell.followBtn.layer.borderColor = Style.defaultComponentColor.CGColor
-//            }
-            
+ 
             craftFollowButton(cell.followBtn)
-
             
             setUserProfileImage(cell)
             cell.targetImage.layer.cornerRadius = cell.targetImage.frame.size.width / 2;
             cell.targetImage.clipsToBounds = true
             cell.targetImage.layer.borderWidth = 1
             cell.targetImage.layer.borderColor = Style.textColorWhite.CGColor
-            
             return cell
         }
-        
         
         if indexPath.row == 1{
             let cell = tableView.dequeueReusableCellWithIdentifier("objectSubtitleCell", forIndexPath: indexPath) as! ObjectSubtitleViewCell
@@ -236,12 +217,7 @@ class SelectedObjectViewController: UITableViewController {
     
     func isUserFollowing(){
         let magazine = object as! Magazine
-        for username in magazine.followers!{
-            if username == currentUsername{
-                isFollowing = true
-                break
-            }
-        }
+        isFollowing = magazine.followers?.contains(currentUser!.username!) ?? false
     }
     
     func getLinkedData(){

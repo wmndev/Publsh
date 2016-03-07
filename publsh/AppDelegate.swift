@@ -12,7 +12,7 @@ import CoreData
 //let themeColor = UIColor(red: 0.01, green: 0.41, blue: 0.22, alpha: 1.0)
 //let screenSize: CGRect = UIScreen.mainScreen().bounds
 
-var currentUsername:String?
+var currentUser:User?
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -34,8 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         if AmazonClientManager.sharedInstance.isLoggedInWithFacebook(){
             let defaults = NSUserDefaults.standardUserDefaults()
-            if let un = defaults.stringForKey(AppConstants.USERNAME_KEY){
-                currentUsername = un
+            if let _ = defaults.stringForKey(AppConstants.USERNAME_KEY){
                 initialViewController = mainStoryboard.instantiateViewControllerWithIdentifier("WelcomeViewController")
                 //initialViewController = UIStoryboard(name: "App", bundle: nil).instantiateViewControllerWithIdentifier("appInit") as UIViewController
             }else{

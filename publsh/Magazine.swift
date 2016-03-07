@@ -11,11 +11,9 @@ import Foundation
 
 class Magazine: AWSDynamoDBObjectModel,AWSDynamoDBModeling{
     
-    var id:NSNumber?  = 0
     var createdBy:String?
     var score:NSNumber? = 0
     var statistics : NSDictionary = [String : NSNumber]()
-    var content : NSDictionary = [NSNumber : NSSet]()
     var name: String?
     var desc: String?
     var types:NSSet?
@@ -36,9 +34,9 @@ class Magazine: AWSDynamoDBObjectModel,AWSDynamoDBModeling{
         return "createdBy"
     }
     
-    class func ignoreAttributes() -> Array<AnyObject>! {
-        return ["desc", "types", "content"]
-    }
+//    class func ignoreAttributes() -> Array<AnyObject>! {
+//        return ["desc", "types", "content",]
+//    }
     
     //MARK: NSObjectProtocol hack
     override func isEqual(object: AnyObject?) -> Bool {
