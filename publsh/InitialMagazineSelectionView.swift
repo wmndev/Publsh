@@ -104,7 +104,6 @@ class InitialMagazineSelectionView: UITableViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     // MARK: - Table view data source'
@@ -112,11 +111,7 @@ class InitialMagazineSelectionView: UITableViewController {
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat{
         return 84
     }
-    
-//    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return 15
-//    }
-    
+
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -139,9 +134,6 @@ class InitialMagazineSelectionView: UITableViewController {
         cell.mDesc.text = magazines[indexPath.row].desc!
         cell.mTitle.textColor = Style.textStrongLighterColor
         
-
-        
-        
         cell.category1.backgroundColor = Style.category.gray
         cell.category1.textColor = Style.textStrongLighterColor
         cell.category1.text = "sport"
@@ -151,6 +143,7 @@ class InitialMagazineSelectionView: UITableViewController {
         cell.numOfFollowers.text = "122 followers"
         cell.numOfFollowers.textColor = Style.textStrongLighterColor
         
+        cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         
         return cell
         

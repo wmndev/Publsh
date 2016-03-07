@@ -21,7 +21,7 @@ class Magazine: AWSDynamoDBObjectModel,AWSDynamoDBModeling{
     var types:NSSet?
     var contributers:NSSet?
     var sources:NSSet?
-    var followers:NSSet?
+    var followers:Set<String>?
     
     
     class func dynamoDBTableName() -> String! {
@@ -52,24 +52,25 @@ class Magazine: AWSDynamoDBObjectModel,AWSDynamoDBModeling{
 }
 
 class Article: AWSDynamoDBObjectModel,AWSDynamoDBModeling{
-    var sourceId:NSNumber?
-    var articleId:NSNumber?
+    var source:String?
     var img:String?
     var link:String?
     var title:String?
     var imageData:NSData?
+    var magazineName:String?
+    var addedAt:NSNumber?
     
     
     class func dynamoDBTableName() -> String! {
-        return "FeedContent"
+        return "MagazineContent"
     }
     
     class func hashKeyAttribute() -> String! {
-        return "sourceId"
+        return "magazineName"
     }
     
     class func rangeKeyAttribute() -> String! {
-        return "articleId"
+        return "addedAt"
     }
     
     //MARK: NSObjectProtocol hack

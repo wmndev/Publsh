@@ -13,15 +13,50 @@ class SelectedObjectViewController: UITableViewController {
     var source = Types.Sources.NA
     var object = NSObject()
     var data = [AnyObject]()
+    var headerCell: ObjectHeaderCell?
+    var isFollowing = false
     
     let EXTRA_CELLS = 2
     
+    
+    @IBAction func getMagazine(sender: AnyObject) {
+        isFollowing = !isFollowing
+        let magazine = object as! Magazine
+        
+        if isFollowing{
+             magazine.followers?.insert(currentUsername!)
+        }else{
+            magazine.followers?.remove(currentUsername!)
+        }
+       
+
+        let objectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
+        
+        objectMapper.save(magazine).continueWithBlock({ (task: AWSTask!) -> AnyObject! in
+            if task.error != nil {
+                print("Error: \(task.error)")
+            }else{
+                dispatch_async(dispatch_get_main_queue()) {
+                    
+                    self.craftFollowButton((self.headerCell?.followBtn)!)
+
+//                    self.headerCell?.followBtn.setTitle("FOLLOWING", forState: UIControlState.Normal)
+//                    self.headerCell?.followBtn.layer.borderWidth = 1
+//                    self.headerCell?.followBtn.setTitleColor(Style.textColorWhite, forState: .Normal)
+//                    self.headerCell?.followBtn.backgroundColor = Style.approvalColor
+//                    self.headerCell?.followBtn.layer.borderColor = Style.approvalColor.CGColor
+                }
+            }
+            return nil
+        })
+
+    }
     
     func initView(object: NSObject, withTitle: String, source: Types.Sources){
         self.object = object
         self.source = source
         self.navigationItem.title = withTitle
-        
+        isUserFollowing()
         getLinkedData()
     }
     
@@ -49,7 +84,6 @@ class SelectedObjectViewController: UITableViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     // MARK: - Table view data source
@@ -80,29 +114,34 @@ class SelectedObjectViewController: UITableViewController {
         
         if indexPath.row == 0{
             let cell = tableView.dequeueReusableCellWithIdentifier("objectHeaderCell") as! ObjectHeaderCell
+            headerCell = cell
             
             if source == Types.Sources.MAGAZINE{
-                //cell.contentView.backgroundColor = Style.magazine.headerBackgroundColor
-                
                 let magazine = object as! Magazine
                 craftMenuButton(cell.totalBtn,title: "\(magazine.statistics.objectForKey("contributers")!)\nhelpers")
                 craftMenuButton(cell.followersBtn,title: "\(magazine.statistics.objectForKey("sources")!)\nsources")
                 craftMenuButton(cell.followingBtn,title: "\(magazine.statistics.objectForKey("followers")!)\nfollowers")
-                
-                
-                
             }else{
-                //cell.contentView.backgroundColor = Style.user.headerBackgroundColor
-                
                 craftMenuButton(cell.totalBtn,title: "17\nmagazines")
                 craftMenuButton(cell.followersBtn,title: "202\nfollowers")
                 craftMenuButton(cell.followingBtn,title: "5K\nfollowing")
             }
             
-            cell.followBtn.setTitle(source == Types.Sources.MAGAZINE ? "TAKE IT" : "FOLLOW", forState: UIControlState.Normal)
-            cell.followBtn.layer.borderWidth = 1
-            cell.followBtn.setTitleColor(Style.defaultComponentColor, forState: .Normal)
-            cell.followBtn.layer.borderColor = Style.defaultComponentColor.CGColor
+//            if isFollowing{
+//                self.headerCell?.followBtn.setTitle("FOLLOWING", forState: UIControlState.Normal)
+//                self.headerCell?.followBtn.layer.borderWidth = 1
+//                self.headerCell?.followBtn.setTitleColor(Style.textColorWhite, forState: .Normal)
+//                self.headerCell?.followBtn.backgroundColor = Style.approvalColor
+//                self.headerCell?.followBtn.layer.borderColor = Style.approvalColor.CGColor
+//            }else{
+//                cell.followBtn.setTitle(source == Types.Sources.MAGAZINE ? "GET" : "FOLLOW", forState: UIControlState.Normal)
+//                cell.followBtn.layer.borderWidth = 1
+//                cell.followBtn.setTitleColor(Style.defaultComponentColor, forState: .Normal)
+//                cell.followBtn.layer.borderColor = Style.defaultComponentColor.CGColor
+//            }
+            
+            craftFollowButton(cell.followBtn)
+
             
             setUserProfileImage(cell)
             cell.targetImage.layer.cornerRadius = cell.targetImage.frame.size.width / 2;
@@ -158,18 +197,29 @@ class SelectedObjectViewController: UITableViewController {
                 cell.imageView!.layer.cornerRadius = 20
                 cell.imageView!.clipsToBounds = true
                 cell.imageView?.layer.masksToBounds = true
-                //cell.imageView!.layer.borderWidth = 1
-                
-                
             }
             
             return cell
         }
     }
     
+    func craftFollowButton(btn:UIButton){
+        if isFollowing{
+            btn.setTitle("FOLLOWING", forState: UIControlState.Normal)
+            btn.layer.borderWidth = 1
+            btn.setTitleColor(Style.textColorWhite, forState: .Normal)
+            btn.backgroundColor = Style.approvalColor
+            btn.layer.borderColor = Style.approvalColor.CGColor
+        }else{
+            btn.setTitle(source == Types.Sources.MAGAZINE ? "GET" : "FOLLOW", forState: UIControlState.Normal)
+            btn.layer.borderWidth = 1
+            btn.setTitleColor(Style.defaultComponentColor, forState: .Normal)
+            btn.backgroundColor = Style.whiteColor
+            btn.layer.borderColor = Style.defaultComponentColor.CGColor
+        }
+    }
+    
     func resizeImage(image:UIImage, toTheSize size:CGSize)->UIImage{
-        
-        
         let scale = CGFloat(max(size.width/image.size.width,
             size.height/image.size.height))
         let width:CGFloat  = image.size.width * scale
@@ -184,58 +234,48 @@ class SelectedObjectViewController: UITableViewController {
         return newImage
     }
     
+    func isUserFollowing(){
+        let magazine = object as! Magazine
+        for username in magazine.followers!{
+            if username == currentUsername{
+                isFollowing = true
+                break
+            }
+        }
+    }
     
     func getLinkedData(){
         if source == Types.Sources.MAGAZINE{
             let magazine = object as! Magazine
             
-            for  (srcId, artclIds) in magazine.content{
-                
-                let cond = AWSDynamoDBCondition()
-                
-                let nsarr = artclIds.allObjects as NSArray
-                
-                for arId in nsarr{
-                    let articleIdStr: String  = String(arId)
-                    
-                    let v1    = AWSDynamoDBAttributeValue();
-                    v1.N = articleIdStr
-                    cond.comparisonOperator = AWSDynamoDBComparisonOperator.EQ
-                    cond.attributeValueList = [ v1 ]
-                    let c = [ "articleId" : cond ]
-                    
-                    let sourceId = Int(srcId as! String)!
-                    
-                    self.query(sourceId , keyConditions:c).continueWithSuccessBlock({ (task: AWSTask!) -> AWSTask! in
+            query(magazine.name!).continueWithExecutor(AWSExecutor.mainThreadExecutor(), withBlock: { (task:AWSTask!) -> AnyObject! in
+                if (task.error == nil) {
+                    if (task.result != nil) {
                         
                         let results = task.result as! AWSDynamoDBPaginatedOutput
-                        for item in results.items {
-                            let article:Article = item as! Article
-                            article.imageData = NSData(contentsOfURL: NSURL(string: article.img!)!)
-                            
-                            self.data.append(item)
+                        for r in results.items {
+                            let article = r as! Article
+                             article.imageData = NSData(contentsOfURL: NSURL(string: article.img!)!)
+                            self.data.append(article)
                         }
-                        
-                        
-                        dispatch_async(dispatch_get_main_queue(), {
-                            self.tableView.reloadData()
-                        })
-                        
-                        return nil
-                    })
-                    
+                        self.tableView.reloadData()
+                    }
+                } else {
+                    print("Error: \(task.error)")
                 }
-            }
-            
+                return nil
+            })
         }
     }
     
-    func query(hash: NSNumber, keyConditions:[NSObject:AnyObject]) -> AWSTask! {
+    func query(hash: String /*, keyConditions:[NSObject:AnyObject]*/) -> AWSTask! {
         let dynamoDBObjectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
         
         let exp = AWSDynamoDBQueryExpression()
         exp.hashKeyValues      = hash
-        exp.rangeKeyConditions = keyConditions
+        //if keyConditions != nil{
+         //   exp.rangeKeyConditions = keyConditions
+       // }
         
         return dynamoDBObjectMapper.query(Article.self, expression: exp)
     }
@@ -297,6 +337,7 @@ class SelectedObjectViewController: UITableViewController {
     
     func setUserProfileImage(cell: ObjectHeaderCell){
     }
+    
     
     
     

@@ -242,6 +242,9 @@
                                                 <constraint firstAttribute="height" constant="25" id="Qgp-nH-Cj5"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="11"/>
+                                            <connections>
+                                                <action selector="getMagazine:" destination="ZG3-MR-B9s" eventType="touchUpInside" id="uY7-Kp-bAs"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <constraints>

@@ -179,6 +179,7 @@ class WelcomeViewController: UIViewController, UITextFieldDelegate {
                                 //saving into user defaults:
                                 let defaults = NSUserDefaults.standardUserDefaults()
                                 defaults.setObject(self.usernameTextField.text, forKey: AppConstants.USERNAME_KEY)
+                                currentUsername = self.usernameTextField.text
                                 
                                 let imageFile:UIImage = UIImage(data: data)!
                                 AWSS3Manager.uploadImage(imageFile, fileIdentity: userId)

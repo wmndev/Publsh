@@ -45,7 +45,7 @@ struct Style{
     
     static var textLightColor = colorWithHexString("#DEE2E5")
     
-    static var approvalColor = colorWithHexString("#1ABC9C")
+    static var approvalColor = colorWithHexString("#8BE87D")
     
     static var controllerColor = colorWithHexString("#2980B9")
     
