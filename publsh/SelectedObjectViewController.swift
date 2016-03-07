@@ -16,9 +16,8 @@ class SelectedObjectViewController: UITableViewController {
     var headerCell: ObjectHeaderCell?
     var isFollowing = false
     
-    let EXTRA_CELLS = 2
-    
-    
+    let cellReuseIdentifier = "headerBasicCell"
+
     @IBAction func getMagazine(sender: AnyObject) {
         isFollowing = !isFollowing
         let magazine = object as! Magazine
@@ -61,15 +60,13 @@ class SelectedObjectViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
+        
         self.view.backgroundColor = Style.lightGrayBackgroundColor
         
         //for Auto cell height
         tableView.rowHeight = UITableViewAutomaticDimension
         
-        
-        //register default cell
-        self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "clearCell")
         
         //navigation
         
@@ -86,30 +83,45 @@ class SelectedObjectViewController: UITableViewController {
     // MARK: - Table view data source
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat{
-        if indexPath.row == 0 {
-            return 96
+        if indexPath.section == 0 {
+            return 171
+            //return UITableViewAutomaticDimension
         }
-        if indexPath.row == 1 {
-            return 85
-        }
-        return 50
-        //return UITableViewAutomaticDimension
+        return 70
         
+        
+    }
+    
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
+        if section == 0 {
+            return 0
+        }
+        return 15
     }
     
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return EXTRA_CELLS + data.count
+        if section == 0{
+            return 1
+        }else{
+            return data.count
+        }
+    }
+    
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?{
+        let cell = tableView.dequeueReusableCellWithIdentifier(cellReuseIdentifier)
+        cell?.layer.backgroundColor = Style.darkBackground.CGColor
+        return cell
     }
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        if indexPath.row == 0{
+        if indexPath.section == 0{
             let cell = tableView.dequeueReusableCellWithIdentifier("objectHeaderCell") as! ObjectHeaderCell
             headerCell = cell
             
@@ -131,41 +143,23 @@ class SelectedObjectViewController: UITableViewController {
             cell.targetImage.clipsToBounds = true
             cell.targetImage.layer.borderWidth = 1
             cell.targetImage.layer.borderColor = Style.textColorWhite.CGColor
+            
+            let magazine = object as! Magazine
+            
+            cell.username.setTitleColor(Style.defaultComponentColor, forState: .Normal)
+            cell.username.setTitle(magazine.createdBy, forState: UIControlState.Normal)
+            
+            cell.desc.text = magazine.desc!
+            cell.desc.textColor = Style.textStrongLighterColor
+            cell.desc.lineBreakMode = .ByWordWrapping
+            
             return cell
-        }
-        
-        if indexPath.row == 1{
-            let cell = tableView.dequeueReusableCellWithIdentifier("objectSubtitleCell", forIndexPath: indexPath) as! ObjectSubtitleViewCell
-            
-            //cell.selectionStyle = UITableViewCellSelectionStyle.None
-            
-            //cell.separatorInset = UIEdgeInsetsMake(0, cell.bounds.size.width, 0, 0)
-            
-            
-            if source == Types.Sources.MAGAZINE{
-                //cell.contentView.backgroundColor = Style.magazine.headerBackgroundColor
-                
-                let magazine = object as! Magazine
-                
-                cell.username.setTitleColor(Style.defaultComponentColor, forState: .Normal)
-                cell.username.setTitle(magazine.createdBy, forState: UIControlState.Normal)
-                
-                cell.desc.text = magazine.desc!
-                cell.desc.textColor = Style.textStrongLighterColor
-                cell.desc.lineBreakMode = .ByWordWrapping
-                
-            }else{
-                //cell.contentView.backgroundColor = Style.user.headerBackgroundColor
-                
-            }
-            return cell
-            
         }else{
             let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "articleDetails")
             
             if source == Types.Sources.MAGAZINE{
                 
-                let article:Article = data[indexPath.row - EXTRA_CELLS] as! Article
+                let article:Article = data[indexPath.row] as! Article
                 
                 cell.textLabel?.text = article.title
                 cell.textLabel?.font = UIFont(name: "Arial", size: 14.0)

@@ -18,7 +18,9 @@ class ObjectHeaderCell: UITableViewCell {
     @IBOutlet var followingBtn: UIButton!
     @IBOutlet var followersBtn: UIButton!
     @IBOutlet var followBtn: UIButton!
+    @IBOutlet var username: UIButton!
     
+    @IBOutlet var desc: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

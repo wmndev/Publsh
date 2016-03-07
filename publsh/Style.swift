@@ -37,6 +37,8 @@ struct Style{
     
     static var viewBackgroundColor = whiteColor
     
+    static var darkBackground = colorWithHexString("#555555", alpha: 0.7)
+    
     static var strongCellBackgroundColor = colorWithHexString("#34495E") //--
     
     static var textStrongLighterColor = colorWithHexString("#464646")
@@ -63,7 +65,7 @@ struct Style{
 
 
 
-func colorWithHexString (hex: String) -> UIColor {
+func colorWithHexString (hex: String, alpha: Float = 1) -> UIColor {
     var cString:String = hex.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()).uppercaseString
     
     if (cString.hasPrefix("#")) {
@@ -84,5 +86,5 @@ func colorWithHexString (hex: String) -> UIColor {
     NSScanner(string: bString).scanHexInt(&b)
     
     
-    return UIColor(red: CGFloat(r) / 255.0, green: CGFloat(g) / 255.0, blue: CGFloat(b) / 255.0, alpha: CGFloat(1))
+    return UIColor(red: CGFloat(r) / 255.0, green: CGFloat(g) / 255.0, blue: CGFloat(b) / 255.0, alpha: CGFloat(alpha))
 }

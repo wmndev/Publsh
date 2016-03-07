@@ -24,7 +24,6 @@
 		0F863CF91C5C869800BF8325 /* SelectedObjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F863CF81C5C869800BF8325 /* SelectedObjectViewController.swift */; };
 		0FA4EBE51C6C541700EDD3BD /* AmazonClientManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA4EBE41C6C541700EDD3BD /* AmazonClientManager.swift */; };
 		0FA4EBE71C6C560800EDD3BD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA4EBE61C6C560800EDD3BD /* Constants.swift */; };
-		0FB59A8B1C7A8D920078437C /* ObjectSubtitleViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB59A8A1C7A8D920078437C /* ObjectSubtitleViewCell.swift */; };
 		0FB6BAF11C65AF5A00BE0100 /* App.Storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FB6BAF01C65AF5A00BE0100 /* App.Storyboard */; };
 		0FD1ECC41C83C8E200D5A988 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD1ECC31C83C8E200D5A988 /* WelcomeViewController.swift */; };
 		0FD1ECC61C87429A00D5A988 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD1ECC51C87429A00D5A988 /* AppConstants.swift */; };
@@ -59,7 +58,6 @@
 		0F863CF81C5C869800BF8325 /* SelectedObjectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedObjectViewController.swift; sourceTree = "<group>"; };
 		0FA4EBE41C6C541700EDD3BD /* AmazonClientManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AmazonClientManager.swift; sourceTree = "<group>"; };
 		0FA4EBE61C6C560800EDD3BD /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		0FB59A8A1C7A8D920078437C /* ObjectSubtitleViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectSubtitleViewCell.swift; sourceTree = "<group>"; };
 		0FB6BAF01C65AF5A00BE0100 /* App.Storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = App.Storyboard; sourceTree = "<group>"; };
 		0FD1ECC31C83C8E200D5A988 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		0FD1ECC51C87429A00D5A988 /* AppConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
@@ -123,7 +121,6 @@
 				0F5F09B81C211A4E009F5A7B /* ViewController.swift */,
 				0F5F09BA1C211A4E009F5A7B /* Main.storyboard */,
 				0FB6BAF01C65AF5A00BE0100 /* App.Storyboard */,
-				0FB59A8A1C7A8D920078437C /* ObjectSubtitleViewCell.swift */,
 				0F863CF81C5C869800BF8325 /* SelectedObjectViewController.swift */,
 				0FD1ECC31C83C8E200D5A988 /* WelcomeViewController.swift */,
 				0F81DE191C4A01E500593379 /* MagazineIntroDetails.swift */,
@@ -337,7 +334,6 @@
 				0FA4EBE51C6C541700EDD3BD /* AmazonClientManager.swift in Sources */,
 				0F1B01DF1C4756CB00EA0E94 /* InitialMagazineSelectionView.swift in Sources */,
 				0F5F09B91C211A4E009F5A7B /* ViewController.swift in Sources */,
-				0FB59A8B1C7A8D920078437C /* ObjectSubtitleViewCell.swift in Sources */,
 				0F1445B21C4DE43100FA0932 /* Style.swift in Sources */,
 				0FD1ECC81C87770E00D5A988 /* EZLoadingActivity.swift in Sources */,
 				0F00F7B11C76CF73007377BA /* RSS.swift in Sources */,
