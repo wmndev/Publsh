@@ -37,7 +37,9 @@ struct Style{
     
     static var viewBackgroundColor = whiteColor
     
-    static var darkBackground = colorWithHexString("#555555", alpha: 0.7)
+    static var darkBackground = colorWithHexString("#555555", alpha: 0.9)
+    
+    static var grayBackground = colorWithHexString("#DEE2E5")
     
     static var strongCellBackgroundColor = colorWithHexString("#34495E") //--
     

@@ -18,8 +18,8 @@ class User: AWSDynamoDBObjectModel, AWSDynamoDBModeling{
     var statistics : NSDictionary = [String : NSNumber]()
     var about:String?
     var socialPings : NSDictionary = [String : String]() //twitter, Facebook etc. addresses
-    var followers:NSSet?
-    var following:NSSet?
+    var followers:Set<String>?
+    var following:Set<String>?
     
 
     class func dynamoDBTableName() -> String! {

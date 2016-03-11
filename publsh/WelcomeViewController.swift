@@ -165,6 +165,10 @@ class WelcomeViewController: UIViewController, UITextFieldDelegate {
                         user.fullName = result["name"] as? String
                         user.email = result["email"] as? String
                         user.username = self.usernameTextField.text
+                        user.followers = Set<String>()
+                        user.followers?.insert("@")
+                        user.following = Set<String>()
+                        user.following?.insert("@")
                         
                         let statistics : [String : NSNumber] = ["magazines" : 0,
                             "followers" : 0, "following" : 0]

@@ -25,27 +25,79 @@ class SelectedObjectViewController: UITableViewController {
         if isFollowing{
             if magazine.followers == nil{
                 magazine.followers = Set<String>()
+                magazine.followers?.insert("")
             }
+
              magazine.followers?.insert(currentUser!.username!)
+            currentUser!.following!.insert(magazine.name!)
         }else{
             magazine.followers?.remove(currentUser!.username!)
+            currentUser?.following?.remove(magazine.name!)
         }
-       
 
         let objectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
-        
-        objectMapper.save(magazine).continueWithBlock({ (task: AWSTask!) -> AnyObject! in
+       
+        objectMapper.save(magazine).continueWithSuccessBlock({ (task: AWSTask!) -> AnyObject! in
             if task.error != nil {
                 print("Error: \(task.error)")
             }else{
+                objectMapper.save(currentUser)
                 dispatch_async(dispatch_get_main_queue()) {
-                    self.craftFollowButton((self.headerCell?.followBtn)!)
+                    let followers = magazine.followers!.count
+                    self.craftMenuButton(self.headerCell!.followingBtn,title: "\(followers)\nfollowers")
+                    
+                    self.craftFollowButton((self.headerCell!.followBtn)!)
 
                 }
             }
             return nil
         })
-
+        
+        
+//        var dynamoDB = AWSDynamoDB.defaultDynamoDB()
+        
+        //Write Request 1
+//        let hashValue1 = AWSDynamoDBAttributeValue()
+//        hashValue1.S = magazine.name
+//        
+//        let otherValue1 = AWSDynamoDBAttributeValue()
+//        otherValue1.SS = Array<String>(magazine.followers!)
+//        
+//        let writeRequest = AWSDynamoDBWriteRequest()
+//        writeRequest.putRequest = AWSDynamoDBPutRequest()
+//        writeRequest.putRequest!.item = [
+//            "name" : hashValue1,
+//            "followers" : otherValue1]
+        
+        
+//        //Write Request 2
+//        let hashValue2 = AWSDynamoDBAttributeValue()
+//        hashValue2.S = currentUser!.username
+//        
+//        let otherValue2 = AWSDynamoDBAttributeValue()
+//        otherValue2.SS = Array<String>(currentUser!.following!)
+//        
+//        let writeRequest2 = AWSDynamoDBWriteRequest()
+//        writeRequest2.putRequest = AWSDynamoDBPutRequest()
+//        writeRequest2.putRequest!.item = [
+//            "username" : hashValue2,
+//            "following" : otherValue2]
+//    
+//    
+//    
+//        let batchWriteItemInput = AWSDynamoDBBatchWriteItemInput()
+//        batchWriteItemInput.requestItems = [/*"Magazine": [writeRequest],*/ "User":[writeRequest2]];
+//        dynamoDB.batchWriteItem(batchWriteItemInput).continueWithBlock({ (task: AWSTask!) -> AnyObject! in
+//                        if task.error != nil {
+//                            print("Error: \(task.error)")
+//                        }else{
+//                            dispatch_async(dispatch_get_main_queue()) {
+//                                self.craftFollowButton((self.headerCell?.followBtn)!)
+//            
+//                            }
+//                        }
+//                        return nil
+//                    })
     }
     
     func initView(object: NSObject, withTitle: String, source: Types.Sources){
@@ -100,7 +152,7 @@ class SelectedObjectViewController: UITableViewController {
         if section == 0 {
             return 0
         }
-        return 15
+        return 25
     }
     
     
@@ -115,6 +167,9 @@ class SelectedObjectViewController: UITableViewController {
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?{
         let cell = tableView.dequeueReusableCellWithIdentifier(cellReuseIdentifier)
         cell?.layer.backgroundColor = Style.darkBackground.CGColor
+        cell?.textLabel?.text = "Articles"
+        cell?.textLabel?.font = UIFont.systemFontOfSize(14)
+        cell?.textLabel?.textColor = Style.textColorWhite
         return cell
     }
     
@@ -129,7 +184,8 @@ class SelectedObjectViewController: UITableViewController {
                 let magazine = object as! Magazine
                 craftMenuButton(cell.totalBtn,title: "\(magazine.statistics.objectForKey("contributers")!)\nhelpers")
                 craftMenuButton(cell.followersBtn,title: "\(magazine.statistics.objectForKey("sources")!)\nsources")
-                craftMenuButton(cell.followingBtn,title: "\(magazine.statistics.objectForKey("followers")!)\nfollowers")
+                let followers = magazine.followers!.count
+                craftMenuButton(cell.followingBtn,title: "\(followers)\nfollowers")
             }else{
                 craftMenuButton(cell.totalBtn,title: "17\nmagazines")
                 craftMenuButton(cell.followersBtn,title: "202\nfollowers")
