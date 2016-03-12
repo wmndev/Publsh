@@ -13,11 +13,14 @@ class SelectedObjectViewController: UITableViewController {
     var source = Types.Sources.NA
     var object = NSObject()
     var data = [AnyObject]()
+    var controllerCell: ObjectControllerCell?
     var headerCell: ObjectHeaderCell?
     var isFollowing = false
     
     let cellReuseIdentifier = "headerBasicCell"
-
+    
+    let EXTRA_CELLS = 2
+    
     @IBAction func getMagazine(sender: AnyObject) {
         isFollowing = !isFollowing
         let magazine = object as! Magazine
@@ -27,16 +30,16 @@ class SelectedObjectViewController: UITableViewController {
                 magazine.followers = Set<String>()
                 magazine.followers?.insert("")
             }
-
-             magazine.followers?.insert(currentUser!.username!)
+            
+            magazine.followers?.insert(currentUser!.username!)
             currentUser!.following!.insert(magazine.name!)
         }else{
             magazine.followers?.remove(currentUser!.username!)
             currentUser?.following?.remove(magazine.name!)
         }
-
+        
         let objectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
-       
+        
         objectMapper.save(magazine).continueWithSuccessBlock({ (task: AWSTask!) -> AnyObject! in
             if task.error != nil {
                 print("Error: \(task.error)")
@@ -44,60 +47,60 @@ class SelectedObjectViewController: UITableViewController {
                 objectMapper.save(currentUser)
                 dispatch_async(dispatch_get_main_queue()) {
                     let followers = magazine.followers!.count
-                    self.craftMenuButton(self.headerCell!.followingBtn,title: "\(followers)\nfollowers")
+                    self.craftMenuButton(self.controllerCell!.followingBtn,title: "\(followers)\nFOLLOWERS")
                     
                     self.craftFollowButton((self.headerCell!.followBtn)!)
-
+                    
                 }
             }
             return nil
         })
         
         
-//        var dynamoDB = AWSDynamoDB.defaultDynamoDB()
+        //        var dynamoDB = AWSDynamoDB.defaultDynamoDB()
         
         //Write Request 1
-//        let hashValue1 = AWSDynamoDBAttributeValue()
-//        hashValue1.S = magazine.name
-//        
-//        let otherValue1 = AWSDynamoDBAttributeValue()
-//        otherValue1.SS = Array<String>(magazine.followers!)
-//        
-//        let writeRequest = AWSDynamoDBWriteRequest()
-//        writeRequest.putRequest = AWSDynamoDBPutRequest()
-//        writeRequest.putRequest!.item = [
-//            "name" : hashValue1,
-//            "followers" : otherValue1]
+        //        let hashValue1 = AWSDynamoDBAttributeValue()
+        //        hashValue1.S = magazine.name
+        //
+        //        let otherValue1 = AWSDynamoDBAttributeValue()
+        //        otherValue1.SS = Array<String>(magazine.followers!)
+        //
+        //        let writeRequest = AWSDynamoDBWriteRequest()
+        //        writeRequest.putRequest = AWSDynamoDBPutRequest()
+        //        writeRequest.putRequest!.item = [
+        //            "name" : hashValue1,
+        //            "followers" : otherValue1]
         
         
-//        //Write Request 2
-//        let hashValue2 = AWSDynamoDBAttributeValue()
-//        hashValue2.S = currentUser!.username
-//        
-//        let otherValue2 = AWSDynamoDBAttributeValue()
-//        otherValue2.SS = Array<String>(currentUser!.following!)
-//        
-//        let writeRequest2 = AWSDynamoDBWriteRequest()
-//        writeRequest2.putRequest = AWSDynamoDBPutRequest()
-//        writeRequest2.putRequest!.item = [
-//            "username" : hashValue2,
-//            "following" : otherValue2]
-//    
-//    
-//    
-//        let batchWriteItemInput = AWSDynamoDBBatchWriteItemInput()
-//        batchWriteItemInput.requestItems = [/*"Magazine": [writeRequest],*/ "User":[writeRequest2]];
-//        dynamoDB.batchWriteItem(batchWriteItemInput).continueWithBlock({ (task: AWSTask!) -> AnyObject! in
-//                        if task.error != nil {
-//                            print("Error: \(task.error)")
-//                        }else{
-//                            dispatch_async(dispatch_get_main_queue()) {
-//                                self.craftFollowButton((self.headerCell?.followBtn)!)
-//            
-//                            }
-//                        }
-//                        return nil
-//                    })
+        //        //Write Request 2
+        //        let hashValue2 = AWSDynamoDBAttributeValue()
+        //        hashValue2.S = currentUser!.username
+        //
+        //        let otherValue2 = AWSDynamoDBAttributeValue()
+        //        otherValue2.SS = Array<String>(currentUser!.following!)
+        //
+        //        let writeRequest2 = AWSDynamoDBWriteRequest()
+        //        writeRequest2.putRequest = AWSDynamoDBPutRequest()
+        //        writeRequest2.putRequest!.item = [
+        //            "username" : hashValue2,
+        //            "following" : otherValue2]
+        //
+        //
+        //
+        //        let batchWriteItemInput = AWSDynamoDBBatchWriteItemInput()
+        //        batchWriteItemInput.requestItems = [/*"Magazine": [writeRequest],*/ "User":[writeRequest2]];
+        //        dynamoDB.batchWriteItem(batchWriteItemInput).continueWithBlock({ (task: AWSTask!) -> AnyObject! in
+        //                        if task.error != nil {
+        //                            print("Error: \(task.error)")
+        //                        }else{
+        //                            dispatch_async(dispatch_get_main_queue()) {
+        //                                self.craftFollowButton((self.headerCell?.followBtn)!)
+        //
+        //                            }
+        //                        }
+        //                        return nil
+        //                    })
     }
     
     func initView(object: NSObject, withTitle: String, source: Types.Sources){
@@ -117,7 +120,7 @@ class SelectedObjectViewController: UITableViewController {
         self.view.backgroundColor = Style.lightGrayBackgroundColor
         
         //for Auto cell height
-        tableView.rowHeight = UITableViewAutomaticDimension
+        //tableView.rowHeight = UITableViewAutomaticDimension
         
         
         //navigation
@@ -135,63 +138,38 @@ class SelectedObjectViewController: UITableViewController {
     // MARK: - Table view data source
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 2
+        return 1
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat{
-        if indexPath.section == 0 {
-            return 171
+        
+        if indexPath.row == 0{
+            return 160
             //return UITableViewAutomaticDimension
         }
-        return 70
-        
-        
-    }
-    
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
-        if section == 0 {
-            return 0
+        if indexPath.row == 1{
+            return 56
         }
-        return 25
+        
+        return 120
+        
+        
     }
     
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0{
-            return 1
-        }else{
-            return data.count
-        }
-    }
-    
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?{
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellReuseIdentifier)
-        cell?.layer.backgroundColor = Style.darkBackground.CGColor
-        cell?.textLabel?.text = "Articles"
-        cell?.textLabel?.font = UIFont.systemFontOfSize(14)
-        cell?.textLabel?.textColor = Style.textColorWhite
-        return cell
+        return data.count + EXTRA_CELLS
     }
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        if indexPath.section == 0{
+        
+        if indexPath.row == 0{
             let cell = tableView.dequeueReusableCellWithIdentifier("objectHeaderCell") as! ObjectHeaderCell
             headerCell = cell
             
-            if source == Types.Sources.MAGAZINE{
-                let magazine = object as! Magazine
-                craftMenuButton(cell.totalBtn,title: "\(magazine.statistics.objectForKey("contributers")!)\nhelpers")
-                craftMenuButton(cell.followersBtn,title: "\(magazine.statistics.objectForKey("sources")!)\nsources")
-                let followers = magazine.followers!.count
-                craftMenuButton(cell.followingBtn,title: "\(followers)\nfollowers")
-            }else{
-                craftMenuButton(cell.totalBtn,title: "17\nmagazines")
-                craftMenuButton(cell.followersBtn,title: "202\nfollowers")
-                craftMenuButton(cell.followingBtn,title: "5K\nfollowing")
-            }
- 
+            
             craftFollowButton(cell.followBtn)
             
             setUserProfileImage(cell)
@@ -202,36 +180,69 @@ class SelectedObjectViewController: UITableViewController {
             
             let magazine = object as! Magazine
             
+            cell.publshLbl.font = UIFont.systemFontOfSize(12, weight: UIFontWeightSemibolds)
+            
             cell.username.setTitleColor(Style.defaultComponentColor, forState: .Normal)
             cell.username.setTitle(magazine.createdBy, forState: UIControlState.Normal)
+            cell.username.titleLabel?.font = UIFont.systemFontOfSize(13, weight: UIFontWeightRegular)
+            
+            //cell.fullName.text = currentUser?.fullName
             
             cell.desc.text = magazine.desc!
-            cell.desc.textColor = Style.textStrongLighterColor
+            cell.desc.textColor = Style.textStrongColor
             cell.desc.lineBreakMode = .ByWordWrapping
+            cell.desc.font = UIFont.systemFontOfSize(13, weight: UIFontWeightLight)
             
             return cell
-        }else{
-            let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "articleDetails")
+        }
+        if indexPath.row == 1{
+            let cell = tableView.dequeueReusableCellWithIdentifier("objectControllerCell") as! ObjectControllerCell
+            controllerCell = cell
             
             if source == Types.Sources.MAGAZINE{
+                let magazine = object as! Magazine
+                craftMenuButton(cell.totalBtn,title: "\(magazine.statistics.objectForKey("contributers")!)\nCONTRIBUTE")
+                craftMenuButton(cell.followersBtn,title: "\(magazine.statistics.objectForKey("sources")!)\nSOURCES")
+                let followers = magazine.followers!.count
+                craftMenuButton(cell.followingBtn,title: "\(followers)\nFOLLOWERS")
+                craftMenuButton(cell.activityBtn,title: "\(followers)\nACTIVITIES")
                 
-                let article:Article = data[indexPath.row] as! Article
-                
-                cell.textLabel?.text = article.title
-                cell.textLabel?.font = UIFont(name: "Arial", size: 14.0)
-                cell.textLabel?.numberOfLines = 2
-                
-                let articleImage = resizeImage(UIImage(data: article.imageData!)!, toTheSize: CGSizeMake(40, 40))
-                
-                cell.imageView!.image = articleImage
-                cell.imageView!.frame = CGRectMake(0, 0, 40, 40)
-                cell.imageView!.layer.cornerRadius = 20
-                cell.imageView!.clipsToBounds = true
-                cell.imageView?.layer.masksToBounds = true
+            }else{
+                craftMenuButton(cell.totalBtn,title: "17\nmagazines")
+                craftMenuButton(cell.followersBtn,title: "202\nfollowers")
+                craftMenuButton(cell.followingBtn,title: "5K\nfollowing")
+                craftMenuButton(cell.activityBtn,title: "72\nactivities")
             }
             
             return cell
         }
+        
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier("articleCell") as! ArticleCell
+        
+        if source == Types.Sources.MAGAZINE{
+            
+            let article:Article = data[indexPath.row - EXTRA_CELLS] as! Article
+            
+            
+            cell.aTitle.text = article.title
+            cell.aTitle.textColor = Style.textStrongColor
+            cell.aTitle.font = UIFont.systemFontOfSize(15, weight: UIFontWeightSemibold)
+            cell.aTitle.lineBreakMode = .ByWordWrapping
+            
+            cell.aSubTitle.text = article.title
+            cell.aSubTitle.textColor = Style.textStrongColor
+            cell.aSubTitle.font = UIFont.systemFontOfSize(13, weight: UIFontWeightLight)
+            cell.aSubTitle.lineBreakMode = .ByWordWrapping
+            
+            
+            cell.aImage.image = resizeImage(UIImage(data: article.imageData!)!, toTheSize: CGSizeMake(80, 80))
+            cell.aImage!.clipsToBounds = true
+            cell.aImage?.layer.masksToBounds = true
+        }
+        
+        return cell
+        
     }
     
     func craftFollowButton(btn:UIButton){
@@ -281,7 +292,7 @@ class SelectedObjectViewController: UITableViewController {
                         let results = task.result as! AWSDynamoDBPaginatedOutput
                         for r in results.items {
                             let article = r as! Article
-                             article.imageData = NSData(contentsOfURL: NSURL(string: article.img!)!)
+                            article.imageData = NSData(contentsOfURL: NSURL(string: article.img!)!)
                             self.data.append(article)
                         }
                         self.tableView.reloadData()
@@ -300,8 +311,8 @@ class SelectedObjectViewController: UITableViewController {
         let exp = AWSDynamoDBQueryExpression()
         exp.hashKeyValues      = hash
         //if keyConditions != nil{
-         //   exp.rangeKeyConditions = keyConditions
-       // }
+        //   exp.rangeKeyConditions = keyConditions
+        // }
         
         return dynamoDBObjectMapper.query(Article.self, expression: exp)
     }
@@ -333,10 +344,10 @@ class SelectedObjectViewController: UITableViewController {
         }
         
         //assigning diffrent fonts to both substrings
-        let titleAttributes : [String : AnyObject] = [NSFontAttributeName : UIFont(name: "Arial", size: 25.0)!,
+        let titleAttributes : [String : AnyObject] = [NSFontAttributeName : UIFont.systemFontOfSize(22, weight: UIFontWeightRegular),
             NSForegroundColorAttributeName : Style.textStrongColor]
-        let subTitleAttributes : [String : AnyObject] = [NSFontAttributeName : UIFont(name: "Arial", size: 12.0)!,
-            NSForegroundColorAttributeName : Style.textStrongLighterColor]
+        let subTitleAttributes : [String : AnyObject] = [NSFontAttributeName : UIFont.systemFontOfSize(9, weight: UIFontWeightLight),
+            NSForegroundColorAttributeName : Style.textStrongColor]
         
         let attrString = NSMutableAttributedString(
             string: substring1 as String,
@@ -354,12 +365,6 @@ class SelectedObjectViewController: UITableViewController {
         
     }
     
-    override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.row == 0{
-            return 100.0
-        }
-        return 60.0
-    }
     
     func setUserProfileImage(cell: ObjectHeaderCell){
     }

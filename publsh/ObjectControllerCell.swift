@@ -1,28 +1,23 @@
 //
-//  ObjectHeaderCell.swift
+//  ObjectControllerCell.swift
 //  publsh
 //
-//  Created by Itai Wiseman on 2/21/16.
+//  Created by Itai Wiseman on 3/10/16.
 //  Copyright © 2016 iws. All rights reserved.
 //
 
 import UIKit
 
-class ObjectHeaderCell: UITableViewCell {
-    
-    @IBOutlet var publshLbl: UILabel!
-    
-    @IBOutlet var targetImage: UIImageView!
-    
-    @IBOutlet var followBtn: UIButton!
-    
-    //@IBOutlet var fullName: UILabel!
-    
-    @IBOutlet var username: UIButton!
-    
-    @IBOutlet var desc: UILabel!
+class ObjectControllerCell: UITableViewCell {
+    @IBOutlet var followingBtn: UIButton!
+    @IBOutlet var activityBtn: UIButton!
+    @IBOutlet var followersBtn: UIButton!
+    @IBOutlet var totalBtn: UIButton!
+
+
     
     override func awakeFromNib() {
+
         super.awakeFromNib()
         // Initialization code
     }
