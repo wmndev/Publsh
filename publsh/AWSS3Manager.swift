@@ -16,8 +16,7 @@ class AWSS3Manager{
     class func uploadImage(image: UIImage, fileIdentity: String){
         
         let transferManager = AWSS3TransferManager.defaultS3TransferManager()
-        
-        //let test = NSURL(
+
         let testFileURL1 = NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent("temp")
         let uploadRequest1 : AWSS3TransferManagerUploadRequest = AWSS3TransferManagerUploadRequest()
         
@@ -39,34 +38,18 @@ class AWSS3Manager{
         
     }
     
-    class func downloadImage(fileIdentity: String){
-        let downloadingFilePath1 = NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent("temp-download")
-        let downloadingFileURL1 = NSURL(fileURLWithPath: downloadingFilePath1.path!)
+    class func downloadImage(fileIdentity: String, downloadingFilePath:NSURL) -> AWSTask{
+        let downloadingFileURL = NSURL(fileURLWithPath: downloadingFilePath.path!)
         let transferManager = AWSS3TransferManager.defaultS3TransferManager()
         
         
-        let readRequest1 : AWSS3TransferManagerDownloadRequest = AWSS3TransferManagerDownloadRequest()
-        readRequest1.bucket = Constants.S3_PROFILE_BUCKET
-        readRequest1.key =  fileIdentity
-        readRequest1.downloadingFileURL = downloadingFileURL1
+        let readRequest : AWSS3TransferManagerDownloadRequest = AWSS3TransferManagerDownloadRequest()
+        readRequest.bucket = Constants.S3_PROFILE_BUCKET
+        readRequest.key =  fileIdentity
+        readRequest.downloadingFileURL = downloadingFileURL
         
-        let task = transferManager.download(readRequest1)
-        task.continueWithBlock { (task) -> AnyObject! in
-            print(task.error)
-            if task.error != nil {
-            } else {
-                dispatch_async(dispatch_get_main_queue()
-                    , { () ->  Void in
-                        print("downloaded image")
-//                        self.selectedImage.image = UIImage(contentsOfFile: downloadingFilePath1)
-//                        self.selectedImage.setNeedsDisplay()
-//                        self.selectedImage.reloadInputViews()
-                        
-                })
-                print("Fetched image")
-            }
-            return nil
-        }
+        return transferManager.download(readRequest)
+
     }
     
     

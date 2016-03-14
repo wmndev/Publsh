@@ -14,8 +14,8 @@ public struct EZLoadingActivity {
     // Feel free to edit these variables
     //==========================================================================================================
     public struct Settings {
-        public static var BackgroundColor = UIColor(red: 227/255, green: 232/255, blue: 235/255, alpha: 1.0)
-        public static var ActivityColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 1.0)
+        public static var BackgroundColor = UIColor(red: 42/255, green: 40/255, blue: 38/255, alpha: 0.5)
+        public static var ActivityColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0)
         public static var TextColor = UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 1.0)
         public static var FontName = "HelveticaNeue-Light"
         // Other possible stuff: ✓ ✓ ✔︎ ✕ ✖︎ ✘
@@ -26,13 +26,13 @@ public struct EZLoadingActivity {
         public static var SuccessColor = UIColor(red: 68/255, green: 118/255, blue: 4/255, alpha: 1.0)
         public static var FailColor = UIColor(red: 255/255, green: 75/255, blue: 56/255, alpha: 1.0)
         public static var ActivityWidth = UIScreen.ScreenWidth / Settings.WidthDivision
-        public static var ActivityHeight = ActivityWidth / 3
+        public static var ActivityHeight = ActivityWidth //ActivityWidth / 3
         public static var WidthDivision: CGFloat {
             get {
                 if UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Pad {
                     return  3.5
                 } else {
-                    return 1.6
+                    return 3//1.6
                 }
             }
         }
@@ -137,7 +137,7 @@ public struct EZLoadingActivity {
             textLabel.font = UIFont(name: Settings.FontName, size: 30)
             textLabel.adjustsFontSizeToFitWidth = true
             textLabel.minimumScaleFactor = 0.25
-            textLabel.textAlignment = NSTextAlignment.Center
+            textLabel.textAlignment = NSTextAlignment.Left
             textLabel.text = text
             
             if disableUI {
@@ -161,12 +161,12 @@ public struct EZLoadingActivity {
         }
         
         func createShadow() {
-            layer.shadowPath = createShadowPath().CGPath
-            layer.masksToBounds = false
-            layer.shadowColor = UIColor.blackColor().CGColor
-            layer.shadowOffset = CGSizeMake(0, 0)
-            layer.shadowRadius = 5
-            layer.shadowOpacity = 0.5
+//            layer.shadowPath = createShadowPath().CGPath
+//            layer.masksToBounds = false
+//            layer.shadowColor = UIColor.blackColor().CGColor
+//            layer.shadowOffset = CGSizeMake(0, 0)
+//            layer.shadowRadius = 5
+//            layer.shadowOpacity = 0.5
         }
         
         func createShadowPath() -> UIBezierPath {

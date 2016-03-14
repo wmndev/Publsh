@@ -21,87 +21,6 @@ class SelectedObjectViewController: UITableViewController {
     
     let EXTRA_CELLS = 2
     
-    @IBAction func getMagazine(sender: AnyObject) {
-        isFollowing = !isFollowing
-        let magazine = object as! Magazine
-        
-        if isFollowing{
-            if magazine.followers == nil{
-                magazine.followers = Set<String>()
-                magazine.followers?.insert("")
-            }
-            
-            magazine.followers?.insert(currentUser!.username!)
-            currentUser!.following!.insert(magazine.name!)
-        }else{
-            magazine.followers?.remove(currentUser!.username!)
-            currentUser?.following?.remove(magazine.name!)
-        }
-        
-        let objectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
-        
-        objectMapper.save(magazine).continueWithSuccessBlock({ (task: AWSTask!) -> AnyObject! in
-            if task.error != nil {
-                print("Error: \(task.error)")
-            }else{
-                objectMapper.save(currentUser)
-                dispatch_async(dispatch_get_main_queue()) {
-                    let followers = magazine.followers!.count
-                    self.craftMenuButton(self.controllerCell!.followingBtn,title: "\(followers)\nFOLLOWERS")
-                    
-                    self.craftFollowButton((self.headerCell!.followBtn)!)
-                    
-                }
-            }
-            return nil
-        })
-        
-        
-        //        var dynamoDB = AWSDynamoDB.defaultDynamoDB()
-        
-        //Write Request 1
-        //        let hashValue1 = AWSDynamoDBAttributeValue()
-        //        hashValue1.S = magazine.name
-        //
-        //        let otherValue1 = AWSDynamoDBAttributeValue()
-        //        otherValue1.SS = Array<String>(magazine.followers!)
-        //
-        //        let writeRequest = AWSDynamoDBWriteRequest()
-        //        writeRequest.putRequest = AWSDynamoDBPutRequest()
-        //        writeRequest.putRequest!.item = [
-        //            "name" : hashValue1,
-        //            "followers" : otherValue1]
-        
-        
-        //        //Write Request 2
-        //        let hashValue2 = AWSDynamoDBAttributeValue()
-        //        hashValue2.S = currentUser!.username
-        //
-        //        let otherValue2 = AWSDynamoDBAttributeValue()
-        //        otherValue2.SS = Array<String>(currentUser!.following!)
-        //
-        //        let writeRequest2 = AWSDynamoDBWriteRequest()
-        //        writeRequest2.putRequest = AWSDynamoDBPutRequest()
-        //        writeRequest2.putRequest!.item = [
-        //            "username" : hashValue2,
-        //            "following" : otherValue2]
-        //
-        //
-        //
-        //        let batchWriteItemInput = AWSDynamoDBBatchWriteItemInput()
-        //        batchWriteItemInput.requestItems = [/*"Magazine": [writeRequest],*/ "User":[writeRequest2]];
-        //        dynamoDB.batchWriteItem(batchWriteItemInput).continueWithBlock({ (task: AWSTask!) -> AnyObject! in
-        //                        if task.error != nil {
-        //                            print("Error: \(task.error)")
-        //                        }else{
-        //                            dispatch_async(dispatch_get_main_queue()) {
-        //                                self.craftFollowButton((self.headerCell?.followBtn)!)
-        //
-        //                            }
-        //                        }
-        //                        return nil
-        //                    })
-    }
     
     func initView(object: NSObject, withTitle: String, source: Types.Sources){
         self.object = object
@@ -110,6 +29,95 @@ class SelectedObjectViewController: UITableViewController {
         isUserFollowing()
         getLinkedData()
     }
+    
+    
+    @IBAction func usernameClicked(sender: AnyObject) {
+        EZLoadingActivity.show("...", disableUI: true)
+        
+        let currentMagazine = self.object as! Magazine
+        AmazonDynamoDBManager.getUser(currentMagazine.createdBy!)!.continueWithExecutor(AWSExecutor.mainThreadExecutor(), withBlock: { (task:AWSTask!) -> AnyObject! in
+            
+            if task.error != nil{
+                EZLoadingActivity.hide(success: false, animated: false)
+            }
+            
+            let mainStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
+            let selectedObjectViewController: SelectedObjectViewController = mainStoryboard.instantiateViewControllerWithIdentifier("selectedObjectViewController") as! SelectedObjectViewController
+            
+            let user = task.result as! User
+             selectedObjectViewController.initView(user, withTitle: user.username!, source: Types.Sources.USER)
+            
+            
+             self.navigationController?.pushViewController(selectedObjectViewController, animated: true)
+            EZLoadingActivity.hide()
+            return nil
+
+        })
+    }
+    
+    @IBAction func getMagazine(sender: AnyObject) {
+        isFollowing = !isFollowing
+        
+        if source == Types.Sources.MAGAZINE{
+            let magazine = object as! Magazine
+            
+            if isFollowing{
+                magazine.followers?.insert(currentUser!.username!)
+                currentUser!.following!.insert(magazine.name!)
+            }else{
+                magazine.followers?.remove(currentUser!.username!)
+                currentUser?.following?.remove(magazine.name!)
+            }
+            
+            let objectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
+            
+            objectMapper.save(magazine).continueWithSuccessBlock({ (task: AWSTask!) -> AnyObject! in
+                if task.error != nil {
+                    print("Error: \(task.error)")
+                }else{
+                    objectMapper.save(currentUser)
+                    dispatch_async(dispatch_get_main_queue()) {
+                        let followers = magazine.followers!.count - 1
+                        self.craftMenuButton(self.controllerCell!.followersBtn,title: "\(followers)\nFOLLOWERS")
+                        
+                        self.craftFollowButton((self.headerCell!.followBtn)!)
+                        
+                    }
+                }
+                return nil
+            })
+        }else{//USER
+            let user = object as! User
+            if isFollowing{
+               user.followers?.insert(currentUser!.username!)
+               currentUser!.following!.insert(user.username!)
+            }else{
+                user.followers?.remove(currentUser!.username!)
+                currentUser?.following?.remove(user.username!)
+            }
+            
+            let objectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
+            
+            objectMapper.save(user).continueWithSuccessBlock({ (task: AWSTask!) -> AnyObject! in
+                if task.error != nil {
+                    print("Error: \(task.error)")
+                }else{
+                    objectMapper.save(currentUser)
+                    dispatch_async(dispatch_get_main_queue()) {
+                        let followers = user.followers!.count - 1
+                        self.craftMenuButton(self.controllerCell!.followersBtn,title: "\(followers)\nFOLLOWERS")
+                        
+                        self.craftFollowButton((self.headerCell!.followBtn)!)
+                        
+                    }
+                }
+                return nil
+            })
+            
+        }
+    }
+    
+
     
     
     override func viewDidLoad() {
@@ -169,29 +177,44 @@ class SelectedObjectViewController: UITableViewController {
             let cell = tableView.dequeueReusableCellWithIdentifier("objectHeaderCell") as! ObjectHeaderCell
             headerCell = cell
             
-            
-            craftFollowButton(cell.followBtn)
-            
-            setUserProfileImage(cell)
             cell.targetImage.layer.cornerRadius = cell.targetImage.frame.size.width / 2;
             cell.targetImage.clipsToBounds = true
             cell.targetImage.layer.borderWidth = 1
-            cell.targetImage.layer.borderColor = Style.textColorWhite.CGColor
+            cell.targetImage.layer.borderColor = Style.grayBackground.CGColor
             
-            let magazine = object as! Magazine
+            craftFollowButton(cell.followBtn)
             
-            cell.publshLbl.font = UIFont.systemFontOfSize(12, weight: UIFontWeightSemibolds)
-            
-            cell.username.setTitleColor(Style.defaultComponentColor, forState: .Normal)
-            cell.username.setTitle(magazine.createdBy, forState: UIControlState.Normal)
-            cell.username.titleLabel?.font = UIFont.systemFontOfSize(13, weight: UIFontWeightRegular)
-            
-            //cell.fullName.text = currentUser?.fullName
-            
-            cell.desc.text = magazine.desc!
             cell.desc.textColor = Style.textStrongColor
             cell.desc.lineBreakMode = .ByWordWrapping
             cell.desc.font = UIFont.systemFontOfSize(13, weight: UIFontWeightLight)
+            
+            if source == Types.Sources.MAGAZINE{
+                
+
+                let magazine = object as! Magazine
+                
+                cell.publshLbl.font = UIFont.systemFontOfSize(12, weight: UIFontWeightSemibold)
+                
+                cell.username.setTitleColor(Style.defaultComponentColor, forState: .Normal)
+                cell.username.setTitle(magazine.createdBy, forState: UIControlState.Normal)
+                cell.username.titleLabel?.font = UIFont.systemFontOfSize(13, weight: UIFontWeightRegular)
+                
+                cell.desc.text = magazine.desc!
+
+                
+                
+            }else{ //User
+                
+                let user = object as! User
+                
+                cell.publshLbl.text = "Let me introduce myself:"
+                cell.username.hidden = true
+                
+                EZLoadingActivity.showOnController("", disableUI: false, controller: self)
+                setUserProfileImage(user.fb_id!)
+                
+                cell.desc.text = user.about
+            }
             
             return cell
         }
@@ -208,10 +231,13 @@ class SelectedObjectViewController: UITableViewController {
                 craftMenuButton(cell.activityBtn,title: "\(followers)\nACTIVITIES")
                 
             }else{
-                craftMenuButton(cell.totalBtn,title: "17\nmagazines")
-                craftMenuButton(cell.followersBtn,title: "202\nfollowers")
-                craftMenuButton(cell.followingBtn,title: "5K\nfollowing")
-                craftMenuButton(cell.activityBtn,title: "72\nactivities")
+                let user = object as! User
+                craftMenuButton(cell.totalBtn,title: "17\nMAGAZINES")
+                let followers = (user.followers?.count)! - 1
+                craftMenuButton(cell.followersBtn,title: "\(followers)\nFOLLOWERS")
+                let following = (user.following?.count)! - 1
+                craftMenuButton(cell.followingBtn,title: "\(following)\nFOLLOWING")
+                craftMenuButton(cell.activityBtn,title: "72\nACTIVITIES")
             }
             
             return cell
@@ -253,7 +279,7 @@ class SelectedObjectViewController: UITableViewController {
             btn.backgroundColor = Style.approvalColor
             btn.layer.borderColor = Style.approvalColor.CGColor
         }else{
-            btn.setTitle(source == Types.Sources.MAGAZINE ? "GET" : "FOLLOW", forState: UIControlState.Normal)
+            btn.setTitle(source == Types.Sources.MAGAZINE ? "+GET" : "FOLLOW", forState: UIControlState.Normal)
             btn.layer.borderWidth = 1
             btn.setTitleColor(Style.defaultComponentColor, forState: .Normal)
             btn.backgroundColor = Style.whiteColor
@@ -277,17 +303,22 @@ class SelectedObjectViewController: UITableViewController {
     }
     
     func isUserFollowing(){
+        if source == Types.Sources.MAGAZINE{
         let magazine = object as! Magazine
         isFollowing = magazine.followers?.contains(currentUser!.username!) ?? false
+        }else{
+            let user = object as! User
+            isFollowing = user.followers?.contains(currentUser!.username!) ?? false
+        }
     }
     
     func getLinkedData(){
         if source == Types.Sources.MAGAZINE{
             let magazine = object as! Magazine
             
-            query(magazine.name!).continueWithExecutor(AWSExecutor.mainThreadExecutor(), withBlock: { (task:AWSTask!) -> AnyObject! in
-                if (task.error == nil) {
-                    if (task.result != nil) {
+            AmazonDynamoDBManager.getArticles(magazine.name!).continueWithExecutor(AWSExecutor.mainThreadExecutor(), withBlock: { (task:AWSTask!) -> AnyObject! in
+                if task.error == nil {
+                    if task.result != nil {
                         
                         let results = task.result as! AWSDynamoDBPaginatedOutput
                         for r in results.items {
@@ -305,17 +336,6 @@ class SelectedObjectViewController: UITableViewController {
         }
     }
     
-    func query(hash: String /*, keyConditions:[NSObject:AnyObject]*/) -> AWSTask! {
-        let dynamoDBObjectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
-        
-        let exp = AWSDynamoDBQueryExpression()
-        exp.hashKeyValues      = hash
-        //if keyConditions != nil{
-        //   exp.rangeKeyConditions = keyConditions
-        // }
-        
-        return dynamoDBObjectMapper.query(Article.self, expression: exp)
-    }
     
     
     func craftMenuButton(button: UIButton, title: NSString){
@@ -366,7 +386,19 @@ class SelectedObjectViewController: UITableViewController {
     }
     
     
-    func setUserProfileImage(cell: ObjectHeaderCell){
+    func setUserProfileImage(u_id: String ) {
+        let downloadPath = NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent("temp-download")
+         AWSS3Manager.downloadImage(u_id, downloadingFilePath: downloadPath).continueWithExecutor(AWSExecutor.mainThreadExecutor(), withBlock: { (task:AWSTask!) -> AnyObject! in
+            
+            if task.result != nil{
+                
+                self.headerCell?.targetImage.image = UIImage(contentsOfFile: downloadPath.path!)
+                EZLoadingActivity.hide()
+            }
+            return nil
+            
+        })
+
     }
     
     
@@ -376,10 +408,6 @@ class SelectedObjectViewController: UITableViewController {
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "showUserProfile"{
-            //let destinationVC = segue.destinationViewController as! ProfileTableViewController
-            //destinationVC.user = self.user
-        }
         
     }
     

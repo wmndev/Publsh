@@ -25,6 +25,7 @@
 		0F863CF91C5C869800BF8325 /* SelectedObjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F863CF81C5C869800BF8325 /* SelectedObjectViewController.swift */; };
 		0FA4EBE51C6C541700EDD3BD /* AmazonClientManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA4EBE41C6C541700EDD3BD /* AmazonClientManager.swift */; };
 		0FA4EBE71C6C560800EDD3BD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA4EBE61C6C560800EDD3BD /* Constants.swift */; };
+		0FB0DD7C1C95ED3C00825707 /* AmazonDynamoDBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB0DD7B1C95ED3C00825707 /* AmazonDynamoDBManager.swift */; };
 		0FB6BAF11C65AF5A00BE0100 /* App.Storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FB6BAF01C65AF5A00BE0100 /* App.Storyboard */; };
 		0FD1ECC41C83C8E200D5A988 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD1ECC31C83C8E200D5A988 /* WelcomeViewController.swift */; };
 		0FD1ECC61C87429A00D5A988 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD1ECC51C87429A00D5A988 /* AppConstants.swift */; };
@@ -61,6 +62,7 @@
 		0F863CF81C5C869800BF8325 /* SelectedObjectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedObjectViewController.swift; sourceTree = "<group>"; };
 		0FA4EBE41C6C541700EDD3BD /* AmazonClientManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AmazonClientManager.swift; sourceTree = "<group>"; };
 		0FA4EBE61C6C560800EDD3BD /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		0FB0DD7B1C95ED3C00825707 /* AmazonDynamoDBManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AmazonDynamoDBManager.swift; sourceTree = "<group>"; };
 		0FB6BAF01C65AF5A00BE0100 /* App.Storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = App.Storyboard; sourceTree = "<group>"; };
 		0FD1ECC31C83C8E200D5A988 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		0FD1ECC51C87429A00D5A988 /* AppConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 		0FD206151C7032E000325AC1 /* AWS */ = {
 			isa = PBXGroup;
 			children = (
+				0FB0DD7B1C95ED3C00825707 /* AmazonDynamoDBManager.swift */,
 				0FA4EBE61C6C560800EDD3BD /* Constants.swift */,
 				0FD206161C70333900325AC1 /* AWSS3Manager.swift */,
 				0FA4EBE41C6C541700EDD3BD /* AmazonClientManager.swift */,
@@ -337,6 +340,7 @@
 				0FD1ECC41C83C8E200D5A988 /* WelcomeViewController.swift in Sources */,
 				0F81DE181C49F5C100593379 /* MagazineIntroCell.swift in Sources */,
 				0FD2060F1C6C611C00325AC1 /* Crypto.m in Sources */,
+				0FB0DD7C1C95ED3C00825707 /* AmazonDynamoDBManager.swift in Sources */,
 				0F81DE1A1C4A01E500593379 /* MagazineIntroDetails.swift in Sources */,
 				0FD206141C6D85C700325AC1 /* Magazine.swift in Sources */,
 				0FA4EBE51C6C541700EDD3BD /* AmazonClientManager.swift in Sources */,

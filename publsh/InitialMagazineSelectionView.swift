@@ -92,11 +92,6 @@ class InitialMagazineSelectionView: UITableViewController {
         
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None;
-    }
-    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
