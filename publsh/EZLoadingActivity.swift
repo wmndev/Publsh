@@ -14,9 +14,9 @@ public struct EZLoadingActivity {
     // Feel free to edit these variables
     //==========================================================================================================
     public struct Settings {
-        public static var BackgroundColor = UIColor(red: 42/255, green: 40/255, blue: 38/255, alpha: 0.5)
+        public static var BackgroundColor = UIColor(red: 42/255, green: 40/255, blue: 38/255, alpha: 0.7)
         public static var ActivityColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0)
-        public static var TextColor = UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 1.0)
+        public static var TextColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0)
         public static var FontName = "HelveticaNeue-Light"
         // Other possible stuff: ✓ ✓ ✔︎ ✕ ✖︎ ✘
         public static var SuccessIcon = "✔︎"

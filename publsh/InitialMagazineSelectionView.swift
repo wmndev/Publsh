@@ -16,6 +16,9 @@ class InitialMagazineSelectionView: UITableViewController {
     
     var activityIndicator = UIActivityIndicatorView()
     
+    let cellReuseIdentifier = "cellHeader"
+     let sectionReuseIdentifier = "sectionHeader"
+    
     @IBOutlet var skipDoneBarButton: UIBarButtonItem!
     
     @IBAction func donePressed(sender: AnyObject) {
@@ -23,13 +26,20 @@ class InitialMagazineSelectionView: UITableViewController {
         self.presentViewController(viewController, animated: true, completion: nil)
     }
     
+    @IBAction func usernameTouched(sender: AnyObject) {
+        let btn = sender as! UIButton
+        let username = btn.titleLabel?.text
+        
+        ViewTransitionManager.moveToUserView(username!, view: self)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // register UITableViewCell for reuse
-//        self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
+       self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
+        self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: sectionReuseIdentifier)
         
-        self.view.backgroundColor = Style.lightGrayBackgroundColor
+        self.view.backgroundColor = Style.strongGrayBackgroundColor
         
         
         activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
@@ -47,7 +57,7 @@ class InitialMagazineSelectionView: UITableViewController {
             }
         }
         
-                
+        
         //navigation
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
@@ -104,30 +114,74 @@ class InitialMagazineSelectionView: UITableViewController {
     // MARK: - Table view data source'
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat{
-        return 84
+        if indexPath.row == 0{
+            return 20
+        }
+        if indexPath.row == 1{
+        return 332
+        }
+        return 41
     }
-
+    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        return magazines.count
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return magazines.count
+        return 3
+    }
+    
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
+        return 15
+    }
+    
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?{
+        let header = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: sectionReuseIdentifier)
+        header.backgroundColor = UIColor.clearColor()
+        return header
     }
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
+        let idx = indexPath.row
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("magazineCell", forIndexPath: indexPath) as! MagazineIntroCell
-
-        cell.mImage.layer.borderColor = Style.textLightColor.CGColor
+        if idx == 0{
+            let cell = tableView.dequeueReusableCellWithIdentifier(cellReuseIdentifier, forIndexPath: indexPath)
+            cell.textLabel?.text = "Recommended for you."
+            cell.textLabel?.font = UIFont.systemFontOfSize(14, weight: UIFontWeightMedium)
+            cell.textLabel?.textColor = Style.textLightColor
+            return cell
+        }
+        if idx == 1{
+            let cell = tableView.dequeueReusableCellWithIdentifier("magazineCell", forIndexPath: indexPath) as! MagazineIntroCell
+            
+            cell.mImage!.layer.borderColor = Style.textLightColor.CGColor
+            cell.mImage!.clipsToBounds = true
+            cell.mImage!.layer.masksToBounds = true
+            
+            cell.mTitle.text = magazines[indexPath.section].name!
+            cell.mTitle.textColor = Style.textStrongColor
+            cell.mTitle.font = UIFont.systemFontOfSize(15, weight: UIFontWeightSemibold)
+            
+            cell.mDesc.text = magazines[indexPath.section].desc!
+            cell.mDesc.textColor = Style.textStrongColor
+            cell.mDesc.lineBreakMode = .ByWordWrapping
+            cell.mDesc.font = UIFont.systemFontOfSize(13, weight: UIFontWeightLight)
+            
+            cell.getBtn.layer.borderWidth = 1
+            cell.getBtn.setTitleColor(Style.defaultComponentColor, forState: .Normal)
+            cell.getBtn.backgroundColor = Style.whiteColor
+            cell.getBtn.layer.borderColor = Style.defaultComponentColor.CGColor
+            
+            return cell
+        }
         
-        cell.mTitle.text = magazines[indexPath.row].name!
-        cell.mTitle.textColor = Style.textStrongColor
+        let cell = tableView.dequeueReusableCellWithIdentifier("magazineFooterCell", forIndexPath: indexPath) as! MagazineFooterCell
+        //cell.textLabel?.text = "Footer for you."
+        //cell.textLabel?.font = UIFont.systemFontOfSize(14, weight: UIFontWeightLight)
+        //return cell
         
-        cell.mDesc.text = magazines[indexPath.row].desc!
-        cell.mTitle.textColor = Style.textStrongLighterColor
         
         cell.category1.backgroundColor = Style.category.gray
         cell.category1.textColor = Style.textStrongLighterColor
@@ -135,17 +189,26 @@ class InitialMagazineSelectionView: UITableViewController {
         cell.category1.clipsToBounds = true
         cell.category1.layer.cornerRadius = 7
         
-        cell.numOfFollowers.text = "122 followers"
-        cell.numOfFollowers.textColor = Style.textStrongLighterColor
+        let followers = magazines[indexPath.section].followers!.count - 1
+        cell.followersBtn.setTitle("\(followers) followers", forState: UIControlState.Normal)
+        cell.followersBtn.titleLabel!.textColor = Style.textStrongLighterColor
         
-        cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        cell.followersBtn.setTitleColor(Style.defaultComponentColor, forState: .Normal)
+        cell.followersBtn.titleLabel?.font = UIFont.systemFontOfSize(12, weight: UIFontWeightSemibold)
+        
+        cell.username.setTitleColor(Style.defaultComponentColor, forState: .Normal)
+        cell.username.setTitle(magazines[indexPath.section].createdBy, forState: UIControlState.Normal)
+        cell.username.titleLabel?.font = UIFont.systemFontOfSize(12, weight: UIFontWeightSemibold)
+        
+
+        //cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         
         return cell
         
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        rowIndex = indexPath.row
+        rowIndex = indexPath.section
         self.performSegueWithIdentifier("showSelectedObject", sender: self)
     }
     

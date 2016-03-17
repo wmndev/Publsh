@@ -22,11 +22,11 @@ class Magazine: AWSDynamoDBObjectModel,AWSDynamoDBModeling{
     var followers:Set<String>?
     
     
-    class func dynamoDBTableName() -> String! {
+     class func dynamoDBTableName() -> String! {
         return "Magazine"
     }
     
-    class func hashKeyAttribute() -> String! {
+     class func hashKeyAttribute() -> String! {
         return "name"
     }
     
@@ -34,9 +34,9 @@ class Magazine: AWSDynamoDBObjectModel,AWSDynamoDBModeling{
         return "createdBy"
     }
     
-//    class func ignoreAttributes() -> Array<AnyObject>! {
-//        return ["desc", "types", "content",]
-//    }
+    class func ignoreAttributes() -> Array<AnyObject>! {
+        return ["following"]
+    }
     
     //MARK: NSObjectProtocol hack
     override func isEqual(object: AnyObject?) -> Bool {
@@ -45,6 +45,10 @@ class Magazine: AWSDynamoDBObjectModel,AWSDynamoDBModeling{
     
     override func `self`() -> Self {
         return self
+    }
+    
+    func getHashKeyValue() -> String!{
+        return name
     }
     
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class User: AWSDynamoDBObjectModel, AWSDynamoDBModeling{
+class User: AWSDynamoDBObjectModel,AWSDynamoDBModeling{
 
     var username: String?
     var fb_id:String?
@@ -20,7 +20,7 @@ class User: AWSDynamoDBObjectModel, AWSDynamoDBModeling{
     var socialPings : NSDictionary = [String : String]() //twitter, Facebook etc. addresses
     var followers:Set<String>?
     var following:Set<String>?
-    
+
 
     class func dynamoDBTableName() -> String! {
         return "User"
@@ -42,6 +42,10 @@ class User: AWSDynamoDBObjectModel, AWSDynamoDBModeling{
     
     override func `self`() -> Self {
         return self
+    }
+    
+    func getHashKeyValue() -> String!{
+        return username
     }
 
 }

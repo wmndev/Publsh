@@ -30,106 +30,66 @@ class SelectedObjectViewController: UITableViewController {
         getLinkedData()
     }
     
-    
-    @IBAction func usernameClicked(sender: AnyObject) {
-        EZLoadingActivity.show("...", disableUI: true)
-        
-        let currentMagazine = self.object as! Magazine
-        AmazonDynamoDBManager.getUser(currentMagazine.createdBy!)!.continueWithExecutor(AWSExecutor.mainThreadExecutor(), withBlock: { (task:AWSTask!) -> AnyObject! in
-            
-            if task.error != nil{
-                EZLoadingActivity.hide(success: false, animated: false)
-            }
-            
-            let mainStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
-            let selectedObjectViewController: SelectedObjectViewController = mainStoryboard.instantiateViewControllerWithIdentifier("selectedObjectViewController") as! SelectedObjectViewController
-            
-            let user = task.result as! User
-             selectedObjectViewController.initView(user, withTitle: user.username!, source: Types.Sources.USER)
-            
-            
-             self.navigationController?.pushViewController(selectedObjectViewController, animated: true)
-            EZLoadingActivity.hide()
-            return nil
-
-        })
-    }
-    
-    @IBAction func getMagazine(sender: AnyObject) {
+    @IBAction func followTouched(sender: AnyObject) {
         isFollowing = !isFollowing
+        let objectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
+        var magazine:Magazine?
+        var user:User?
+        
+        
         
         if source == Types.Sources.MAGAZINE{
-            let magazine = object as! Magazine
+             magazine = object as! Magazine
             
             if isFollowing{
-                magazine.followers?.insert(currentUser!.username!)
-                currentUser!.following!.insert(magazine.name!)
+                magazine!.followers?.insert(currentUser!.username!)
+                currentUser!.following!.insert(magazine!.getHashKeyValue()!)
             }else{
-                magazine.followers?.remove(currentUser!.username!)
-                currentUser?.following?.remove(magazine.name!)
+                magazine!.followers?.remove(currentUser!.username!)
+                currentUser?.following?.remove(magazine!.getHashKeyValue()!)
             }
             
-            let objectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
-            
-            objectMapper.save(magazine).continueWithSuccessBlock({ (task: AWSTask!) -> AnyObject! in
-                if task.error != nil {
-                    print("Error: \(task.error)")
-                }else{
-                    objectMapper.save(currentUser)
-                    dispatch_async(dispatch_get_main_queue()) {
-                        let followers = magazine.followers!.count - 1
-                        self.craftMenuButton(self.controllerCell!.followersBtn,title: "\(followers)\nFOLLOWERS")
-                        
-                        self.craftFollowButton((self.headerCell!.followBtn)!)
-                        
-                    }
-                }
-                return nil
-            })
-        }else{//USER
-            let user = object as! User
+        }else{
+            user = object as! User
             if isFollowing{
-               user.followers?.insert(currentUser!.username!)
-               currentUser!.following!.insert(user.username!)
+                user!.followers?.insert(currentUser!.username!)
+                currentUser!.following!.insert(user!.getHashKeyValue()!)
             }else{
-                user.followers?.remove(currentUser!.username!)
-                currentUser?.following?.remove(user.username!)
+                user!.followers?.remove(currentUser!.username!)
+                currentUser?.following?.remove(user!.getHashKeyValue()!)
             }
-            
-            let objectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
-            
-            objectMapper.save(user).continueWithSuccessBlock({ (task: AWSTask!) -> AnyObject! in
-                if task.error != nil {
-                    print("Error: \(task.error)")
-                }else{
-                    objectMapper.save(currentUser)
-                    dispatch_async(dispatch_get_main_queue()) {
-                        let followers = user.followers!.count - 1
-                        self.craftMenuButton(self.controllerCell!.followersBtn,title: "\(followers)\nFOLLOWERS")
-                        
-                        self.craftFollowButton((self.headerCell!.followBtn)!)
-                        
-                    }
-                }
-                return nil
-            })
-            
         }
+        
+        objectMapper.save(source == Types.Sources.MAGAZINE ? magazine! : user!).continueWithSuccessBlock({ (task: AWSTask!) -> AnyObject! in
+                if task.error != nil {
+                    print("Error: \(task.error)")
+                }else{
+                    objectMapper.save(currentUser)
+                    dispatch_async(dispatch_get_main_queue()) {
+                        let followers =  (self.source == Types.Sources.MAGAZINE ?  magazine!.followers!.count : user!.followers!.count) - 1
+                        self.craftMenuButton(self.controllerCell!.followersBtn,title: "\(followers)\nFOLLOWERS")
+                        
+                        self.craftFollowButton((self.headerCell!.followBtn)!)
+                        
+                    }
+                }
+                return nil
+            })
     }
     
+    @IBAction func usernameClicked(sender: AnyObject) {
+        let btn = sender as! UIButton
+        let username = btn.titleLabel?.text
+        
+        ViewTransitionManager.moveToUserView(username!, view: self)
+    }
 
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
         
         self.view.backgroundColor = Style.lightGrayBackgroundColor
-        
-        //for Auto cell height
-        //tableView.rowHeight = UITableViewAutomaticDimension
-        
         
         //navigation
         
@@ -172,7 +132,6 @@ class SelectedObjectViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        
         if indexPath.row == 0{
             let cell = tableView.dequeueReusableCellWithIdentifier("objectHeaderCell") as! ObjectHeaderCell
             headerCell = cell
@@ -188,26 +147,26 @@ class SelectedObjectViewController: UITableViewController {
             cell.desc.lineBreakMode = .ByWordWrapping
             cell.desc.font = UIFont.systemFontOfSize(13, weight: UIFontWeightLight)
             
+            cell.publshLbl.font = UIFont.systemFontOfSize(12, weight: UIFontWeightSemibold)
+            
             if source == Types.Sources.MAGAZINE{
                 
 
                 let magazine = object as! Magazine
                 
-                cell.publshLbl.font = UIFont.systemFontOfSize(12, weight: UIFontWeightSemibold)
+                cell.publshLbl.text = "Creator:"
                 
                 cell.username.setTitleColor(Style.defaultComponentColor, forState: .Normal)
                 cell.username.setTitle(magazine.createdBy, forState: UIControlState.Normal)
-                cell.username.titleLabel?.font = UIFont.systemFontOfSize(13, weight: UIFontWeightRegular)
+                cell.username.titleLabel?.font = UIFont.systemFontOfSize(14, weight: UIFontWeightSemibold)
                 
                 cell.desc.text = magazine.desc!
 
-                
-                
             }else{ //User
                 
                 let user = object as! User
                 
-                cell.publshLbl.text = "Let me introduce myself:"
+                cell.publshLbl.text = "About me:"
                 cell.username.hidden = true
                 
                 EZLoadingActivity.showOnController("", disableUI: false, controller: self)
@@ -225,9 +184,9 @@ class SelectedObjectViewController: UITableViewController {
             if source == Types.Sources.MAGAZINE{
                 let magazine = object as! Magazine
                 craftMenuButton(cell.totalBtn,title: "\(magazine.statistics.objectForKey("contributers")!)\nCONTRIBUTE")
-                craftMenuButton(cell.followersBtn,title: "\(magazine.statistics.objectForKey("sources")!)\nSOURCES")
+                craftMenuButton(cell.followingBtn  ,title: "\(magazine.statistics.objectForKey("sources")!)\nSOURCES")
                 let followers = magazine.followers!.count
-                craftMenuButton(cell.followingBtn,title: "\(followers)\nFOLLOWERS")
+                craftMenuButton(cell.followersBtn,title: "\(followers)\nFOLLOWERS")
                 craftMenuButton(cell.activityBtn,title: "\(followers)\nACTIVITIES")
                 
             }else{
@@ -279,7 +238,7 @@ class SelectedObjectViewController: UITableViewController {
             btn.backgroundColor = Style.approvalColor
             btn.layer.borderColor = Style.approvalColor.CGColor
         }else{
-            btn.setTitle(source == Types.Sources.MAGAZINE ? "+GET" : "FOLLOW", forState: UIControlState.Normal)
+            btn.setTitle(source == Types.Sources.MAGAZINE ? "+ GET" : "FOLLOW", forState: UIControlState.Normal)
             btn.layer.borderWidth = 1
             btn.setTitleColor(Style.defaultComponentColor, forState: .Normal)
             btn.backgroundColor = Style.whiteColor

@@ -10,13 +10,14 @@ import UIKit
 
 class MagazineIntroCell: UITableViewCell {
     
-    @IBOutlet var mImage: UIImageView!
-    @IBOutlet var mTitle: UILabel!
-
-    @IBOutlet var category1: UILabel!
     @IBOutlet var mDesc: UILabel!
+    @IBOutlet var mImage: UIImageView!
+    @IBOutlet var getBtn: UIButton!
+    @IBOutlet var mTitle: UILabel!
+    //@IBOutlet var category1: UILabel!
 
-    @IBOutlet var numOfFollowers: UILabel!
+
+    //@IBOutlet var numOfFollowers: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
