@@ -31,6 +31,42 @@ class SelectedObjectViewController: UITableViewController {
         getLinkedData()
     }
     
+    @IBAction func menuItemTouched(sender: AnyObject) {
+        let btn = sender as! UIButton
+        let isMagazine = source == Types.Sources.MAGAZINE
+        switch btn.tag{
+            
+        case 2:
+            var followers:Set<String>?
+            if isMagazine {
+                let magazine = object as! Magazine
+                followers = magazine.followers
+            }else{
+                let user = object as! User
+                followers = user.followers
+            }
+            ViewTransitionManager.moveToUserListView(followers!, view: self, withTitle: "FOLLOWERS")
+            break
+        case 3:
+             var following:Set<String>?
+            if isMagazine {
+
+            }else{
+                let user = object as! User
+                following = user.following
+            }
+            ViewTransitionManager.moveToUserListView(following!, view: self, withTitle: "FOLLOWING")
+            
+            break
+        default:
+            break
+            
+        }
+        
+        
+    }
+    
+    
     @IBAction func followTouched(sender: AnyObject) {
         isFollowing = !isFollowing
         let objectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
@@ -40,7 +76,7 @@ class SelectedObjectViewController: UITableViewController {
         
         
         if source == Types.Sources.MAGAZINE{
-             magazine = object as! Magazine
+            magazine = object as! Magazine
             
             if isFollowing{
                 magazine!.followers?.insert(currentUser!.username!)
@@ -62,20 +98,20 @@ class SelectedObjectViewController: UITableViewController {
         }
         
         objectMapper.save(source == Types.Sources.MAGAZINE ? magazine! : user!).continueWithSuccessBlock({ (task: AWSTask!) -> AnyObject! in
-                if task.error != nil {
-                    print("Error: \(task.error)")
-                }else{
-                    objectMapper.save(currentUser)
-                    dispatch_async(dispatch_get_main_queue()) {
-                        let followers =  (self.source == Types.Sources.MAGAZINE ?  magazine!.followers!.count : user!.followers!.count) - 1
-                        self.craftMenuButton(self.controllerCell!.followersBtn,title: "\(followers)\nFOLLOWERS")
-                        
-                        self.craftFollowButton((self.headerCell!.followBtn)!)
-                        
-                    }
+            if task.error != nil {
+                print("Error: \(task.error)")
+            }else{
+                objectMapper.save(currentUser)
+                dispatch_async(dispatch_get_main_queue()) {
+                    let followers =  (self.source == Types.Sources.MAGAZINE ?  magazine!.followers!.count : user!.followers!.count) - 1
+                    self.craftMenuButton(self.controllerCell!.followersBtn,title: "\(followers)\nFOLLOWERS")
+                    
+                    self.craftFollowButton((self.headerCell!.followBtn)!)
+                    
                 }
-                return nil
-            })
+            }
+            return nil
+        })
     }
     
     @IBAction func usernameClicked(sender: AnyObject) {
@@ -84,7 +120,7 @@ class SelectedObjectViewController: UITableViewController {
         
         ViewTransitionManager.moveToUserView(username!, view: self)
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -152,7 +188,7 @@ class SelectedObjectViewController: UITableViewController {
             
             if source == Types.Sources.MAGAZINE{
                 
-
+                
                 let magazine = object as! Magazine
                 
                 cell.publshLbl.text = "Creator:"
@@ -162,7 +198,7 @@ class SelectedObjectViewController: UITableViewController {
                 cell.username.titleLabel?.font = UIFont.systemFontOfSize(14, weight: UIFontWeightSemibold)
                 
                 cell.desc.text = magazine.desc!
-
+                
             }else{ //User
                 
                 let user = object as! User
@@ -239,7 +275,7 @@ class SelectedObjectViewController: UITableViewController {
             btn.backgroundColor = Style.approvalColor
             btn.layer.borderColor = Style.approvalColor.CGColor
         }else{
-            btn.setTitle(source == Types.Sources.MAGAZINE ? "+ GET" : "FOLLOW", forState: UIControlState.Normal)
+            btn.setTitle(source == Types.Sources.MAGAZINE ? "GET" : "FOLLOW", forState: UIControlState.Normal)
             btn.layer.borderWidth = 1
             btn.setTitleColor(Style.defaultComponentColor, forState: .Normal)
             btn.backgroundColor = Style.whiteColor
@@ -264,8 +300,8 @@ class SelectedObjectViewController: UITableViewController {
     
     func isUserFollowing(){
         if source == Types.Sources.MAGAZINE{
-        let magazine = object as! Magazine
-        isFollowing = magazine.followers?.contains(currentUser!.username!) ?? false
+            let magazine = object as! Magazine
+            isFollowing = magazine.followers?.contains(currentUser!.username!) ?? false
         }else{
             let user = object as! User
             isFollowing = user.followers?.contains(currentUser!.username!) ?? false
@@ -348,7 +384,7 @@ class SelectedObjectViewController: UITableViewController {
     
     func setUserProfileImage(u_id: String ) {
         let downloadPath = NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent("temp-download")
-         AWSS3Manager.downloadImage(u_id, downloadingFilePath: downloadPath).continueWithExecutor(AWSExecutor.mainThreadExecutor(), withBlock: { (task:AWSTask!) -> AnyObject! in
+        AWSS3Manager.downloadImage(u_id, downloadingFilePath: downloadPath).continueWithExecutor(AWSExecutor.mainThreadExecutor(), withBlock: { (task:AWSTask!) -> AnyObject! in
             
             if task.result != nil{
                 
@@ -358,7 +394,7 @@ class SelectedObjectViewController: UITableViewController {
             return nil
             
         })
-
+        
     }
     
     

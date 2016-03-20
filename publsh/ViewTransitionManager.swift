@@ -36,10 +36,11 @@ class ViewTransitionManager{
         
     }
     
-    static func moveToUserListView(usernameList:Set<String>, view:UIViewController){
+    static func moveToUserListView(usernameList:Set<String>, view:UIViewController, withTitle:String){
         let mainStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
         let selectedObjectViewController: UsersTableViewController = mainStoryboard.instantiateViewControllerWithIdentifier("usersTableView") as! UsersTableViewController
         selectedObjectViewController.usernames = usernameList
+        selectedObjectViewController.navigationItem.title = withTitle
         view.navigationController?.pushViewController(selectedObjectViewController, animated: true)
         
         

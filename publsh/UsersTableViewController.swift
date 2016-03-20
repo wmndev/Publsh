@@ -13,15 +13,12 @@ class UsersTableViewController: UITableViewController {
     
     var usernames:Set<String>?
     var users = [User]()
-    let cellReuseIdentifier = "reuseIdentifier"
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
-        
-        
+       
         AmazonDynamoDBManager.getBatchUserItems(usernames!, completeHandler: { (task) -> AnyObject? in
             if task.result != nil{
                 let getItemResult: AWSDynamoDBBatchGetItemOutput = task.result as! AWSDynamoDBBatchGetItemOutput
@@ -69,24 +66,42 @@ class UsersTableViewController: UITableViewController {
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellReuseIdentifier, forIndexPath: indexPath)
+        let cell:SimpleObjectCell = tableView.dequeueReusableCellWithIdentifier("simpleUserCell", forIndexPath: indexPath) as! SimpleObjectCell
         
-        cell.textLabel?.text = users[indexPath.row].username
         
+        cell.objName.text = users[indexPath.row].username
+        cell.objName.textColor = Style.textStrongColor
+        cell.objName.font = UIFont.systemFontOfSize(15, weight: UIFontWeightRegular)
+        
+        cell.profileImg.layer.cornerRadius = cell.profileImg.frame.size.width / 2;
+        cell.profileImg.clipsToBounds = true
+        cell.profileImg.layer.borderWidth = 0.7
+        cell.profileImg.layer.borderColor = Style.grayBackground.CGColor
+        
+        
+
+        cell.followBtn.layer.borderWidth = 1
+        cell.followBtn.setTitleColor(Style.defaultComponentColor, forState: .Normal)
+        cell.followBtn.titleLabel?.font = UIFont.systemFontOfSize(9, weight: UIFontWeightRegular)
+        cell.followBtn.backgroundColor = Style.whiteColor
+        cell.followBtn.layer.borderColor = Style.defaultComponentColor.CGColor
         
         
         let fbProfileImgUrl = "https://graph.facebook.com/" + users[indexPath.row].fb_id! + "/picture?type=large"
-        
+       
         if let url = NSURL(string: fbProfileImgUrl) {
-            cell.imageView?.layer.cornerRadius = (cell.imageView?.frame.size.width)! / 2;
-            cell.imageView?.clipsToBounds = true
-            cell.imageView?.layer.borderWidth = 1
-            cell.imageView?.layer.borderColor = Style.grayBackground.CGColor
-            cell.imageView!.sd_setImageWithURL(url)
+            cell.profileImg.sd_setImageWithURL(url, completed: { (image, error, sdImageCacheType, nsUrl) -> Void in
+
+               cell.profileImg.image = image
+            })
         }
         
         
         return cell
+    }
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat{
+        return 60
     }
     
     

@@ -30,6 +30,8 @@
 		0FB0DD821C9918F600825707 /* MagazineFooterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB0DD811C9918F600825707 /* MagazineFooterCell.swift */; };
 		0FB0DD861C9A3AB700825707 /* ViewTransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB0DD851C9A3AB700825707 /* ViewTransitionManager.swift */; };
 		0FB6BAF11C65AF5A00BE0100 /* App.Storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FB6BAF01C65AF5A00BE0100 /* App.Storyboard */; };
+		0FBA15E31C9E4D06005014AC /* def_profile.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0FBA15E21C9E4D06005014AC /* def_profile.jpg */; };
+		0FBA15E51C9E526F005014AC /* SimpleObjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FBA15E41C9E526F005014AC /* SimpleObjectCell.swift */; };
 		0FD1ECC41C83C8E200D5A988 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD1ECC31C83C8E200D5A988 /* WelcomeViewController.swift */; };
 		0FD1ECC61C87429A00D5A988 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD1ECC51C87429A00D5A988 /* AppConstants.swift */; };
 		0FD1ECC81C87770E00D5A988 /* EZLoadingActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD1ECC71C87770E00D5A988 /* EZLoadingActivity.swift */; };
@@ -69,6 +71,8 @@
 		0FB0DD811C9918F600825707 /* MagazineFooterCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagazineFooterCell.swift; sourceTree = "<group>"; };
 		0FB0DD851C9A3AB700825707 /* ViewTransitionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewTransitionManager.swift; sourceTree = "<group>"; };
 		0FB6BAF01C65AF5A00BE0100 /* App.Storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = App.Storyboard; sourceTree = "<group>"; };
+		0FBA15E21C9E4D06005014AC /* def_profile.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = def_profile.jpg; sourceTree = "<group>"; };
+		0FBA15E41C9E526F005014AC /* SimpleObjectCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleObjectCell.swift; sourceTree = "<group>"; };
 		0FD1ECC31C83C8E200D5A988 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		0FD1ECC51C87429A00D5A988 /* AppConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		0FD1ECC71C87770E00D5A988 /* EZLoadingActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EZLoadingActivity.swift; sourceTree = "<group>"; };
@@ -128,6 +132,7 @@
 				0FD206081C6C610400325AC1 /* DeveloperAuthenticated */,
 				0F732DEC1C7A9D9C001A7A4F /* ObjectHeaderCell.swift */,
 				0F7C1B721C9A500E0054A0E1 /* UsersTableViewController.swift */,
+				0FBA15E41C9E526F005014AC /* SimpleObjectCell.swift */,
 				0FF46FC91C9288170031A8C1 /* ObjectControllerCell.swift */,
 				0FB0DD811C9918F600825707 /* MagazineFooterCell.swift */,
 				0F81DE171C49F5C100593379 /* MagazineIntroCell.swift */,
@@ -141,6 +146,7 @@
 				0FD1ECC31C83C8E200D5A988 /* WelcomeViewController.swift */,
 				0F81DE191C4A01E500593379 /* MagazineIntroDetails.swift */,
 				0F5F09C01C211A4E009F5A7B /* Assets.xcassets */,
+				0FBA15E21C9E4D06005014AC /* def_profile.jpg */,
 				0F5F09C21C211A4E009F5A7B /* LaunchScreen.storyboard */,
 				0F5F09C51C211A4E009F5A7B /* Info.plist */,
 				0F5F09BD1C211A4E009F5A7B /* publsh.xcdatamodeld */,
@@ -275,6 +281,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0F5F09C41C211A4E009F5A7B /* LaunchScreen.storyboard in Resources */,
+				0FBA15E31C9E4D06005014AC /* def_profile.jpg in Resources */,
 				0FB6BAF11C65AF5A00BE0100 /* App.Storyboard in Resources */,
 				0F5F09C11C211A4E009F5A7B /* Assets.xcassets in Resources */,
 				0F5F09CC1C211CF3009F5A7B /* Podfile in Resources */,
@@ -359,6 +366,7 @@
 				0FB0DD861C9A3AB700825707 /* ViewTransitionManager.swift in Sources */,
 				0F1445B21C4DE43100FA0932 /* Style.swift in Sources */,
 				0FD1ECC81C87770E00D5A988 /* EZLoadingActivity.swift in Sources */,
+				0FBA15E51C9E526F005014AC /* SimpleObjectCell.swift in Sources */,
 				0F00F7B11C76CF73007377BA /* RSS.swift in Sources */,
 				0F5F09B71C211A4E009F5A7B /* AppDelegate.swift in Sources */,
 				0FD2061A1C7424AE00325AC1 /* User.swift in Sources */,

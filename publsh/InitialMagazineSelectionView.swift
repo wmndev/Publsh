@@ -23,7 +23,7 @@ class InitialMagazineSelectionView: UITableViewController {
     
     @IBAction func followersTouched(sender: AnyObject) {
         let btn = sender as! UIButton
-        ViewTransitionManager.moveToUserListView(magazines[btn.tag].followers!, view: self)
+        ViewTransitionManager.moveToUserListView(magazines[btn.tag].followers!, view: self, withTitle:"FOLLOWERS")
     }
     @IBAction func donePressed(sender: AnyObject) {
         let viewController:UIViewController = UIStoryboard(name: "App", bundle: nil).instantiateViewControllerWithIdentifier("appInit") as UIViewController
