@@ -1,4 +1,5 @@
 platform :ios, '9.1'
+#use_frameworks!
 
 xcodeproj 'publsh'
 
@@ -29,4 +30,5 @@ pod 'AWSSNS'
 pod 'AWSSQS'
 pod 'AWSCognito'
 pod 'AWSCognitoSync'
+pod 'SDWebImage'
 end

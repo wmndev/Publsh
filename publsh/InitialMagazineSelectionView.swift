@@ -21,6 +21,10 @@ class InitialMagazineSelectionView: UITableViewController {
     
     @IBOutlet var skipDoneBarButton: UIBarButtonItem!
     
+    @IBAction func followersTouched(sender: AnyObject) {
+        let btn = sender as! UIButton
+        ViewTransitionManager.moveToUserListView(magazines[btn.tag].followers!, view: self)
+    }
     @IBAction func donePressed(sender: AnyObject) {
         let viewController:UIViewController = UIStoryboard(name: "App", bundle: nil).instantiateViewControllerWithIdentifier("appInit") as UIViewController
         self.presentViewController(viewController, animated: true, completion: nil)
@@ -32,8 +36,11 @@ class InitialMagazineSelectionView: UITableViewController {
         
         ViewTransitionManager.moveToUserView(username!, view: self)
     }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         // register UITableViewCell for reuse
        self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
@@ -195,6 +202,7 @@ class InitialMagazineSelectionView: UITableViewController {
         
         cell.followersBtn.setTitleColor(Style.defaultComponentColor, forState: .Normal)
         cell.followersBtn.titleLabel?.font = UIFont.systemFontOfSize(12, weight: UIFontWeightSemibold)
+        cell.followersBtn.tag = indexPath.section
         
         cell.username.setTitleColor(Style.defaultComponentColor, forState: .Normal)
         cell.username.setTitle(magazines[indexPath.section].createdBy, forState: UIControlState.Normal)
@@ -258,7 +266,6 @@ class InitialMagazineSelectionView: UITableViewController {
     
     // In a storyboard-based applicati  on, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
         if segue.identifier == "showSelectedObject"{
             let destinationVC = segue.destinationViewController as! SelectedObjectViewController
             destinationVC.initView(magazines[rowIndex], withTitle: magazines[rowIndex].name!, source: Types.Sources.MAGAZINE)

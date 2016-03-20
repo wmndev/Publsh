@@ -184,6 +184,9 @@
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <state key="normal" title="Button"/>
+                                            <connections>
+                                                <action selector="followersTouched:" destination="Krr-9b-M9T" eventType="touchUpInside" id="LAC-kh-iob"/>
+                                            </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="by " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="48H-3p-Dcv">
                                             <rect key="frame" x="246" y="8" width="53" height="25"/>
@@ -461,10 +464,10 @@
             </objects>
             <point key="canvasLocation" x="1480" y="1193"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Users Table View Controller-->
         <scene sceneID="rOe-NM-WpH">
             <objects>
-                <tableViewController id="fbY-IC-ugi" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="usersTableView" id="fbY-IC-ugi" customClass="UsersTableViewController" customModule="publsh" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="ru1-1V-vQ2">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -487,7 +490,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qnp-N5-EBK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2725" y="1200"/>
+            <point key="canvasLocation" x="2621" y="1225"/>
         </scene>
         <!--Magazines Selection View Controller-->
         <scene sceneID="H00-Ch-crP">

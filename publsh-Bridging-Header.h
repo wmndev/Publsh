@@ -9,3 +9,4 @@
 #import <AWSCognito/AWSCognito.h>
 #import "DeveloperAuthenticatedIdentityProvider.h"
 #import "DeveloperAuthenticationClient.h"
+#import "UIImageView+WebCache.h"

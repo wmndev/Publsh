@@ -24,6 +24,46 @@ class AmazonDynamoDBManager{
     }
     
     
+    
+    static func getBatchUserItems(usernames: Set<String>, completeHandler:AWSContinuationBlock){
+
+        
+        let attributeValue2 = AWSDynamoDBAttributeValue()
+        attributeValue2.S = "itaywise1"
+        
+        
+        
+        //let keysArray : NSArray = [dic]
+        var keysArray=[Dictionary<String,AWSDynamoDBAttributeValue>]()
+        for username in usernames{
+            let attributeValue1 = AWSDynamoDBAttributeValue()
+            attributeValue1.S = username
+            let dic:Dictionary<String,AWSDynamoDBAttributeValue> = ["username":attributeValue1]
+            keysArray.append(dic)
+            
+        }
+
+        let keysAndAttributes : AWSDynamoDBKeysAndAttributes = AWSDynamoDBKeysAndAttributes()
+        keysAndAttributes.keys = keysArray
+        keysAndAttributes.consistentRead = true
+        
+        
+        let batchGetItemInput = AWSDynamoDBBatchGetItemInput()
+        batchGetItemInput.requestItems = ["User" : keysAndAttributes]
+        
+         let dynamoDB = AWSDynamoDB.defaultDynamoDB()
+        
+        dynamoDB.batchGetItem(batchGetItemInput).continueWithBlock(completeHandler)
+            
+            
+            
+//            
+            
+
+        
+    }
+    
+    
     //        var dynamoDB = AWSDynamoDB.defaultDynamoDB()
     
     //Write Request 1
