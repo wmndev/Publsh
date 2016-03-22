@@ -17,6 +17,7 @@ class SelectedObjectViewController: UITableViewController {
     var controllerCell: ObjectControllerCell?
     var headerCell: ObjectHeaderCell?
     var isFollowing = false
+    var isCurrentUserDisplayed = false
     
     let cellReuseIdentifier = "headerBasicCell"
     
@@ -27,6 +28,8 @@ class SelectedObjectViewController: UITableViewController {
         self.object = object
         self.source = source
         self.navigationItem.title = withTitle
+        
+        currentUserDisplayed()
         isUserFollowing()
         getLinkedData()
     }
@@ -48,9 +51,9 @@ class SelectedObjectViewController: UITableViewController {
             ViewTransitionManager.moveToUserListView(followers!, view: self, withTitle: "FOLLOWERS")
             break
         case 3:
-             var following:Set<String>?
+            var following:Set<String>?
             if isMagazine {
-
+                
             }else{
                 let user = object as! User
                 following = user.following
@@ -72,7 +75,6 @@ class SelectedObjectViewController: UITableViewController {
         let objectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
         var magazine:Magazine?
         var user:User?
-        
         
         
         if source == Types.Sources.MAGAZINE{
@@ -176,7 +178,7 @@ class SelectedObjectViewController: UITableViewController {
             cell.targetImage.layer.cornerRadius = cell.targetImage.frame.size.width / 2;
             cell.targetImage.clipsToBounds = true
             cell.targetImage.layer.borderWidth = 1
-            cell.targetImage.layer.borderColor = Style.grayBackground.CGColor
+            cell.targetImage.layer.borderColor = Style.textStrongLighterColor.CGColor
             
             craftFollowButton(cell.followBtn)
             
@@ -203,7 +205,7 @@ class SelectedObjectViewController: UITableViewController {
                 
                 let user = object as! User
                 
-                cell.publshLbl.text = "About me:"
+                cell.publshLbl.text = "About:"
                 cell.username.hidden = true
                 
                 EZLoadingActivity.showOnController("", disableUI: false, controller: self)
@@ -222,16 +224,26 @@ class SelectedObjectViewController: UITableViewController {
                 let magazine = object as! Magazine
                 craftMenuButton(cell.totalBtn,title: "\(magazine.statistics.objectForKey("contributers")!)\nCONTRIBUTE")
                 craftMenuButton(cell.followingBtn  ,title: "\(magazine.statistics.objectForKey("sources")!)\nSOURCES")
-                let followers = magazine.followers!.count
+                var followers = 0
+                if let fol = magazine.followers{
+                    followers = fol.count - 1
+                    
+                }
                 craftMenuButton(cell.followersBtn,title: "\(followers)\nFOLLOWERS")
                 craftMenuButton(cell.activityBtn,title: "\(followers)\nACTIVITIES")
                 
             }else{
                 let user = object as! User
                 craftMenuButton(cell.totalBtn,title: "17\nMAGAZINES")
-                let followers = (user.followers?.count)! - 1
+                var followers = 0
+                if let flw = user.followers{
+                    followers = flw.count - 1
+                }
                 craftMenuButton(cell.followersBtn,title: "\(followers)\nFOLLOWERS")
-                let following = (user.following?.count)! - 1
+                var following = 0
+                if let fol = user.following{
+                    following = fol.count - 1
+                }
                 craftMenuButton(cell.followingBtn,title: "\(following)\nFOLLOWING")
                 craftMenuButton(cell.activityBtn,title: "72\nACTIVITIES")
             }
@@ -268,18 +280,20 @@ class SelectedObjectViewController: UITableViewController {
     }
     
     func craftFollowButton(btn:UIButton){
-        if isFollowing{
-            btn.setTitle("FOLLOWING", forState: UIControlState.Normal)
+        if isCurrentUserDisplayed{
+            btn.setTitle("SETTINGS", forState: UIControlState.Normal)
             btn.layer.borderWidth = 1
-            btn.setTitleColor(Style.textColorWhite, forState: .Normal)
-            btn.backgroundColor = Style.approvalColor
-            btn.layer.borderColor = Style.approvalColor.CGColor
+            btn.setTitleColor(Style.textStrongLighterColor, forState: .Normal)
+            btn.backgroundColor = Style.grayBackground
+            btn.layer.borderColor = Style.textStrongLighterColor.CGColor
+            btn.enabled = false
         }else{
-            btn.setTitle(source == Types.Sources.MAGAZINE ? "GET" : "FOLLOW", forState: UIControlState.Normal)
-            btn.layer.borderWidth = 1
-            btn.setTitleColor(Style.defaultComponentColor, forState: .Normal)
-            btn.backgroundColor = Style.whiteColor
-            btn.layer.borderColor = Style.defaultComponentColor.CGColor
+            if isFollowing{
+                CraftUtility.craftApprovalFollowBtn(btn)
+            }else{
+                let title = source == Types.Sources.MAGAZINE ? "GET" : "FOLLOW"
+                CraftUtility.craftNotFollowingButton(btn, title: title)
+            }
         }
     }
     
@@ -395,6 +409,10 @@ class SelectedObjectViewController: UITableViewController {
             
         })
         
+    }
+    
+    func currentUserDisplayed(){
+        isCurrentUserDisplayed = (source == Types.Sources.USER && currentUser?.username == (object as! User).username)
     }
     
     

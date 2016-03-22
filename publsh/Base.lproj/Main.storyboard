@@ -516,6 +516,9 @@
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <state key="normal" title="FOLLOW"/>
+                                            <connections>
+                                                <action selector="followBtnTouched:" destination="fbY-IC-ugi" eventType="touchUpInside" id="FvY-0l-9n9"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <constraints>

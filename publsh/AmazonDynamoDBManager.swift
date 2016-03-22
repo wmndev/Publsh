@@ -19,7 +19,7 @@ class AmazonDynamoDBManager{
         let dynamoDBObjectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
         
         let exp = AWSDynamoDBQueryExpression()
-        exp.hashKeyValues      = hash
+        exp.hashKeyValues = hash
         return dynamoDBObjectMapper.query(Article.self, expression: exp)
     }
     

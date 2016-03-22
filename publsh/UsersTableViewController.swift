@@ -15,10 +15,51 @@ class UsersTableViewController: UITableViewController {
     var users = [User]()
     
     
+    @IBAction func followBtnTouched(sender: AnyObject) {
+        
+        let btn = sender as! UIButton
+        let index = btn.tag
+        let isAbotToFollow  = btn.titleLabel!.text == "FOLLOW"
+        print(btn.titleLabel?.text)
+        print(isAbotToFollow)
+        
+        AmazonDynamoDBManager.getUser(users[index].username!)!.continueWithExecutor(AWSExecutor.mainThreadExecutor(), withBlock: { (task:AWSTask!) -> AnyObject! in
+            if task.error != nil{
+                print("error\(task.error)")
+            }else{
+                
+                let user = task.result as! User
+                if isAbotToFollow{
+                    user.followers?.insert(currentUser!.username!)
+                    currentUser!.following!.insert(user.getHashKeyValue()!)
+                }else{
+                    user.followers?.remove(currentUser!.username!)
+                    currentUser!.following!.remove(user.getHashKeyValue()!)
+                }
+                
+                let objectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
+                objectMapper.save(user).continueWithSuccessBlock({ (task: AWSTask!) -> AnyObject! in
+                    if task.error != nil {
+                        print("Error: \(task.error)")
+                    }else{
+                        objectMapper.save(currentUser)
+                        dispatch_async(dispatch_get_main_queue()) {
+                            self.tableView.reloadData()
+                        }
+                    }
+                    return nil
+                })
+            }
+            return nil
+            
+        })
+        
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        
         AmazonDynamoDBManager.getBatchUserItems(usernames!, completeHandler: { (task) -> AnyObject? in
             if task.result != nil{
                 let getItemResult: AWSDynamoDBBatchGetItemOutput = task.result as! AWSDynamoDBBatchGetItemOutput
@@ -68,6 +109,7 @@ class UsersTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell:SimpleObjectCell = tableView.dequeueReusableCellWithIdentifier("simpleUserCell", forIndexPath: indexPath) as! SimpleObjectCell
         
+        let isFollowing = currentUser!.following!.contains(users[indexPath.row].username!)
         
         cell.objName.text = users[indexPath.row].username
         cell.objName.textColor = Style.textStrongColor
@@ -76,23 +118,27 @@ class UsersTableViewController: UITableViewController {
         cell.profileImg.layer.cornerRadius = cell.profileImg.frame.size.width / 2;
         cell.profileImg.clipsToBounds = true
         cell.profileImg.layer.borderWidth = 0.7
-        cell.profileImg.layer.borderColor = Style.grayBackground.CGColor
+        cell.profileImg.layer.borderColor = Style.textStrongLighterColor.CGColor
         
-        
-
-        cell.followBtn.layer.borderWidth = 1
-        cell.followBtn.setTitleColor(Style.defaultComponentColor, forState: .Normal)
-        cell.followBtn.titleLabel?.font = UIFont.systemFontOfSize(9, weight: UIFontWeightRegular)
-        cell.followBtn.backgroundColor = Style.whiteColor
-        cell.followBtn.layer.borderColor = Style.defaultComponentColor.CGColor
+        cell.followBtn.tag = indexPath.row
+        if users[indexPath.row].username == currentUser!.username{
+            cell.followBtn.hidden = true
+        }else{
+            cell.followBtn.hidden = false
+            if isFollowing{
+                CraftUtility.craftApprovalFollowBtn(cell.followBtn, fontSize: 10)
+            }else{
+                CraftUtility.craftNotFollowingButton(cell.followBtn, title: "FOLLOW", fontSize: 10)
+            }
+        }
         
         
         let fbProfileImgUrl = "https://graph.facebook.com/" + users[indexPath.row].fb_id! + "/picture?type=large"
-       
+        
         if let url = NSURL(string: fbProfileImgUrl) {
             cell.profileImg.sd_setImageWithURL(url, completed: { (image, error, sdImageCacheType, nsUrl) -> Void in
-
-               cell.profileImg.image = image
+                
+                cell.profileImg.image = image
             })
         }
         
@@ -103,6 +149,14 @@ class UsersTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat{
         return 60
     }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
+        let username = users[indexPath.row].username
+        ViewTransitionManager.moveToUserView(username!, view: self)
+    }
+    
+    
+    
     
     
     /*
