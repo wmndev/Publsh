@@ -10,6 +10,7 @@ import Foundation
 
 class ViewTransitionManager{
     
+    static let  mainStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
     
     static func moveToUserView(username: String, view:UIViewController){
         
@@ -37,12 +38,34 @@ class ViewTransitionManager{
     }
     
     static func moveToUserListView(usernameList:Set<String>, view:UIViewController, withTitle:String){
-        let mainStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
         let selectedObjectViewController: UsersTableViewController = mainStoryboard.instantiateViewControllerWithIdentifier("usersTableView") as! UsersTableViewController
         selectedObjectViewController.usernames = usernameList
         selectedObjectViewController.navigationItem.title = withTitle
         view.navigationController?.pushViewController(selectedObjectViewController, animated: true)
         
+        
+    }
+    
+    static func moveToArticleContentView(content:String, view:UIViewController){
+        let articleContentViewController :ArticleViewController = mainStoryboard.instantiateViewControllerWithIdentifier("articleViewController") as! ArticleViewController
+        
+        let contentStr:NSAttributedString?
+        do{
+            contentStr = try NSAttributedString(data:content.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true
+                )!, options: [NSDocumentTypeDocumentAttribute: NSPlainTextDocumentType, NSCharacterEncodingDocumentAttribute: NSUTF8StringEncoding], documentAttributes: nil)
+        }catch _{
+            print("error")
+            contentStr = nil
+        }
+        
+
+        let str = content.stringByReplacingOccurrencesOfString("<[^>]+>", withString: "", options: .RegularExpressionSearch, range: nil)
+        
+        print(str)
+        //print(contentStr)
+        articleContentViewController.attributedContent = contentStr
+        
+        view.navigationController?.pushViewController(articleContentViewController, animated: true)
         
     }
     

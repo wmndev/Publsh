@@ -10,3 +10,4 @@
 #import "DeveloperAuthenticatedIdentityProvider.h"
 #import "DeveloperAuthenticationClient.h"
 #import "UIImageView+WebCache.h"
+#import "Embedly.h"

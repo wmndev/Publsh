@@ -18,6 +18,10 @@ import Foundation
 
 struct Constants {
     
+    struct  Embedly {
+        static let EMBEDLY_CLIENT_KEY = "2e8849bb08d44813af66e53b73af1399"
+    }
+    
     // MARK: Required: Amazon Cognito Configuration
     
     static let COGNITO_REGIONTYPE = AWSRegionType.USEast1

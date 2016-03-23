@@ -31,4 +31,5 @@ pod 'AWSSQS'
 pod 'AWSCognito'
 pod 'AWSCognitoSync'
 pod 'SDWebImage'
+pod 'embedly-ios'
 end

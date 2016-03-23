@@ -24,6 +24,7 @@
 		0F81DE181C49F5C100593379 /* MagazineIntroCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F81DE171C49F5C100593379 /* MagazineIntroCell.swift */; };
 		0F81DE1A1C4A01E500593379 /* MagazineIntroDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F81DE191C4A01E500593379 /* MagazineIntroDetails.swift */; };
 		0F863CF91C5C869800BF8325 /* SelectedObjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F863CF81C5C869800BF8325 /* SelectedObjectViewController.swift */; };
+		0FA2C3FC1CA1DD7A003F6CE9 /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA2C3FB1CA1DD7A003F6CE9 /* ArticleViewController.swift */; };
 		0FA4EBE51C6C541700EDD3BD /* AmazonClientManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA4EBE41C6C541700EDD3BD /* AmazonClientManager.swift */; };
 		0FA4EBE71C6C560800EDD3BD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA4EBE61C6C560800EDD3BD /* Constants.swift */; };
 		0FB0DD7C1C95ED3C00825707 /* AmazonDynamoDBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB0DD7B1C95ED3C00825707 /* AmazonDynamoDBManager.swift */; };
@@ -66,6 +67,7 @@
 		0F81DE171C49F5C100593379 /* MagazineIntroCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagazineIntroCell.swift; sourceTree = "<group>"; };
 		0F81DE191C4A01E500593379 /* MagazineIntroDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagazineIntroDetails.swift; sourceTree = "<group>"; };
 		0F863CF81C5C869800BF8325 /* SelectedObjectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedObjectViewController.swift; sourceTree = "<group>"; };
+		0FA2C3FB1CA1DD7A003F6CE9 /* ArticleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleViewController.swift; sourceTree = "<group>"; };
 		0FA4EBE41C6C541700EDD3BD /* AmazonClientManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AmazonClientManager.swift; sourceTree = "<group>"; };
 		0FA4EBE61C6C560800EDD3BD /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		0FB0DD7B1C95ED3C00825707 /* AmazonDynamoDBManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AmazonDynamoDBManager.swift; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 				0F5F09C21C211A4E009F5A7B /* LaunchScreen.storyboard */,
 				0F5F09C51C211A4E009F5A7B /* Info.plist */,
 				0F5F09BD1C211A4E009F5A7B /* publsh.xcdatamodeld */,
+				0FA2C3FB1CA1DD7A003F6CE9 /* ArticleViewController.swift */,
 			);
 			path = publsh;
 			sourceTree = "<group>";
@@ -358,6 +361,7 @@
 				0FF46FCA1C9288170031A8C1 /* ObjectControllerCell.swift in Sources */,
 				0FBA15E71C9FB2A1005014AC /* CraftUtility.swift in Sources */,
 				0F40DB631C93D4DA00F23DAF /* ArticleCell.swift in Sources */,
+				0FA2C3FC1CA1DD7A003F6CE9 /* ArticleViewController.swift in Sources */,
 				0FD1ECC41C83C8E200D5A988 /* WelcomeViewController.swift in Sources */,
 				0F81DE181C49F5C100593379 /* MagazineIntroCell.swift in Sources */,
 				0FD2060F1C6C611C00325AC1 /* Crypto.m in Sources */,
