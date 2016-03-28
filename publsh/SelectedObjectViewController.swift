@@ -20,6 +20,7 @@ class SelectedObjectViewController: UITableViewController, EmbedlyDelegate {
     var headerCell: ObjectHeaderCell?
     var isFollowing = false
     var isCurrentUserDisplayed = false
+    var selectedArticle:Article?
     
     var embedly:Embedly?
     
@@ -133,6 +134,8 @@ class SelectedObjectViewController: UITableViewController, EmbedlyDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationController!.hidesBarsOnSwipe = false
         
         embedly = Embedly(key: Constants.Embedly.EMBEDLY_CLIENT_KEY, delegate: self)
         
@@ -293,6 +296,7 @@ class SelectedObjectViewController: UITableViewController, EmbedlyDelegate {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
         let article = data[indexPath.row - EXTRA_CELLS] as! Article
         let url = article.link
+        selectedArticle = article
         
         embedly!.callEmbedlyApi("/1/extract", withUrl: url, params: nil)
         
@@ -440,17 +444,7 @@ class SelectedObjectViewController: UITableViewController, EmbedlyDelegate {
         
         let content:String = response.objectForKey("content") as! String
         
-        
-        
-
-        //print(contentStr)
-
-        //print("**************")
-        
-        //print(contentStr?.description)
-        
-        ViewTransitionManager.moveToArticleContentView(content, view: self)
-        //print(response.description)
+        ViewTransitionManager.moveToArticleContentView(content, article: selectedArticle!, view: self)
         
         
         //print(response.objectForKey("description"))

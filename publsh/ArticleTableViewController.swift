@@ -14,10 +14,14 @@ class ArticleTableViewController: UITableViewController {
     
     var articleContentArray = [String]()
     
+    var article:Article?
+    
     let cellReuseIdentifier = "cell"
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationController!.hidesBarsOnSwipe = true
         
         EZLoadingActivity.show("Loading", disableUI: true)
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
@@ -59,9 +63,15 @@ class ArticleTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(cellReuseIdentifier, forIndexPath: indexPath)
-
         cell.textLabel?.numberOfLines = 0
-        cell.textLabel?.text = articleContentArray[indexPath.row]
+        if indexPath.row == 0{
+            cell.textLabel?.text = article!.title
+            cell.textLabel?.font = UIFont.systemFontOfSize(22, weight: UIFontWeightBold)
+        }else{
+            cell.textLabel?.text = articleContentArray[indexPath.row - 1]
+            cell.textLabel?.font = UIFont.systemFontOfSize(15, weight: UIFontWeightRegular)
+        }
+        
         return cell
     }
     

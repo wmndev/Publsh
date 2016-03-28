@@ -46,12 +46,13 @@ class ViewTransitionManager{
         
     }
     
-    static func moveToArticleContentView(content:String, view:UIViewController){
+    static func moveToArticleContentView(content:String, article:Article, view:UIViewController){
         let articleContentViewController :ArticleTableViewController = mainStoryboard.instantiateViewControllerWithIdentifier("articleTableViewController") as! ArticleTableViewController
         
         let str = content.stringByReplacingOccurrencesOfString("<[^>]+>", withString: "", options: .RegularExpressionSearch, range: nil)
         
         articleContentViewController.articleContent = str
+        articleContentViewController.article = article
         
         view.navigationController?.pushViewController(articleContentViewController, animated: true)
         
