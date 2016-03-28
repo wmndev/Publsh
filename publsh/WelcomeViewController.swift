@@ -47,10 +47,7 @@ class WelcomeViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         if AmazonClientManager.sharedInstance.isConfigured() {
-            AmazonClientManager.sharedInstance.resumeSession {
-                (task) -> AnyObject! in
-                return nil
-            }
+            AmazonClientManager.sharedInstance.resumeSession(self)
         }
         
         view.backgroundColor = Style.textColorWhite
@@ -150,20 +147,22 @@ class WelcomeViewController: UIViewController, UITextFieldDelegate {
             if error != nil {
                 print(error)
             
-            } else if let result = result {
+            } else if let result1 = result {
                 
-                let userId = result["id"] as! String
-                let fbProfileImgUrl = "https://graph.facebook.com/" + userId + "/picture?type=large"
+                let userId = result["id"]!
+                let fbProfileImgUrl = "https://graph.facebook.com/" + userId! + "/picture?type=large"
                 if let fbpicUrl = NSURL(string: fbProfileImgUrl) {
                     
                     if let data = NSData(contentsOfURL: fbpicUrl) {
                         
                         //save to dynamoDb
                         let user = User.self()
-                        user.fb_id = result["id"] as? String
-                        user.gender = result["gender"] as? String
-                        user.fullName = result["name"] as? String
-                        user.email = result["email"] as? String
+                        user.fb_id = result1["id"]!
+      
+                        
+                        user.gender = result1["gender"]
+                        user.fullName = result1["name"]
+                        user.email = result1["email"]
                         user.username = self.usernameTextField.text
                         user.followers = Set<String>()
                         user.followers?.insert("@")
@@ -189,7 +188,7 @@ class WelcomeViewController: UIViewController, UITextFieldDelegate {
                                 defaults.setObject(self.usernameTextField.text, forKey: AppConstants.USERNAME_KEY)
                                 
                                 let imageFile:UIImage = UIImage(data: data)!
-                                AWSS3Manager.uploadImage(imageFile, fileIdentity: userId)
+                                AWSS3Manager.uploadImage(imageFile, fileIdentity: userId!)
                                 EZLoadingActivity.hide(success: true, animated: false)
                                 
                                 dispatch_async(dispatch_get_main_queue()) {

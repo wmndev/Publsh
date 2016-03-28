@@ -30,6 +30,40 @@ class InitialMagazineSelectionView: UITableViewController {
         self.presentViewController(viewController, animated: true, completion: nil)
     }
     
+    
+    @IBAction func followBtnTouched(sender: AnyObject) {
+        let btn: UIButton = sender as! UIButton
+        let isFollowing = currentUser!.following!.contains(magazines[btn.tag].name!)
+        
+        if !isFollowing{
+            magazines[btn.tag].followers?.insert(currentUser!.username!)
+            currentUser!.following!.insert(magazines[btn.tag].getHashKeyValue()!)
+        }else{
+            magazines[btn.tag].followers?.remove(currentUser!.username!)
+            currentUser?.following?.remove(magazines[btn.tag].getHashKeyValue()!)
+        }
+        
+        let objectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
+        objectMapper.save(magazines[btn.tag]).continueWithSuccessBlock({ (task: AWSTask!) -> AnyObject! in
+            if task.error != nil {
+                print("Error: \(task.error)")
+            }else{
+                objectMapper.save(currentUser)
+                dispatch_async(dispatch_get_main_queue()) {
+                    if !isFollowing{
+                        CraftUtility.craftApprovalFollowBtn(btn)
+                    }else{
+                        CraftUtility.craftNotFollowingButton(btn, title: "GET")
+                    }
+                    
+                }
+            }
+            return nil
+        })
+        
+        
+    }
+    
     @IBAction func usernameTouched(sender: AnyObject) {
         let btn = sender as! UIButton
         let username = btn.titleLabel?.text
@@ -54,14 +88,7 @@ class InitialMagazineSelectionView: UITableViewController {
         activityIndicator.frame = self.view.bounds
         
         if AmazonClientManager.sharedInstance.isConfigured() {
-            AmazonClientManager.sharedInstance.resumeSession {
-                (task) -> AnyObject! in
-                dispatch_async(dispatch_get_main_queue()) {
-                    self.activityIndicator.startAnimating()
-                    self.updateTableData()
-                }
-                return nil
-            }
+            AmazonClientManager.sharedInstance.resumeSession(self)
         }
         
         
@@ -176,10 +203,14 @@ class InitialMagazineSelectionView: UITableViewController {
             cell.mDesc.lineBreakMode = .ByWordWrapping
             cell.mDesc.font = UIFont.systemFontOfSize(13, weight: UIFontWeightLight)
             
-            cell.getBtn.layer.borderWidth = 1
-            cell.getBtn.setTitleColor(Style.defaultComponentColor, forState: .Normal)
-            cell.getBtn.backgroundColor = Style.whiteColor
-            cell.getBtn.layer.borderColor = Style.defaultComponentColor.CGColor
+            
+            let isFollowing = currentUser!.following!.contains(magazines[indexPath.section].name!)
+            
+            if isFollowing{
+                CraftUtility.craftApprovalFollowBtn(cell.getBtn)
+            }else{
+                CraftUtility.craftNotFollowingButton(cell.getBtn, title: "GET")
+            }            
             
             return cell
         }

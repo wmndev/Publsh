@@ -60,7 +60,7 @@ class UsersTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        AmazonDynamoDBManager.getBatchUserItems(usernames!, completeHandler: { (task) -> AnyObject? in
+        AmazonDynamoDBManager.getBatchUserItems(usernames!).continueWithBlock({ (task) -> AnyObject? in
             if task.result != nil{
                 let getItemResult: AWSDynamoDBBatchGetItemOutput = task.result as! AWSDynamoDBBatchGetItemOutput
                 
@@ -80,6 +80,29 @@ class UsersTableViewController: UITableViewController {
             
             return nil
         })
+            
+//            
+//            
+//            , completeHandler: { (task) -> AnyObject? in
+//            if task.result != nil{
+//                let getItemResult: AWSDynamoDBBatchGetItemOutput = task.result as! AWSDynamoDBBatchGetItemOutput
+//                
+//                let response = getItemResult.responses!["User"]
+//                for userDic in response!{
+//                    let user = User()
+//                    print(userDic["username"]?.S)
+//                    user.username = userDic["username"]?.S
+//                    user.fb_id = userDic["fb_id"]?.S
+//                    self.users.append(user)
+//                    
+//                }
+//                self.tableView.reloadData()
+//            }else{
+//                print(task.error)
+//            }
+//            
+//            return nil
+//        })
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false

@@ -41,12 +41,7 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
         activityIndicator.frame = self.view.bounds
         activityIndicator.startAnimating()
         
-        AmazonClientManager.sharedInstance.fbLogin{
-            (task) -> AnyObject? in
-            self.activityIndicator.startAnimating()
-            self.performSegueWithIdentifier("afterSignup", sender: self)
-            return nil
-        }
+        AmazonClientManager.sharedInstance.fbLogin(self)
         
     }
     

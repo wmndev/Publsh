@@ -47,23 +47,11 @@ class ViewTransitionManager{
     }
     
     static func moveToArticleContentView(content:String, view:UIViewController){
-        let articleContentViewController :ArticleViewController = mainStoryboard.instantiateViewControllerWithIdentifier("articleViewController") as! ArticleViewController
+        let articleContentViewController :ArticleTableViewController = mainStoryboard.instantiateViewControllerWithIdentifier("articleTableViewController") as! ArticleTableViewController
         
-        let contentStr:NSAttributedString?
-        do{
-            contentStr = try NSAttributedString(data:content.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true
-                )!, options: [NSDocumentTypeDocumentAttribute: NSPlainTextDocumentType, NSCharacterEncodingDocumentAttribute: NSUTF8StringEncoding], documentAttributes: nil)
-        }catch _{
-            print("error")
-            contentStr = nil
-        }
-        
-
         let str = content.stringByReplacingOccurrencesOfString("<[^>]+>", withString: "", options: .RegularExpressionSearch, range: nil)
         
-        print(str)
-        //print(contentStr)
-        articleContentViewController.attributedContent = contentStr
+        articleContentViewController.articleContent = str
         
         view.navigationController?.pushViewController(articleContentViewController, animated: true)
         

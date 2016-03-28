@@ -33,7 +33,6 @@ class AmazonClientManager : NSObject {
     
     //Properties
     var keyChain: UICKeyChainStore
-    var completionHandler: AWSContinuationBlock?
     var fbLoginManager: FBSDKLoginManager?
     var credentialsProvider: AWSCognitoCredentialsProvider?
     var devAuthClient: DeveloperAuthenticationClient?
@@ -66,8 +65,9 @@ class AmazonClientManager : NSObject {
         return !(Constants.COGNITO_IDENTITY_POOL_ID == "YourCognitoIdentityPoolId" || Constants.COGNITO_REGIONTYPE == AWSRegionType.Unknown)
     }
     
-    func resumeSession(completionHandler: AWSContinuationBlock) {
-        self.completionHandler = completionHandler
+    func resumeSession(view: UIViewController) {
+        self.loginViewController = view
+        //self.completionHandler = completionHandler
         
         if self.keyChain[FB_PROVIDER] != nil {
             self.reloadFBSession()
@@ -90,7 +90,7 @@ class AmazonClientManager : NSObject {
             return false
     }
     
-    func completeLogin(logins: [NSObject : AnyObject]?) {
+    func completeLogin(logins: [NSObject : AnyObject]?){
         var task: AWSTask?
         
         if self.credentialsProvider == nil {
@@ -138,7 +138,30 @@ class AmazonClientManager : NSObject {
                 }
             }
             return task
-            }.continueWithBlock(self.completionHandler!)
+            }.continueWithBlock(
+                {
+                (task) -> AnyObject? in
+                    
+                    if (self.loginViewController as? ViewController) != nil{
+                let view : ViewController = self.loginViewController as! ViewController
+                view.activityIndicator.startAnimating()
+                self.loginViewController!.performSegueWithIdentifier("afterSignup", sender: self)
+                        
+                    }else{
+                        if (self.loginViewController as? InitialMagazineSelectionView) != nil{
+                        let view : InitialMagazineSelectionView = self.loginViewController as! InitialMagazineSelectionView
+                        dispatch_async(dispatch_get_main_queue()) {
+                            view.activityIndicator.startAnimating()
+                            view.updateTableData()
+                        }
+                        }
+                    }
+                return nil
+                        
+                        
+                }
+  
+        )
     }
     
     func initializeClients(logins: [NSObject : AnyObject]?) -> AWSTask? {
@@ -161,7 +184,7 @@ class AmazonClientManager : NSObject {
     }
     
     
-    func logOut(completionHandler: AWSContinuationBlock) {
+    func logOut() {
         if self.isLoggedInWithFacebook() {
             self.fbLogout()
         }
@@ -173,7 +196,7 @@ class AmazonClientManager : NSObject {
         AWSCognito.defaultCognito().wipe()
         self.credentialsProvider?.clearKeychain()
         
-        AWSTask(result: nil).continueWithBlock(completionHandler)
+        AWSTask(result: nil)//.continueWithBlock(completionHandler)
     }
     
     func isLoggedIn() -> Bool {
@@ -195,8 +218,9 @@ class AmazonClientManager : NSObject {
         }
     }
     
-    func fbLogin(completionHandler: AWSContinuationBlock) {
-        self.completionHandler = completionHandler
+    func fbLogin(view: UIViewController){
+        self.loginViewController = view
+        //self.completionHandler = completionHandler
         if FBSDKAccessToken.currentAccessToken() != nil {
             self.completeFBLogin()
         } else {
@@ -212,7 +236,7 @@ class AmazonClientManager : NSObject {
                     } else if result.isCancelled {
                         //Do nothing
                     } else {
-                        self.completeFBLogin()
+                        return self.completeFBLogin()
                     }
                 }
             }
@@ -228,7 +252,7 @@ class AmazonClientManager : NSObject {
         self.keyChain[FB_PROVIDER] = nil
     }
     
-    func completeFBLogin() {
+    func completeFBLogin(){
         self.keyChain[FB_PROVIDER] = "YES"
         self.completeLogin(["graph.facebook.com" : FBSDKAccessToken.currentAccessToken().tokenString])
     }

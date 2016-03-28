@@ -25,7 +25,7 @@ class AmazonDynamoDBManager{
     
     
     
-    static func getBatchUserItems(usernames: Set<String>, completeHandler:AWSContinuationBlock){
+    static func getBatchUserItems(usernames: Set<String>) -> AWSTask{
 
         
         let attributeValue2 = AWSDynamoDBAttributeValue()
@@ -53,7 +53,7 @@ class AmazonDynamoDBManager{
         
          let dynamoDB = AWSDynamoDB.defaultDynamoDB()
         
-        dynamoDB.batchGetItem(batchGetItemInput).continueWithBlock(completeHandler)
+        return dynamoDB.batchGetItem(batchGetItemInput)
             
             
             

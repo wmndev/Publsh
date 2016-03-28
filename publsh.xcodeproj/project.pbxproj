@@ -20,11 +20,12 @@
 		0F5F09C41C211A4E009F5A7B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F5F09C21C211A4E009F5A7B /* LaunchScreen.storyboard */; };
 		0F5F09CC1C211CF3009F5A7B /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 0F5F09CB1C211CF3009F5A7B /* Podfile */; };
 		0F732DED1C7A9D9C001A7A4F /* ObjectHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F732DEC1C7A9D9C001A7A4F /* ObjectHeaderCell.swift */; };
+		0F7A25A91CA7768100C18C02 /* headline1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0F7A25A81CA7768100C18C02 /* headline1.jpg */; };
+		0F7A25AB1CA8CA8400C18C02 /* ArticleTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7A25AA1CA8CA8400C18C02 /* ArticleTableViewController.swift */; };
 		0F7C1B731C9A500E0054A0E1 /* UsersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7C1B721C9A500E0054A0E1 /* UsersTableViewController.swift */; };
 		0F81DE181C49F5C100593379 /* MagazineIntroCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F81DE171C49F5C100593379 /* MagazineIntroCell.swift */; };
 		0F81DE1A1C4A01E500593379 /* MagazineIntroDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F81DE191C4A01E500593379 /* MagazineIntroDetails.swift */; };
 		0F863CF91C5C869800BF8325 /* SelectedObjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F863CF81C5C869800BF8325 /* SelectedObjectViewController.swift */; };
-		0FA2C3FC1CA1DD7A003F6CE9 /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA2C3FB1CA1DD7A003F6CE9 /* ArticleViewController.swift */; };
 		0FA4EBE51C6C541700EDD3BD /* AmazonClientManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA4EBE41C6C541700EDD3BD /* AmazonClientManager.swift */; };
 		0FA4EBE71C6C560800EDD3BD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA4EBE61C6C560800EDD3BD /* Constants.swift */; };
 		0FB0DD7C1C95ED3C00825707 /* AmazonDynamoDBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB0DD7B1C95ED3C00825707 /* AmazonDynamoDBManager.swift */; };
@@ -63,11 +64,12 @@
 		0F5F09C51C211A4E009F5A7B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0F5F09CB1C211CF3009F5A7B /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		0F732DEC1C7A9D9C001A7A4F /* ObjectHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectHeaderCell.swift; sourceTree = "<group>"; };
+		0F7A25A81CA7768100C18C02 /* headline1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = headline1.jpg; sourceTree = "<group>"; };
+		0F7A25AA1CA8CA8400C18C02 /* ArticleTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleTableViewController.swift; sourceTree = "<group>"; };
 		0F7C1B721C9A500E0054A0E1 /* UsersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersTableViewController.swift; sourceTree = "<group>"; };
 		0F81DE171C49F5C100593379 /* MagazineIntroCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagazineIntroCell.swift; sourceTree = "<group>"; };
 		0F81DE191C4A01E500593379 /* MagazineIntroDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagazineIntroDetails.swift; sourceTree = "<group>"; };
 		0F863CF81C5C869800BF8325 /* SelectedObjectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedObjectViewController.swift; sourceTree = "<group>"; };
-		0FA2C3FB1CA1DD7A003F6CE9 /* ArticleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleViewController.swift; sourceTree = "<group>"; };
 		0FA4EBE41C6C541700EDD3BD /* AmazonClientManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AmazonClientManager.swift; sourceTree = "<group>"; };
 		0FA4EBE61C6C560800EDD3BD /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		0FB0DD7B1C95ED3C00825707 /* AmazonDynamoDBManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AmazonDynamoDBManager.swift; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 				0FD206151C7032E000325AC1 /* AWS */,
 				0FD206081C6C610400325AC1 /* DeveloperAuthenticated */,
 				0F732DEC1C7A9D9C001A7A4F /* ObjectHeaderCell.swift */,
+				0F7A25AA1CA8CA8400C18C02 /* ArticleTableViewController.swift */,
 				0F7C1B721C9A500E0054A0E1 /* UsersTableViewController.swift */,
 				0FBA15E41C9E526F005014AC /* SimpleObjectCell.swift */,
 				0FF46FC91C9288170031A8C1 /* ObjectControllerCell.swift */,
@@ -144,6 +147,7 @@
 				0F5F09B61C211A4E009F5A7B /* AppDelegate.swift */,
 				0F5F09B81C211A4E009F5A7B /* ViewController.swift */,
 				0F5F09BA1C211A4E009F5A7B /* Main.storyboard */,
+				0F7A25A81CA7768100C18C02 /* headline1.jpg */,
 				0F40DB621C93D4DA00F23DAF /* ArticleCell.swift */,
 				0FB6BAF01C65AF5A00BE0100 /* App.Storyboard */,
 				0F863CF81C5C869800BF8325 /* SelectedObjectViewController.swift */,
@@ -154,7 +158,6 @@
 				0F5F09C21C211A4E009F5A7B /* LaunchScreen.storyboard */,
 				0F5F09C51C211A4E009F5A7B /* Info.plist */,
 				0F5F09BD1C211A4E009F5A7B /* publsh.xcdatamodeld */,
-				0FA2C3FB1CA1DD7A003F6CE9 /* ArticleViewController.swift */,
 			);
 			path = publsh;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 				0F5F09C41C211A4E009F5A7B /* LaunchScreen.storyboard in Resources */,
 				0FBA15E31C9E4D06005014AC /* def_profile.jpg in Resources */,
 				0FB6BAF11C65AF5A00BE0100 /* App.Storyboard in Resources */,
+				0F7A25A91CA7768100C18C02 /* headline1.jpg in Resources */,
 				0F5F09C11C211A4E009F5A7B /* Assets.xcassets in Resources */,
 				0F5F09CC1C211CF3009F5A7B /* Podfile in Resources */,
 				0F5F09BC1C211A4E009F5A7B /* Main.storyboard in Resources */,
@@ -361,7 +365,7 @@
 				0FF46FCA1C9288170031A8C1 /* ObjectControllerCell.swift in Sources */,
 				0FBA15E71C9FB2A1005014AC /* CraftUtility.swift in Sources */,
 				0F40DB631C93D4DA00F23DAF /* ArticleCell.swift in Sources */,
-				0FA2C3FC1CA1DD7A003F6CE9 /* ArticleViewController.swift in Sources */,
+				0F7A25AB1CA8CA8400C18C02 /* ArticleTableViewController.swift in Sources */,
 				0FD1ECC41C83C8E200D5A988 /* WelcomeViewController.swift in Sources */,
 				0F81DE181C49F5C100593379 /* MagazineIntroCell.swift in Sources */,
 				0FD2060F1C6C611C00325AC1 /* Crypto.m in Sources */,
@@ -442,7 +446,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -480,7 +484,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;

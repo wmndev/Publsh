@@ -13,9 +13,6 @@ import UIKit
 
 class SelectedObjectViewController: UITableViewController, EmbedlyDelegate {
     
-    
-    
-    
     var source = Types.Sources.NA
     var object = NSObject()
     var data = [AnyObject]()
@@ -89,7 +86,7 @@ class SelectedObjectViewController: UITableViewController, EmbedlyDelegate {
         
         
         if source == Types.Sources.MAGAZINE{
-            magazine = object as! Magazine
+            magazine = (object as! Magazine)
             
             if isFollowing{
                 magazine!.followers?.insert(currentUser!.username!)
@@ -100,7 +97,7 @@ class SelectedObjectViewController: UITableViewController, EmbedlyDelegate {
             }
             
         }else{
-            user = object as! User
+            user = (object as! User)
             if isFollowing{
                 user!.followers?.insert(currentUser!.username!)
                 currentUser!.following!.insert(user!.getHashKeyValue()!)
@@ -442,7 +439,9 @@ class SelectedObjectViewController: UITableViewController, EmbedlyDelegate {
     func embedlySuccess(callUrl: String!, withResponse response: AnyObject!, endpoint: String!, operation: AFHTTPRequestOperation!) {
         
         let content:String = response.objectForKey("content") as! String
-    
+        
+        
+        
 
         //print(contentStr)
 
@@ -458,7 +457,6 @@ class SelectedObjectViewController: UITableViewController, EmbedlyDelegate {
         //print(response.objectForKey("title"))
         //print(response.objectForKey("provider_name"))
         //print(response.objectForKey("authors"))
-        print("------------------------------------------")
 
     }
     
