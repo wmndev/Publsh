@@ -14,9 +14,7 @@ class UsersTableViewController: UITableViewController {
     var usernames:Set<String>?
     var users = [User]()
     
-    
     @IBAction func followBtnTouched(sender: AnyObject) {
-        
         let btn = sender as! UIButton
         let index = btn.tag
         let isAbotToFollow  = btn.titleLabel!.text == "FOLLOW"
@@ -140,12 +138,14 @@ class UsersTableViewController: UITableViewController {
         
         cell.profileImg.layer.cornerRadius = cell.profileImg.frame.size.width / 2;
         cell.profileImg.clipsToBounds = true
-        cell.profileImg.layer.borderWidth = 0.7
-        cell.profileImg.layer.borderColor = Style.textStrongLighterColor.CGColor
+        
+        
         
         cell.followBtn.tag = indexPath.row
         if users[indexPath.row].username == currentUser!.username{
             cell.followBtn.hidden = true
+            cell.profileImg.layer.borderColor = Style.infoColor.CGColor
+            cell.profileImg.layer.borderWidth = 0.9
         }else{
             cell.followBtn.hidden = false
             if isFollowing{
@@ -153,6 +153,8 @@ class UsersTableViewController: UITableViewController {
             }else{
                 CraftUtility.craftNotFollowingButton(cell.followBtn, title: "FOLLOW", fontSize: 10)
             }
+            cell.profileImg.layer.borderColor = Style.textStrongLighterColor.CGColor
+            cell.profileImg.layer.borderWidth = 0.7
         }
         
         
@@ -165,6 +167,7 @@ class UsersTableViewController: UITableViewController {
             })
         }
         
+        cell.selectionStyle = .None
         
         return cell
     }

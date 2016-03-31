@@ -41,7 +41,7 @@ struct Style{
     
     static var grayBackground = colorWithHexString("#DEE2E5")
     
-    static var strongCellBackgroundColor = colorWithHexString("#34495E") //--
+    static var strongCellBackgroundColor = colorWithHexString("#34495E")
     
     static var textStrongLighterColor = colorWithHexString("#464646")
     
@@ -51,16 +51,19 @@ struct Style{
     
     static var approvalColor = colorWithHexString("#109528")
     
+    static var infoColor = colorWithHexString("#F9690E")
+    
     static var controllerColor = colorWithHexString("#2980B9")
     
     static var defaultComponentColor = colorWithHexString("#00587A")
     
     static var lightGrayBackgroundColor = colorWithHexString("#F2F2F2")
+    
     static var strongGrayBackgroundColor = colorWithHexString("#DEE2E5")
     
     
     static var whiteColor = colorWithHexString("#FFFFFF")
-    static var baseColor = colorWithHexString("#2E5E86")
+    static var baseColor = colorWithHexString("#1F4788")
     
     
 }

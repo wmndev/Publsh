@@ -19,6 +19,8 @@
 		0F5F09C11C211A4E009F5A7B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F5F09C01C211A4E009F5A7B /* Assets.xcassets */; };
 		0F5F09C41C211A4E009F5A7B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F5F09C21C211A4E009F5A7B /* LaunchScreen.storyboard */; };
 		0F5F09CC1C211CF3009F5A7B /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 0F5F09CB1C211CF3009F5A7B /* Podfile */; };
+		0F6A26271CAA243600FAD33D /* wel_bkgrnd.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 0F6A26261CAA243600FAD33D /* wel_bkgrnd.jpeg */; };
+		0F6A26291CACBA3900FAD33D /* ActivityLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6A26281CACBA3900FAD33D /* ActivityLog.swift */; };
 		0F732DED1C7A9D9C001A7A4F /* ObjectHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F732DEC1C7A9D9C001A7A4F /* ObjectHeaderCell.swift */; };
 		0F7A25A91CA7768100C18C02 /* headline1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0F7A25A81CA7768100C18C02 /* headline1.jpg */; };
 		0F7A25AB1CA8CA8400C18C02 /* ArticleTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7A25AA1CA8CA8400C18C02 /* ArticleTableViewController.swift */; };
@@ -63,6 +65,8 @@
 		0F5F09C31C211A4E009F5A7B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0F5F09C51C211A4E009F5A7B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0F5F09CB1C211CF3009F5A7B /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		0F6A26261CAA243600FAD33D /* wel_bkgrnd.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = wel_bkgrnd.jpeg; sourceTree = "<group>"; };
+		0F6A26281CACBA3900FAD33D /* ActivityLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityLog.swift; sourceTree = "<group>"; };
 		0F732DEC1C7A9D9C001A7A4F /* ObjectHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectHeaderCell.swift; sourceTree = "<group>"; };
 		0F7A25A81CA7768100C18C02 /* headline1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = headline1.jpg; sourceTree = "<group>"; };
 		0F7A25AA1CA8CA8400C18C02 /* ArticleTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleTableViewController.swift; sourceTree = "<group>"; };
@@ -137,6 +141,7 @@
 				0FD206151C7032E000325AC1 /* AWS */,
 				0FD206081C6C610400325AC1 /* DeveloperAuthenticated */,
 				0F732DEC1C7A9D9C001A7A4F /* ObjectHeaderCell.swift */,
+				0F6A26261CAA243600FAD33D /* wel_bkgrnd.jpeg */,
 				0F7A25AA1CA8CA8400C18C02 /* ArticleTableViewController.swift */,
 				0F7C1B721C9A500E0054A0E1 /* UsersTableViewController.swift */,
 				0FBA15E41C9E526F005014AC /* SimpleObjectCell.swift */,
@@ -181,6 +186,7 @@
 				0FD206131C6D85C700325AC1 /* Magazine.swift */,
 				0FD206191C7424AC00325AC1 /* User.swift */,
 				0F00F7B01C76CF73007377BA /* RSS.swift */,
+				0F6A26281CACBA3900FAD33D /* ActivityLog.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -291,6 +297,7 @@
 			files = (
 				0F5F09C41C211A4E009F5A7B /* LaunchScreen.storyboard in Resources */,
 				0FBA15E31C9E4D06005014AC /* def_profile.jpg in Resources */,
+				0F6A26271CAA243600FAD33D /* wel_bkgrnd.jpeg in Resources */,
 				0FB6BAF11C65AF5A00BE0100 /* App.Storyboard in Resources */,
 				0F7A25A91CA7768100C18C02 /* headline1.jpg in Resources */,
 				0F5F09C11C211A4E009F5A7B /* Assets.xcassets in Resources */,
@@ -381,6 +388,7 @@
 				0FBA15E51C9E526F005014AC /* SimpleObjectCell.swift in Sources */,
 				0F00F7B11C76CF73007377BA /* RSS.swift in Sources */,
 				0F5F09B71C211A4E009F5A7B /* AppDelegate.swift in Sources */,
+				0F6A26291CACBA3900FAD33D /* ActivityLog.swift in Sources */,
 				0FD2061A1C7424AE00325AC1 /* User.swift in Sources */,
 				0FD206111C6C611C00325AC1 /* DeveloperAuthenticationClient.m in Sources */,
 				0F7C1B731C9A500E0054A0E1 /* UsersTableViewController.swift in Sources */,

@@ -767,12 +767,13 @@
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ame-mV-22b">
-                                <rect key="frame" x="550" y="285" width="30" height="30"/>
+                                <rect key="frame" x="520" y="285" width="60" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="30" id="OP6-70-gqy"/>
+                                    <constraint firstAttribute="width" constant="60" id="OP6-70-gqy"/>
                                     <constraint firstAttribute="height" constant="30" id="zNs-vb-hi7"/>
                                 </constraints>
-                                <state key="normal" title="Go"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="Done"/>
                                 <connections>
                                     <action selector="confirmTouched:" destination="JeZ-Cz-j6r" eventType="touchUpInside" id="WRx-7x-k2x"/>
                                 </connections>

@@ -14,7 +14,7 @@ struct  AppConstants {
     
     
     static let MAXIMUM_USERNAME_LENGTH = 12
-    static let MINIMUM_USERNAME_LENGTH = 4
+    static let MINIMUM_USERNAME_LENGTH = 5
 }
 
 

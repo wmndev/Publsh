@@ -46,22 +46,27 @@ class WelcomeViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let backgroundImage = UIImageView(frame: UIScreen.mainScreen().bounds)
+        backgroundImage.image = UIImage(named: "wel_bkgrnd.jpeg")
+        self.view.insertSubview(backgroundImage, atIndex: 0)
+        
         if AmazonClientManager.sharedInstance.isConfigured() {
             AmazonClientManager.sharedInstance.resumeSession(self)
         }
         
-        view.backgroundColor = Style.textColorWhite
+        //view.backgroundColor = Style.textColorWhite
         
-        welcomeLabel.textColor = Style.welcomeScreenBackgroundColor
+        welcomeLabel.textColor = Style.textStrongColor
+        welcomeLabel.text = "Publsh"
         
         usernameTextField.delegate = self
         usernameTextField.setBottomBorder(Style.textStrongLighterColor)
         usernameTextField.textColor = Style.textLightColor
-        usernameTextField.text = "Your awsome username here.."
-        usernameTextField.font = UIFont(name: "System", size: 20)
+        usernameTextField.text = "Your awsome username here"
+        usernameTextField.font = UIFont.systemFontOfSize(30.0)
         usernameTextField.hidden = true
         
-        confirmButton.backgroundColor = Style.category.green
+        confirmButton.backgroundColor = Style.approvalColor
         confirmButton.hidden = true
     }
     
@@ -106,18 +111,17 @@ class WelcomeViewController: UIViewController, UITextFieldDelegate {
     func textFieldDidEndEditing(textField: UITextField) {
         
         if usernameTextField.text == "" {
-            usernameTextField.font = UIFont.systemFontOfSize(25.0)
-            usernameTextField.text = "Your awsome username here.."
+            usernameTextField.font = UIFont.systemFontOfSize(30.0)
+            usernameTextField.text = "Your awsome username here"
             usernameTextField.textColor = Style.category.gray
+            confirmButton.hidden = true
         }
     }
     
     func textFieldDidBeginEditing(textField: UITextField) {
-        
-        if usernameTextField.textColor == Style.textLightColor {
+        if usernameTextField.text == "Your awsome username here" {
             usernameTextField.font = UIFont.systemFontOfSize(35.0)
             usernameTextField.text = ""
-            usernameTextField.textColor = Style.textStrongColor
         }
     }
     
@@ -127,6 +131,15 @@ class WelcomeViewController: UIViewController, UITextFieldDelegate {
             return true
         }
         let length = text.characters.count
+        
+        if string == ""{
+            if length - 1 < AppConstants.MINIMUM_USERNAME_LENGTH{
+                confirmButton.hidden = true
+            }
+            return true
+        }
+        
+        
         
         if  let _ = string.rangeOfCharacterFromSet(whitespaceSet) {return false}
         if length > AppConstants.MAXIMUM_USERNAME_LENGTH {return false}

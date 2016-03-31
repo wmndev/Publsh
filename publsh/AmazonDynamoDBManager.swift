@@ -26,13 +26,6 @@ class AmazonDynamoDBManager{
     
     
     static func getBatchUserItems(usernames: Set<String>) -> AWSTask{
-
-        
-        let attributeValue2 = AWSDynamoDBAttributeValue()
-        attributeValue2.S = "itaywise1"
-        
-        
-        
         //let keysArray : NSArray = [dic]
         var keysArray=[Dictionary<String,AWSDynamoDBAttributeValue>]()
         for username in usernames{
@@ -54,14 +47,22 @@ class AmazonDynamoDBManager{
          let dynamoDB = AWSDynamoDB.defaultDynamoDB()
         
         return dynamoDB.batchGetItem(batchGetItemInput)
-            
-            
-            
-//            
-            
-
-        
     }
+    
+    
+    static func auditActivity(entityName:String, isEntityUser:Bool, operation:String, onEntityType:String, onEntity:String){
+        let activityLog = ActivityLog()
+        activityLog.entityName = isEntityUser ? "@U@_" + entityName : "@M@_"+entityName
+        activityLog.operation = operation
+        activityLog.onEntity = onEntity
+        activityLog.onEntityType = onEntityType
+        activityLog.logTime = NSDate().timeIntervalSince1970
+        
+        let insertValues = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
+        insertValues.save(activityLog)
+    }
+    
+    
     
     
     //        var dynamoDB = AWSDynamoDB.defaultDynamoDB()

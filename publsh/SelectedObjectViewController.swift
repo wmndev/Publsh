@@ -10,7 +10,6 @@ import UIKit
 
 
 
-
 class SelectedObjectViewController: UITableViewController, EmbedlyDelegate {
     
     var source = Types.Sources.NA
@@ -23,8 +22,6 @@ class SelectedObjectViewController: UITableViewController, EmbedlyDelegate {
     var selectedArticle:Article?
     
     var embedly:Embedly?
-    
-    
     
     let cellReuseIdentifier = "headerBasicCell"
     
@@ -92,16 +89,19 @@ class SelectedObjectViewController: UITableViewController, EmbedlyDelegate {
             if isFollowing{
                 magazine!.followers?.insert(currentUser!.username!)
                 currentUser!.following!.insert(magazine!.getHashKeyValue()!)
+                AmazonDynamoDBManager.auditActivity(currentUser!.username!, isEntityUser: true, operation: Types.Activity.FOLLOWED.rawValue, onEntityType: "Magazine", onEntity: magazine!.name!)
             }else{
                 magazine!.followers?.remove(currentUser!.username!)
                 currentUser?.following?.remove(magazine!.getHashKeyValue()!)
             }
+            
             
         }else{
             user = (object as! User)
             if isFollowing{
                 user!.followers?.insert(currentUser!.username!)
                 currentUser!.following!.insert(user!.getHashKeyValue()!)
+                AmazonDynamoDBManager.auditActivity(currentUser!.username!, isEntityUser: true, operation: Types.Activity.FOLLOWED.rawValue, onEntityType: "User", onEntity: user!.username!)
             }else{
                 user!.followers?.remove(currentUser!.username!)
                 currentUser?.following?.remove(user!.getHashKeyValue()!)
@@ -135,8 +135,6 @@ class SelectedObjectViewController: UITableViewController, EmbedlyDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController!.hidesBarsOnSwipe = false
-        
         embedly = Embedly(key: Constants.Embedly.EMBEDLY_CLIENT_KEY, delegate: self)
         
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
@@ -148,6 +146,12 @@ class SelectedObjectViewController: UITableViewController, EmbedlyDelegate {
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : Style.textColorWhite]
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController!.hidesBarsOnSwipe = false
     }
     
     
@@ -226,7 +230,7 @@ class SelectedObjectViewController: UITableViewController, EmbedlyDelegate {
                 
                 cell.desc.text = user.about
             }
-            
+            cell.selectionStyle = .None
             return cell
         }
         if indexPath.row == 1{
@@ -260,7 +264,7 @@ class SelectedObjectViewController: UITableViewController, EmbedlyDelegate {
                 craftMenuButton(cell.followingBtn,title: "\(following)\nFOLLOWING")
                 craftMenuButton(cell.activityBtn,title: "72\nACTIVITIES")
             }
-            
+            cell.selectionStyle = .None
             return cell
         }
         
@@ -289,16 +293,18 @@ class SelectedObjectViewController: UITableViewController, EmbedlyDelegate {
         
         }
         
+        cell.selectionStyle = .None
         return cell
         
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
-        let article = data[indexPath.row - EXTRA_CELLS] as! Article
-        let url = article.link
-        selectedArticle = article
-        
-        embedly!.callEmbedlyApi("/1/extract", withUrl: url, params: nil)
+        if indexPath.row >= EXTRA_CELLS{
+            let article = data[indexPath.row - EXTRA_CELLS] as! Article
+            let url = article.link
+            selectedArticle = article
+            embedly!.callEmbedlyApi("/1/extract", withUrl: url, params: nil)
+        }
         
     }
     

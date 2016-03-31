@@ -185,6 +185,7 @@ class InitialMagazineSelectionView: UITableViewController {
             cell.textLabel?.text = "Recommended for you."
             cell.textLabel?.font = UIFont.systemFontOfSize(14, weight: UIFontWeightMedium)
             cell.textLabel?.textColor = Style.textLightColor
+            cell.selectionStyle = .None
             return cell
         }
         if idx == 1{
@@ -211,7 +212,7 @@ class InitialMagazineSelectionView: UITableViewController {
             }else{
                 CraftUtility.craftNotFollowingButton(cell.getBtn, title: "GET")
             }            
-            
+            cell.selectionStyle = .None
             return cell
         }
         
@@ -241,7 +242,7 @@ class InitialMagazineSelectionView: UITableViewController {
         
 
         //cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
-        
+        cell.selectionStyle = .None
         return cell
         
     }
