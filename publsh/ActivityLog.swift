@@ -24,9 +24,9 @@ class ActivityLog: AWSDynamoDBObjectModel,AWSDynamoDBModeling{
         return "entityName"
     }
     
-    class func rangeKeyAttribute() -> String! {
-        return "logTime"
-    }
+//    class func rangeKeyAttribute() -> String! {
+//        return "logTime"
+//    }
     
     override func isEqual(object: AnyObject?) -> Bool {
         return super.isEqual(object)

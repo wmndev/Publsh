@@ -22,8 +22,6 @@ class ArticleTableViewController: UITableViewController {
         super.viewDidLoad()
         
         navigationController!.hidesBarsOnSwipe = true
-        
-        EZLoadingActivity.show("Loading", disableUI: true)
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
         
         let paragraphArray = articleContent!.componentsSeparatedByString("\n")
@@ -42,8 +40,6 @@ class ArticleTableViewController: UITableViewController {
 
         // Uncomment the following line to preserve selection between presentations
          self.clearsSelectionOnViewWillAppear = false
-
-        EZLoadingActivity.hide()
     }
 
     override func didReceiveMemoryWarning() {

@@ -14,6 +14,8 @@ class UsersTableViewController: UITableViewController {
     var usernames:Set<String>?
     var users = [User]()
     
+    var maxUserLoaded = 99
+    
     @IBAction func followBtnTouched(sender: AnyObject) {
         let btn = sender as! UIButton
         let index = btn.tag
@@ -55,10 +57,20 @@ class UsersTableViewController: UITableViewController {
         
     }
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        AmazonDynamoDBManager.getBatchUserItems(usernames!).continueWithBlock({ (task) -> AnyObject? in
+        loadUsers()
+    }
+    
+    func loadUsers(){
+        var arr = [String]()
+        arr.appendContentsOf(usernames!)
+        
+        let batchItems = arr[maxUserLoaded - 99...maxUserLoaded]
+        
+        AmazonDynamoDBManager.getBatchItemEntites(batchItems, hashKey: "username", tableName: "User").continueWithBlock({ (task) -> AnyObject? in
             if task.result != nil{
                 let getItemResult: AWSDynamoDBBatchGetItemOutput = task.result as! AWSDynamoDBBatchGetItemOutput
                 
@@ -78,36 +90,8 @@ class UsersTableViewController: UITableViewController {
             
             return nil
         })
-            
-//            
-//            
-//            , completeHandler: { (task) -> AnyObject? in
-//            if task.result != nil{
-//                let getItemResult: AWSDynamoDBBatchGetItemOutput = task.result as! AWSDynamoDBBatchGetItemOutput
-//                
-//                let response = getItemResult.responses!["User"]
-//                for userDic in response!{
-//                    let user = User()
-//                    print(userDic["username"]?.S)
-//                    user.username = userDic["username"]?.S
-//                    user.fb_id = userDic["fb_id"]?.S
-//                    self.users.append(user)
-//                    
-//                }
-//                self.tableView.reloadData()
-//            }else{
-//                print(task.error)
-//            }
-//            
-//            return nil
-//        })
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

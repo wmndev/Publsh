@@ -24,30 +24,118 @@ class AmazonDynamoDBManager{
     }
     
     
+//    static func getFollowersActivities(entityNames: Set<String>) -> AWSTask{
+//        //let keysArray : NSArray = [dic]
+//        var keysArray=[Dictionary<String,AWSDynamoDBAttributeValue>]()
+//        for username in entityNames{
+//            let attributeValue1 = AWSDynamoDBAttributeValue()
+//            attributeValue1.S = username
+//            let dic:Dictionary<String,AWSDynamoDBAttributeValue> = ["entityName":attributeValue1]
+//            keysArray.append(dic)
+//            
+//        }
+//        
+//        let keysAndAttributes : AWSDynamoDBKeysAndAttributes = AWSDynamoDBKeysAndAttributes()
+//        keysAndAttributes.keys = keysArray
+//        keysAndAttributes.consistentRead = true
+//        
+//        let batchGetItemInput = AWSDynamoDBBatchGetItemInput()
+//        batchGetItemInput.requestItems = ["ActivityLog" : keysAndAttributes]
+//        
+//        let dynamoDB = AWSDynamoDB.defaultDynamoDB()
+//        
+//        return dynamoDB.batchGetItem(batchGetItemInput)
+//    }
     
-    static func getBatchUserItems(usernames: Set<String>) -> AWSTask{
-        //let keysArray : NSArray = [dic]
+    
+    
+//    static func searchBtnPressed(sender: UIButton) {
+//        
+//        let dynamoDBObjectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
+//        
+//        //Query using GSI index table
+//        //What is the top score ever recorded for the game Meteor Blasters?
+//        let queryExpression = AWSDynamoDBQueryExpression()
+//        queryExpression.hashKeyValues = self.pickerData[self.gameTitlePickerView .selectedRowInComponent(0)];
+//        queryExpression.scanIndexForward = self.orderSegControl.selectedSegmentIndex==0 ? true : false;
+//        queryExpression.indexName = self.sortSegControl.titleForSegmentAtIndex(self.sortSegControl.selectedSegmentIndex)
+//        
+//        queryExpression.hashKeyAttribute = "GameTitle";
+//        
+//        //example expression: @"TopScore <= 5000" or @"Wins >= 10"
+//        queryExpression.rangeKeyConditionExpression = "\(self.rangeKeyArray[self.sortSegControl.selectedSegmentIndex]) > :rangeval"
+//        
+//        queryExpression.expressionAttributeValues = [":rangeval":self.rangeStepper.value];
+//        
+//        dynamoDBObjectMapper .query(DDBTableRow.self, expression: queryExpression) .continueWithExecutor(AWSExecutor.mainThreadExecutor(), withBlock: { (task:AWSTask!) -> AnyObject! in
+//            if (task.error != nil) {
+//                print("Error: \(task.error)")
+//                
+//                let alertController = UIAlertController(title: "Failed to query a test table.", message: task.error.description, preferredStyle: UIAlertControllerStyle.Alert)
+//                let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: { (action:UIAlertAction) -> Void in
+//                })
+//                alertController.addAction(okAction)
+//                self.presentViewController(alertController, animated: true, completion: nil)
+//            } else {
+//                if (task.result != nil) {
+//                    self.pagniatedOutput = task.result as? AWSDynamoDBPaginatedOutput
+//                }
+//                self.performSegueWithIdentifier("unwindToMainSegue", sender: self)
+//            }
+//            return nil
+//        })
+//        
+//    }
+    
+    
+    static func getBatchItemEntites(entityNames: ArraySlice<String>, hashKey:String, tableName:String, prefix:String="") ->AWSTask{
         var keysArray=[Dictionary<String,AWSDynamoDBAttributeValue>]()
-        for username in usernames{
+        for username in entityNames{
             let attributeValue1 = AWSDynamoDBAttributeValue()
-            attributeValue1.S = username
-            let dic:Dictionary<String,AWSDynamoDBAttributeValue> = ["username":attributeValue1]
+            attributeValue1.S = prefix + username
+            let dic:Dictionary<String,AWSDynamoDBAttributeValue> = [hashKey:attributeValue1]
             keysArray.append(dic)
             
         }
-
+        
         let keysAndAttributes : AWSDynamoDBKeysAndAttributes = AWSDynamoDBKeysAndAttributes()
         keysAndAttributes.keys = keysArray
         keysAndAttributes.consistentRead = true
         
-        
         let batchGetItemInput = AWSDynamoDBBatchGetItemInput()
-        batchGetItemInput.requestItems = ["User" : keysAndAttributes]
+        batchGetItemInput.requestItems = [tableName : keysAndAttributes]
         
-         let dynamoDB = AWSDynamoDB.defaultDynamoDB()
+        let dynamoDB = AWSDynamoDB.defaultDynamoDB()
         
         return dynamoDB.batchGetItem(batchGetItemInput)
+        
     }
+    
+    
+    
+//    static func getBatchUserItems(usernames: Set<String>) -> AWSTask{
+//        //let keysArray : NSArray = [dic]
+//        var keysArray=[Dictionary<String,AWSDynamoDBAttributeValue>]()
+//        for username in usernames{
+//            let attributeValue1 = AWSDynamoDBAttributeValue()
+//            attributeValue1.S = username
+//            let dic:Dictionary<String,AWSDynamoDBAttributeValue> = ["username":attributeValue1]
+//            keysArray.append(dic)
+//            
+//        }
+//
+//        let keysAndAttributes : AWSDynamoDBKeysAndAttributes = AWSDynamoDBKeysAndAttributes()
+//        keysAndAttributes.keys = keysArray
+//        keysAndAttributes.consistentRead = true
+//        
+//        
+//        let batchGetItemInput = AWSDynamoDBBatchGetItemInput()
+//        batchGetItemInput.requestItems = ["User" : keysAndAttributes]
+//        
+//         let dynamoDB = AWSDynamoDB.defaultDynamoDB()
+//        
+//        return dynamoDB.batchGetItem(batchGetItemInput)
+//    }
     
     
     static func auditActivity(entityName:String, isEntityUser:Bool, operation:String, onEntityType:String, onEntity:String){

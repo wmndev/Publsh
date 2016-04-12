@@ -300,6 +300,7 @@ class InitialMagazineSelectionView: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showSelectedObject"{
             let destinationVC = segue.destinationViewController as! SelectedObjectViewController
+            print(magazines[rowIndex])
             destinationVC.initView(magazines[rowIndex], withTitle: magazines[rowIndex].name!, source: Types.Sources.MAGAZINE)
             
         }

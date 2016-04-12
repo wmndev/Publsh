@@ -20,6 +20,7 @@ class SelectedObjectViewController: UITableViewController, EmbedlyDelegate {
     var isFollowing = false
     var isCurrentUserDisplayed = false
     var selectedArticle:Article?
+    var maxEntityLoaded = 99
     
     var embedly:Embedly?
     
@@ -45,6 +46,16 @@ class SelectedObjectViewController: UITableViewController, EmbedlyDelegate {
         let isMagazine = source == Types.Sources.MAGAZINE
         switch btn.tag{
             
+        case 1:
+            if isMagazine {
+                
+            }else{
+                let user = object as! User
+                loadUsersActivities(user.following!)
+            }
+            
+            break
+            
         case 2:
             var followers:Set<String>?
             if isMagazine {
@@ -67,12 +78,43 @@ class SelectedObjectViewController: UITableViewController, EmbedlyDelegate {
             ViewTransitionManager.moveToUserListView(following!, view: self, withTitle: "FOLLOWING")
             
             break
+            
         default:
             break
             
         }
         
         
+    }
+    
+    
+    func loadUsersActivities(entityNames:Set<String>){
+        var arr = [String]()
+        arr.appendContentsOf(entityNames)        
+        let batchItems = arr[maxEntityLoaded - 99...maxEntityLoaded]
+
+        AmazonDynamoDBManager.getBatchItemEntites(batchItems, hashKey: "entityName", tableName: "ActivityLog", prefix: "@U@_").continueWithBlock({ (task) -> AnyObject? in
+            if task.result != nil{
+                let getItemResult: AWSDynamoDBBatchGetItemOutput = task.result as! AWSDynamoDBBatchGetItemOutput
+                self.data.removeAll()
+                
+                let response = getItemResult.responses!["ActivityLog"]
+                for userDic in response!{
+                    let activityLog = ActivityLog()
+                    activityLog.entityName = userDic["entityName"]?.S
+                    //user.fb_id = userDic["fb_id"]?.S
+                    
+                    self.data.append(activityLog)
+                    
+                }
+                self.tableView.reloadData()
+            }else{
+                print(task.error)
+            }
+            
+            return nil
+        })
+    
     }
     
     
@@ -239,7 +281,7 @@ class SelectedObjectViewController: UITableViewController, EmbedlyDelegate {
             
             if source == Types.Sources.MAGAZINE{
                 let magazine = object as! Magazine
-                craftMenuButton(cell.totalBtn,title: "\(magazine.statistics.objectForKey("contributers")!)\nCONTRIBUTE")
+                craftMenuButton(cell.totalBtn,title: "\(magazine.statistics.objectForKey("contributers")!)\nARTICLES")
                 craftMenuButton(cell.followingBtn  ,title: "\(magazine.statistics.objectForKey("sources")!)\nSOURCES")
                 var followers = 0
                 if let fol = magazine.followers{
@@ -251,7 +293,7 @@ class SelectedObjectViewController: UITableViewController, EmbedlyDelegate {
                 
             }else{
                 let user = object as! User
-                craftMenuButton(cell.totalBtn,title: "17\nMAGAZINES")
+                craftMenuButton(cell.totalBtn,title: "17\nWALL")
                 var followers = 0
                 if let flw = user.followers{
                     followers = flw.count - 1
@@ -300,6 +342,7 @@ class SelectedObjectViewController: UITableViewController, EmbedlyDelegate {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
         if indexPath.row >= EXTRA_CELLS{
+            EZLoadingActivity.show("Loading", disableUI: true)
             let article = data[indexPath.row - EXTRA_CELLS] as! Article
             let url = article.link
             selectedArticle = article
@@ -449,7 +492,7 @@ class SelectedObjectViewController: UITableViewController, EmbedlyDelegate {
     func embedlySuccess(callUrl: String!, withResponse response: AnyObject!, endpoint: String!, operation: AFHTTPRequestOperation!) {
         
         let content:String = response.objectForKey("content") as! String
-        
+        EZLoadingActivity.hide()
         ViewTransitionManager.moveToArticleContentView(content, article: selectedArticle!, view: self)
         
         
@@ -461,6 +504,7 @@ class SelectedObjectViewController: UITableViewController, EmbedlyDelegate {
     }
     
     func embedlyFailure(callUrl: String!, withError error: NSError!, endpoint: String!, operation: AFHTTPRequestOperation!) {
+        EZLoadingActivity.hide(success: false, animated: false)
         print(error)
     }
     
