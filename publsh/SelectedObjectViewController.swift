@@ -90,30 +90,37 @@ class SelectedObjectViewController: UITableViewController, EmbedlyDelegate {
     
     func loadUsersActivities(entityNames:Set<String>){
         var arr = [String]()
-        arr.appendContentsOf(entityNames)        
-        let batchItems = arr[maxEntityLoaded - 99...maxEntityLoaded]
+        arr.appendContentsOf(entityNames)
+        
+        let maxIndex = arr.count < maxEntityLoaded ? (arr.count - 1) : maxEntityLoaded
+        let batchItems = arr[maxEntityLoaded - 99...maxIndex]
+        
+        
+        
+        AmazonDynamoDBManager.getAllEntityActivities(entityNames.first!, isEntityUser: true)
+        
 
-        AmazonDynamoDBManager.getBatchItemEntites(batchItems, hashKey: "entityName", tableName: "ActivityLog", prefix: "@U@_").continueWithBlock({ (task) -> AnyObject? in
-            if task.result != nil{
-                let getItemResult: AWSDynamoDBBatchGetItemOutput = task.result as! AWSDynamoDBBatchGetItemOutput
-                self.data.removeAll()
-                
-                let response = getItemResult.responses!["ActivityLog"]
-                for userDic in response!{
-                    let activityLog = ActivityLog()
-                    activityLog.entityName = userDic["entityName"]?.S
-                    //user.fb_id = userDic["fb_id"]?.S
-                    
-                    self.data.append(activityLog)
-                    
-                }
-                self.tableView.reloadData()
-            }else{
-                print(task.error)
-            }
-            
-            return nil
-        })
+//        AmazonDynamoDBManager.getBatchItemEntites(batchItems, hashKey: "entityName", tableName: "ActivityLog", prefix: "@U@_").continueWithBlock({ (task) -> AnyObject? in
+//            if task.result != nil{
+//                let getItemResult: AWSDynamoDBBatchGetItemOutput = task.result as! AWSDynamoDBBatchGetItemOutput
+//                self.data.removeAll()
+//                
+//                let response = getItemResult.responses!["ActivityLog"]
+//                for userDic in response!{
+//                    let activityLog = ActivityLog()
+//                    activityLog.entityName = userDic["entityName"]?.S
+//                    //user.fb_id = userDic["fb_id"]?.S
+//                    
+//                    self.data.append(activityLog)
+//                    
+//                }
+//                self.tableView.reloadData()
+//            }else{
+//                print(task.error)
+//            }
+//            
+//            return nil
+//        })
     
     }
     

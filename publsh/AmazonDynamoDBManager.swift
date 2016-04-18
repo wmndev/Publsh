@@ -138,9 +138,14 @@ class AmazonDynamoDBManager{
 //    }
     
     
+    
+    static func appendEntityPrefix(entityName:String, isEntityUser:Bool) -> String{
+        return isEntityUser ? "@U@_" + entityName : "@M@_"+entityName
+    
+    }
     static func auditActivity(entityName:String, isEntityUser:Bool, operation:String, onEntityType:String, onEntity:String){
         let activityLog = ActivityLog()
-        activityLog.entityName = isEntityUser ? "@U@_" + entityName : "@M@_"+entityName
+        activityLog.entityName = appendEntityPrefix(entityName, isEntityUser:isEntityUser)
         activityLog.operation = operation
         activityLog.onEntity = onEntity
         activityLog.onEntityType = onEntityType
@@ -148,6 +153,34 @@ class AmazonDynamoDBManager{
         
         let insertValues = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
         insertValues.save(activityLog)
+    }
+    
+    static func getAllEntityActivities(entityName:String, isEntityUser:Bool){
+        let cond = AWSDynamoDBCondition()
+        let v1    = AWSDynamoDBAttributeValue(); v1.S = entityName
+        //cond.comparisonOperator = AWSDynamoDBComparisonOperator.GT
+        cond.comparisonOperator = AWSDynamoDBComparisonOperator.EQ
+        cond.attributeValueList = [ v1 ]
+        
+        let exp = AWSDynamoDBScanExpression()
+        exp.scanFilter = [ "entityName" : cond ]
+        
+        self.scan(exp).continueWithSuccessBlock({ (task: AWSTask!) -> AWSTask! in
+            let results = task.result as! AWSDynamoDBPaginatedOutput
+            for r in results.items {
+                print(r)
+            }
+            return nil
+        })
+    }
+    
+    
+
+    
+    static func scan(expression : AWSDynamoDBScanExpression) -> AWSTask! {
+        
+        let mapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
+        return mapper.scan(ActivityLog.self, expression: expression)
     }
     
     

@@ -67,8 +67,9 @@ class UsersTableViewController: UITableViewController {
     func loadUsers(){
         var arr = [String]()
         arr.appendContentsOf(usernames!)
+        let maxIndex = arr.count < maxUserLoaded ? (arr.count - 1) : maxUserLoaded
         
-        let batchItems = arr[maxUserLoaded - 99...maxUserLoaded]
+        let batchItems = arr[(maxUserLoaded - 99)...maxIndex]
         
         AmazonDynamoDBManager.getBatchItemEntites(batchItems, hashKey: "username", tableName: "User").continueWithBlock({ (task) -> AnyObject? in
             if task.result != nil{
